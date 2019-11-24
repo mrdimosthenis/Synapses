@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Synapses</Title>
+        <Authors>Dimosthenis Michailidis</Authors>
+        <Description>Neural network library in F#</Description>
+        <RepositoryUrl>https://github.com/mrdimosthenis/Synapses</RepositoryUrl>
+        <PackageTags>neural-network;machine-learning;functional-programming</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Utilities.fs" />
+        <Compile Include="Mathematics.fs" />
+        <None Include="interactive.fsx" />
+        <Compile Include="Model\NetElems\Activation.fs" />
+        <Compile Include="Model\NetElems\Neuron.fs" />
+        <Compile Include="Model\NetElems\Layer.fs" />
+        <Compile Include="Model\NetElems\Network.fs" />
+        <Compile Include="Model\Encoding\Discrete.fs" />
+        <Compile Include="Model\Encoding\Continuous.fs" />
+        <Compile Include="Model\Encoding\Preprocessor.fs" />
+        <Compile Include="Tests\Model\NetElems\Utilities.fs" />
+        <Compile Include="Tests\Model\NetElems\NeuronTest.fs" />
+        <Compile Include="Tests\Model\NetElems\LayerTest.fs" />
+        <Compile Include="Tests\Model\NetElems\NetworkTest.fs" />
+        <Compile Include="Tests\Model\Encoding\DiscreteTest.fs" />
+        <Compile Include="Tests\Model\Encoding\ContinuousTest.fs" />
+        <Compile Include="Tests\Model\Encoding\PreprocessorTest.fs" />
+        <Compile Include="Library.fs" />
+        <Content Include="LICENSE" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FSharp.SystemTextJson" Version="0.6.2" />
+      <PackageReference Include="FSharpx.Collections" Version="2.0.0" />
+      <PackageReference Include="FsUnit.xUnit" Version="3.5.0" />
+      <PackageReference Include="xunit" Version="2.4.1" />
+      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    </ItemGroup>
+
+</Project>
