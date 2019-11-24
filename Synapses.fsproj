@@ -9,12 +9,13 @@
         <Description>Neural network library in F#</Description>
         <RepositoryUrl>https://github.com/mrdimosthenis/Synapses</RepositoryUrl>
         <PackageTags>neural-network;machine-learning;functional-programming</PackageTags>
+        <OutputType>Library</OutputType>
+        <license>MIT</license>
     </PropertyGroup>
 
     <ItemGroup>
         <Compile Include="Utilities.fs" />
         <Compile Include="Mathematics.fs" />
-        <None Include="interactive.fsx" />
         <Compile Include="Model\NetElems\Activation.fs" />
         <Compile Include="Model\NetElems\Neuron.fs" />
         <Compile Include="Model\NetElems\Layer.fs" />
@@ -37,6 +38,7 @@
       <PackageReference Include="FSharp.SystemTextJson" Version="0.6.2" />
       <PackageReference Include="FSharpx.Collections" Version="2.0.0" />
       <PackageReference Include="FsUnit.xUnit" Version="3.5.0" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
       <PackageReference Include="xunit" Version="2.4.1" />
       <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     </ItemGroup>
