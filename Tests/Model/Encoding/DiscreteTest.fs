@@ -34,7 +34,7 @@ type ``discrete tests``() =
     let ``initialize B``() =
         discAttrB.values
         |> LazyList.toList
-        |> should equal [ "b4"; "b3"; "b2"; "b1" ]
+        |> should equal [ "b1"; "b2"; "b3"; "b4" ]
 
     [<Fact>]
     let ``encode A for a1``() =
@@ -46,7 +46,7 @@ type ``discrete tests``() =
     let ``encode B for b3``() =
         Discrete.encode discAttrB "b3"
         |> LazyList.toList
-        |> should equal [ 0.0; 1.0; 0.0; 0.0 ]
+        |> should equal [ 0.0; 0.0; 1.0; 0.0 ]
 
     [<Fact>]
     let ``decode A to a1``() =
@@ -58,4 +58,4 @@ type ``discrete tests``() =
     let ``decode B to b3``() =
         let encodedValues = LazyList.ofList [ 0.0; 0.78; 0.3; 0.77 ]
         Discrete.decode discAttrB encodedValues
-        |> should equal "b3"
+        |> should equal "b2"

@@ -31,13 +31,16 @@ let updated (attribute: DiscreteAttribute)
 let init (key: string)
          (dataset: LazyList<Map<string, string>>)
          : DiscreteAttribute =
-    let initAttribute: DiscreteAttribute =
-           { key = key
-             values = LazyList.empty }
-    LazyList.fold
-        updated
-        initAttribute
-        dataset
+    let values = dataset
+                 |> LazyList.fold
+                    (fun acc datapoint ->
+                        Set.add datapoint.[key] acc
+                    )
+                    Set.empty
+                 |> Set.toList
+                 |> LazyList.ofList
+    { key = key
+      values = values }
 
 let encode (attribute: DiscreteAttribute)
            (value: string)
