@@ -24,11 +24,15 @@ let init (inputSize: int)
     { activationF = activationF
       weights = weights }
 
+let dotProduct (xs: LazyList<float>) (ys: LazyList<float>): float =
+    LazyList.map2 (fun x y -> x * y) xs ys
+    |> LazyList.fold (fun acc z -> acc + z) 0.0
+
 let output (input: LazyList<float>)
            (neuron: Neuron)
            : float =
     LazyList.cons 1.0 input
-    |> Mathematics.dotProduct neuron.weights
+    |> dotProduct neuron.weights
     |> neuron.activationF.f
 
 let backPropagated
