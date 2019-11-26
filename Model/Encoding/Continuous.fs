@@ -1,7 +1,6 @@
 module Synapses.Model.Encoding.Continuous
 
 open FSharpx.Collections
-open Microsoft.VisualBasic
 open System.Text.Json.Serialization
 
 type ContinuousAttribute =
@@ -14,8 +13,7 @@ type SerializableContinuousAttribute =
         ContinuousAttribute
 
 let parse (s: string): float =
-        s
-        |> Strings.Trim
+        s.Trim()
         |> float
 
 let updated (attribute: ContinuousAttribute)
