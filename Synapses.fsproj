@@ -10,36 +10,36 @@
         <PackageTags>neural-network;machine-learning;functional-programming</PackageTags>
         <OutputType>Library</OutputType>
         <license>MIT</license>
-        <PackageVersion>2.0.0</PackageVersion>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.2;netcoreapp3.0</TargetFrameworks>
+        <PackageVersion>4.0.0</PackageVersion>
+        <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Utilities.fs" />
-        <Compile Include="Model\NetElems\Activation.fs" />
-        <Compile Include="Model\NetElems\Neuron.fs" />
-        <Compile Include="Model\NetElems\Layer.fs" />
-        <Compile Include="Model\NetElems\Network.fs" />
-        <Compile Include="Model\Encoding\Discrete.fs" />
-        <Compile Include="Model\Encoding\Continuous.fs" />
-        <Compile Include="Model\Encoding\Preprocessor.fs" />
-        <Compile Include="Tests\Model\NetElems\Utilities.fs" />
-        <Compile Include="Tests\Model\NetElems\NeuronTest.fs" />
-        <Compile Include="Tests\Model\NetElems\LayerTest.fs" />
-        <Compile Include="Tests\Model\NetElems\NetworkTest.fs" />
-        <Compile Include="Tests\Model\Encoding\DiscreteTest.fs" />
-        <Compile Include="Tests\Model\Encoding\ContinuousTest.fs" />
-        <Compile Include="Tests\Model\Encoding\PreprocessorTest.fs" />
-        <Compile Include="Library.fs" />
-        <Content Include="LICENSE" />
+        <Compile Include="Utilities.fs"/>
+        <Compile Include="Model\NetElems\Activation.fs"/>
+        <Compile Include="Model\NetElems\Neuron.fs"/>
+        <Compile Include="Model\NetElems\Layer.fs"/>
+        <Compile Include="Model\NetElems\Network.fs"/>
+        <Compile Include="Model\Encoding\Discrete.fs"/>
+        <Compile Include="Model\Encoding\Continuous.fs"/>
+        <Compile Include="Model\Encoding\Preprocessor.fs"/>
+        <Compile Include="Tests\Model\NetElems\Utilities.fs"/>
+        <Compile Include="Tests\Model\NetElems\NeuronTest.fs"/>
+        <Compile Include="Tests\Model\NetElems\LayerTest.fs"/>
+        <Compile Include="Tests\Model\NetElems\NetworkTest.fs"/>
+        <Compile Include="Tests\Model\Encoding\DiscreteTest.fs"/>
+        <Compile Include="Tests\Model\Encoding\ContinuousTest.fs"/>
+        <Compile Include="Tests\Model\Encoding\PreprocessorTest.fs"/>
+        <Compile Include="Library.fs"/>
+        <Content Include="LICENSE"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FSharp.SystemTextJson" Version="0.6.2" />
-      <PackageReference Include="FSharpx.Collections" Version="2.0.0" />
-      <PackageReference Include="FsUnit.xUnit" Version="3.5.0" />
-      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-      <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="FSharp.SystemTextJson" Version="0.6.2"/>
+        <PackageReference Include="FSharpx.Collections" Version="2.0.0"/>
+        <PackageReference Include="FsUnit.xUnit" Version="3.5.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0"/>
+        <PackageReference Include="xunit" Version="2.4.1"/>
     </ItemGroup>
 
 </Project>

@@ -73,10 +73,11 @@ module NeuralNetwork =
 module DataPreprocessor =
 
     let init (keysWithDiscreteFlags: List<string * bool>)
-             (dataset: LazyList<Map<string, string>>)
+             (datapoints: seq<Map<string, string>>)
              : DataPreprocessor =
              let keysWithFlags =
                         LazyList.ofList keysWithDiscreteFlags
+             let dataset = LazyList.ofSeq datapoints
              Preprocessor.init keysWithFlags dataset
 
     let encodedDatapoint
