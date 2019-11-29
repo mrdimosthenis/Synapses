@@ -47,7 +47,7 @@ let fitNetwork =
 ```
 `fitNetwork` is a new neural network trained with a single observation.
 
-### Save and a neural network
+### Save and load a neural network
 ```
 let json = NeuralNetwork.toJson
                 fitNetwork
