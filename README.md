@@ -7,7 +7,7 @@ Run `dotnet add package Synapses --version 4.0.0` in the directory of your proje
 ## Usage
 
 ### Create a neural network
-Open `Synapses` and call `NeuralNetwork.init` by providing the sizes of each _layer_:
+Open `Synapses`, call `NeuralNetwork.init` and provide the size of each _layer_:
 ```
 open Synapses
 
