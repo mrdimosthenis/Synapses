@@ -7,8 +7,8 @@ Run `dotnet add package Synapses --version 4.0.0` in the directory of your proje
 ## Usage
 
 ### Create a neural network
-Open `Synapses` and call `NeuralNetwork.init` by providing the sizes of each _layer_:
-```
+Open `Synapses`, call `NeuralNetwork.init` and provide the size of each _layer_:
+```fsharp
 open Synapses
 
 let layers = [4; 6; 5; 3]
@@ -19,7 +19,7 @@ let neuralNetwork = NeuralNetwork.init layers
 There are 2 hidden layers with 6 and 5 neurons respectively.
 
 ### Get a prediction
-```
+```fsharp
 let inputValues =
         [ 1.0; 0.5625; 0.511111; 0.47619 ]
 
@@ -32,7 +32,7 @@ let prediction =
 Note that the lengths of `inputValues` and `prediction` equal to the sizes of _input_ and _output_ layers respectively.
 
 ### Fit network
-```
+```fsharp
 let learningRate = 0.5
 
 let expectedOutput =
@@ -48,14 +48,14 @@ let fitNetwork =
 `fitNetwork` is a new neural network trained with a single observation.
 
 ### Save and load a neural network
-```
+```fsharp
 let json = NeuralNetwork.toJson
                 fitNetwork
 ```
 Call `NeuralNetwork.toJson` on a neural network and get a string representation of it.
 Use it as you like. Save `json` in the file system or insert into a database table.
 
-```
+```fsharp
 let loadedNetwork =
         NeuralNetwork.fromJson
               json
@@ -63,7 +63,7 @@ let loadedNetwork =
 As the name suggests, `NeuralNetwork.fromJson` turns a json string into a neural network.
 
 ### Customize a neural network
-```
+```fsharp
 let activationF (layerIndex: int)
         : ActivationFunction =
         match layerIndex with
@@ -91,7 +91,7 @@ _Minmax normalization_ scales continuous attributes into values between _0.0_ an
 You can use `DataPreprocessor` for datapoint encoding and decoding.
 
 The first parameter of `DataPreprocessor.init` is a list of tuples _(attributeName, discreteOrNot)_.
-```
+```fsharp
 let setosaDatapoint =
         Map.ofList
             [ ("petal_length", "1.5")
@@ -135,7 +135,7 @@ let encodedDatapoints =
 ```
 
 `encodedDatapoints` equals to
-```
+```fsharp
 [ [ 0.0     ; 1.0     ; 0.0     ; 0.0     ; 0.0; 0.0; 1.0 ]
   [ 1.0     ; 0.562500; 0.511111; 0.476190; 0.0; 1.0; 0.0 ]
   [ 0.166667; 0.0     ; 1.0     ; 1.0     ; 1.0; 0.0; 0.0 ] ]
