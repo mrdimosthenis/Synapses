@@ -1,4 +1,4 @@
-module Synapses.Tests.Model.NetElems.NetworkTest
+module Model.NetElems.NetworkTest
 
 open FSharpx.Collections
 open Synapses.Model

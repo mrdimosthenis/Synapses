@@ -1,4 +1,4 @@
-module Synapses.Tests.Model.NetElems.Utilities
+module Model.NetElems.Utilities
 
 open FSharpx.Collections
 open Synapses.Model

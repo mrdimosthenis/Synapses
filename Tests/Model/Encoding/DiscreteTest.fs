@@ -1,4 +1,4 @@
-module Synapses.Tests.Model.Encoding.DiscreteTest
+module Model.Encoding.DiscreteTest
 
 open FSharpx.Collections
 open Xunit

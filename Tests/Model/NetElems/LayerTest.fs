@@ -1,4 +1,4 @@
-module Synapses.Tests.Model.NetElems.LayerTest
+module Model.NetElems.LayerTest
 
 open FSharpx.Collections
 open Synapses.Model

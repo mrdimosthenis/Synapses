@@ -1,4 +1,4 @@
-module Synapses.Tests.Model.NetElems.NeuronTest
+module Model.NetElems.NeuronTest
 
 open FSharpx.Collections
 open Synapses.Model

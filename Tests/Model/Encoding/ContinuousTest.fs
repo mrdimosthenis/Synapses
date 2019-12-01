@@ -1,4 +1,4 @@
-module Synapses.Tests.Model.Encoding.ContinuousTest
+module Model.Encoding.ContinuousTest
 
 open FSharpx.Collections
 open Xunit

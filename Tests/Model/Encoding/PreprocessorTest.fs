@@ -1,4 +1,4 @@
-module Synapses.Tests.Model.Encoding.PreprocessorTest
+module Model.Encoding.PreprocessorTest
 
 open FSharpx.Collections
 open Xunit
