@@ -120,11 +120,15 @@ let deserialized
     |> List.map Layer.deserialized
     |> LazyList.ofList
 
+let options = JsonSerializerOptions()
+options.WriteIndented <- true
+options.Converters.Add(JsonFSharpConverter())
+
 let toJson (network: Network): string =
     JsonSerializer.Serialize
-        (serialized network, Utilities.jsonOptions)
+        (serialized network, options)
 
 let fromJson (json: string): Network =
-    (json, Utilities.jsonOptions)
+    (json, options)
     |> JsonSerializer.Deserialize<SerializableNetwork>
     |> deserialized

@@ -169,11 +169,15 @@ let deserialized
                 |> Continuous
         )
 
+let options = JsonSerializerOptions()
+options.WriteIndented <- true
+options.Converters.Add(JsonFSharpConverter())
+
 let toJson (preprocessor: Preprocessor): string =
     JsonSerializer.Serialize
-        (serialized preprocessor, Utilities.jsonOptions)
+        (serialized preprocessor, options)
 
 let fromJson (json: string): Preprocessor =
-    (json, Utilities.jsonOptions)
+    (json, options)
     |> JsonSerializer.Deserialize<SerializablePreprocessor>
     |> deserialized
