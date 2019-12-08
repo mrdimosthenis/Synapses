@@ -1,6 +1,8 @@
 module Synapses.Utilities
 
 open FSharpx.Collections
+open System.Text.Json
+open System.Text.Json.Serialization
 
 let lazyRange (): LazyList<int> =
     LazyList.unfold
@@ -51,3 +53,7 @@ let lazySplitAt
                go (i - 1) (LazyList.cons yHd x, yTl)
     let (x, y) = go n (LazyList.empty, ls)
     (LazyList.rev x, y)
+
+let jsonOptions = JsonSerializerOptions()
+jsonOptions.WriteIndented <- true
+jsonOptions.Converters.Add(JsonFSharpConverter())
