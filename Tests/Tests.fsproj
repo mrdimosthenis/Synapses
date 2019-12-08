@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="MathematicsTest.fs" />
         <Compile Include="Model\NetElems\Utilities.fs" />
         <Compile Include="Model\NetElems\NeuronTest.fs" />
         <Compile Include="Model\NetElems\LayerTest.fs" />

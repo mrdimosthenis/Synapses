@@ -102,3 +102,17 @@ module DataPreprocessor =
     let fromJson (json: string)
                  : DataPreprocessor =
                  Preprocessor.fromJson json
+
+module Statistics =
+
+    let rootMeanSquareError
+                (expectedValues: List<List<float>>)
+                (outputValues: List<List<float>>)
+                : float =
+                let y_hats = expectedValues
+                             |> List.map LazyList.ofList
+                             |> LazyList.ofList
+                let ys = outputValues
+                         |> List.map LazyList.ofList
+                         |> LazyList.ofList
+                Mathematics.rootMeanSquareError y_hats ys
