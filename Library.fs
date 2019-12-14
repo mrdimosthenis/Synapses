@@ -26,18 +26,26 @@ module ActivationFunction =
             Activation.leakyReLU
 
 module NeuralNetwork =
-
-    let init (layers: List<int>)
+    
+    let initWithSeed
+              (seed: Option<int>)
+              (layers: List<int>)
              : NeuralNetwork =
              let layerSizes = LazyList.ofList layers
              let activationF =
                      fun _ -> Activation.sigmoid
-             let rnd = System.Random()
+             let rnd = match seed with
+                       | Some i -> System.Random(i)
+                       | None -> System.Random()
              let weightInitF =
                      fun _ -> rnd.NextDouble()
                               |> (*) -2.0
                               |> (+) 1.0
              Network.init layerSizes activationF weightInitF
+
+    let init (layers: List<int>)
+             : NeuralNetwork =
+             initWithSeed None layers
 
     let customizedInit
             (layers: List<int>)
