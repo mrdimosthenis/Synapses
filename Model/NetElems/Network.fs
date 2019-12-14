@@ -76,11 +76,11 @@ let propagate
             LazyList.cons propagatedLayer alreadyPropagated
     (nextErrors, nextAlreadyPropagated)
 
-let backPropagated
+let errorsWithBackPropagated
         (learnRate: float)
         (netExpOutput: LazyList<float>)
         (revInputsWithLayers: LazyList<LazyList<float> * Layer.Layer>)
-        : Network =
+        : LazyList<float> * Network =
     let (lastInput, lastLayer) = LazyList.head revInputsWithLayers
     let netOutput = Layer.output lastInput lastLayer
     let netErrors = LazyList.map2 (-) netOutput netExpOutput
@@ -91,20 +91,44 @@ let backPropagated
                                 lastInput
                                 net0utWithErrors
                                 lastLayer
+    LazyList.fold
+        (propagate learnRate)
+        (initErrors, LazyList.ofList [firstPropagated])
+        (LazyList.tail revInputsWithLayers)
+
+let backPropagated
+        (learnRate: float)
+        (netExpOutput: LazyList<float>)
+        (revInputsWithLayers: LazyList<LazyList<float> * Layer.Layer>)
+        : Network =
     let (_, propagatedNet) =
-                LazyList.fold
-                    (propagate learnRate)
-                    (initErrors, LazyList.ofList [firstPropagated])
-                    (LazyList.tail revInputsWithLayers)
+                errorsWithBackPropagated
+                    learnRate
+                    netExpOutput
+                    revInputsWithLayers
     propagatedNet
+
+let errorsWithFitted
+        (learnRate: float)
+        (input: LazyList<float>)
+        (expOutput: LazyList<float>)
+        (network: Network)
+        : LazyList<float> * Network =
+    fedForward input network
+    |> errorsWithBackPropagated learnRate expOutput
 
 let fitted (learnRate: float)
            (input: LazyList<float>)
            (expOutput: LazyList<float>)
            (network: Network)
            : Network =
-    fedForward input network
-    |> backPropagated learnRate expOutput
+    let (_, fittedNet) =
+                errorsWithFitted
+                    learnRate
+                    input
+                    expOutput
+                    network
+    fittedNet
 
 let serialized
         (network: Network):

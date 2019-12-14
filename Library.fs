@@ -55,6 +55,20 @@ module NeuralNetwork =
             Network.output input network
             |> LazyList.toList
 
+    let errors (learningRate: float)
+               (inputValues: List<float>)
+               (expectedOutput: List<float>)
+               (network: NeuralNetwork)
+               : List<float> =
+               let input = LazyList.ofList inputValues
+               let expOutput = LazyList.ofList expectedOutput
+               let (ers, _) = Network.errorsWithFitted
+                                learningRate
+                                input
+                                expOutput
+                                network
+               LazyList.toList ers
+
     let fit (learningRate: float)
             (inputValues: List<float>)
             (expectedOutput: List<float>)
