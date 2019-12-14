@@ -2,7 +2,7 @@
 Neural network library in F#
 
 ## Installation
-Run `dotnet add package Synapses --version 4.1.0` in the directory of your project.
+Run `dotnet add package Synapses --version 5.0.0` in the directory of your project.
 
 ## Usage
 
