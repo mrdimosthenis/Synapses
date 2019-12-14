@@ -48,8 +48,8 @@ module NeuralNetwork =
             Network.init layerSizes activationF weightInitF
 
     let prediction
-            (inputValues: List<float>)
             (network: NeuralNetwork)
+            (inputValues: List<float>)
             : List<float> =
             let input = LazyList.ofList inputValues
             Network.output input network

@@ -25,8 +25,8 @@ let inputValues =
 
 let prediction =
         NeuralNetwork.prediction
-                inputValues
                 neuralNetwork
+                inputValues
 ```
 `prediction` should be something like `[ 0.829634; 0.699651; 0.454185 ]`.
 Note that the lengths of `inputValues` and `prediction` equal to the sizes of _input_ and _output_ layers respectively.
