@@ -27,26 +27,31 @@ module ActivationFunction =
 
 module NeuralNetwork =
     
-    let initWithSeed
-              (seed: Option<int>)
-              (layers: List<int>)
-             : NeuralNetwork =
-             let layerSizes = LazyList.ofList layers
-             let activationF =
-                     fun _ -> Activation.sigmoid
-             let rnd = match seed with
-                       | Some i -> System.Random(i)
-                       | None -> System.Random()
-             let weightInitF =
-                     fun _ -> rnd.NextDouble()
-                              |> (*) -2.0
-                              |> (+) 1.0
-             Network.init layerSizes activationF weightInitF
+    let seedInit (maybeSeed: Option<int>)
+                 (layers: List<int>)
+                 : NeuralNetwork =
+                 let layerSizes = LazyList.ofList layers
+                 let activationF =
+                         fun _ -> Activation.sigmoid
+                 let rnd = match maybeSeed with
+                           | Some i -> System.Random(i)
+                           | None -> System.Random()
+                 let weightInitF =
+                         fun _ -> rnd.NextDouble()
+                                  |> (*) -2.0
+                                  |> (+) 1.0
+                 Network.init layerSizes activationF weightInitF
 
     let init (layers: List<int>)
              : NeuralNetwork =
-             initWithSeed None layers
-
+             seedInit None layers
+    
+    let initWithSeed
+                (seed: int)
+                (layers: List<int>)
+                : NeuralNetwork =
+                seedInit (Some seed) layers
+    
     let customizedInit
             (layers: List<int>)
             (activationF: int -> ActivationFunction)
@@ -56,8 +61,8 @@ module NeuralNetwork =
             Network.init layerSizes activationF weightInitF
 
     let prediction
-            (network: NeuralNetwork)
             (inputValues: List<float>)
+            (network: NeuralNetwork)
             : List<float> =
             let input = LazyList.ofList inputValues
             Network.output input network
@@ -89,7 +94,7 @@ module NeuralNetwork =
     let toJson (network: NeuralNetwork): string =
             Network.toJson network
 
-    let fromJson (json: string): NeuralNetwork =
+    let ofJson (json: string): NeuralNetwork =
             Network.fromJson json
 
 module DataPreprocessor =
@@ -121,7 +126,7 @@ module DataPreprocessor =
                : string =
                Preprocessor.toJson dataPreprocessor
 
-    let fromJson (json: string)
+    let ofJson (json: string)
                  : DataPreprocessor =
                  Preprocessor.fromJson json
 

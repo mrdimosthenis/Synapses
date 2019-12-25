@@ -2,7 +2,7 @@
 Neural network library in F#
 
 ## Installation
-Run `dotnet add package Synapses --version 5.0.0` in the directory of your project.
+Run `dotnet add package Synapses --version 6.0.0` in the directory of your project.
 
 ## Usage
 
@@ -25,8 +25,8 @@ let inputValues =
 
 let prediction =
         NeuralNetwork.prediction
-                neuralNetwork
                 inputValues
+                neuralNetwork
 ```
 `prediction` should be something like `[ 0.829634; 0.699651; 0.454185 ]`.
 Note that the lengths of `inputValues` and `prediction` equal to the sizes of _input_ and _output_ layers respectively.
@@ -57,10 +57,10 @@ Use it as you like. Save `json` in the file system or insert into a database tab
 
 ```fsharp
 let loadedNetwork =
-        NeuralNetwork.fromJson
+        NeuralNetwork.ofJson
               json
 ```
-As the name suggests, `NeuralNetwork.fromJson` turns a json string into a neural network.
+As the name suggests, `NeuralNetwork.ofJson` turns a json string into a neural network.
 
 ### Customize a neural network
 ```fsharp
@@ -141,4 +141,4 @@ let encodedDatapoints =
   [ 0.166667; 0.0     ; 1.0     ; 1.0     ; 1.0; 0.0; 0.0 ] ]
 ```
 
-Save and load the preprocessor by calling `DataPreprocessor.toJson` and `DataPreprocessor.fromJson`.
+Save and load the preprocessor by calling `DataPreprocessor.toJson` and `DataPreprocessor.ofJson`.
