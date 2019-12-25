@@ -28,20 +28,6 @@ let updated (attribute: DiscreteAttribute)
     { key = attribute.key
       values = updatedValues }
 
-let init (key: string)
-         (dataset: LazyList<Map<string, string>>)
-         : DiscreteAttribute =
-    let values = dataset
-                 |> LazyList.fold
-                    (fun acc datapoint ->
-                        Set.add datapoint.[key] acc
-                    )
-                    Set.empty
-                 |> Set.toList
-                 |> LazyList.ofList
-    { key = key
-      values = values }
-
 let encode (attribute: DiscreteAttribute)
            (value: string)
            : LazyList<float> =

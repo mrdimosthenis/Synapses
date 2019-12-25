@@ -32,21 +32,6 @@ let updated (attribute: ContinuousAttribute)
       min = updatedMin
       max = updatedMax }
 
-let init (key: string)
-         (dataset: LazyList<Map<string, string>>)
-         : ContinuousAttribute =
-    let (datasetHead, datasetTail) =
-            LazyList.uncons dataset
-    let initMinMax = parse datasetHead.[key]
-    let initAttribute =
-           { key = key
-             min = initMinMax
-             max = initMinMax }
-    LazyList.fold
-        updated
-        initAttribute
-        datasetTail
-
 let encode (attribute: ContinuousAttribute)
            (value: string)
            : LazyList<float> =
