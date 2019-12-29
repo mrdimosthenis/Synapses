@@ -1,9 +1,8 @@
 import java.io.File
 
 import minitest._
-import synapses.Library._
 import com.github.tototoshi.csv._
-import synapses.Library.DataPreprocessor.DataPreprocessor
+import synapses.Library.DataPreprocessor
 
 import scala.io.Source
 
