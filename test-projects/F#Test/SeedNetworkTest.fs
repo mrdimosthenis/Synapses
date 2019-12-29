@@ -1,0 +1,78 @@
+module SeedNetworkTest
+
+open Xunit
+open FsUnit.Xunit
+open Synapses
+
+type ``seed network tests``() =
+    
+    let layers = [ 4; 6; 5; 3 ]
+    
+    let neuralNetwork =
+        NeuralNetwork.initWithSeed(1000, layers)
+
+    let neuralNetworkJson = """[[{"activationF":"sigmoid","weights":[-0.3835458389406772,0.0866170456104991,-0.9254493089045628,0.7468386235399351,-0.3885003344102298]},{"activationF":"sigmoid","weights":[0.9551315475046316,0.6364802399820091,0.8325641480426137,-0.4495622755259099,-0.9080339520741412]},{"activationF":"sigmoid","weights":[0.5571194065535066,-0.9893482709253898,-0.4951349941525305,-0.038948392979311075,-0.37489226151951227]},{"activationF":"sigmoid","weights":[-0.9938250621751998,0.2429909507012884,-0.4113109174237173,-0.41858921359227463,-0.3979648954225541]},{"activationF":"sigmoid","weights":[-0.5196228695659073,0.11859868425810649,0.2702675793647149,-0.7202986002528569,0.15772338544843878]},{"activationF":"sigmoid","weights":[-0.6426420871366942,0.798039569425415,0.24059907777262812,-0.7596449161691801,-0.19010160080627614]}],[{"activationF":"sigmoid","weights":[-0.5120263339541975,0.9978164462362493,0.9503958001501839,-0.10252656838974294,0.6305013315894181,0.408840041332338,0.8816654290452904]},{"activationF":"sigmoid","weights":[0.5978504156683806,-0.07962023144570196,0.4686872751771879,0.12509557005255278,0.7138489055046109,0.13059630483882334,-0.1169894929588724]},{"activationF":"sigmoid","weights":[-0.6810685534407703,0.2186283875343522,-0.17887985947489726,0.16163801828475577,0.2452822352039079,0.570239870608896,0.1508470676610465]},{"activationF":"sigmoid","weights":[0.5219391628736347,0.2449827153445141,0.4091273636599665,-0.9649566253484025,-0.5154180589669468,-0.3342893502369009,0.26646149310584255]},{"activationF":"sigmoid","weights":[-0.31987177921453114,0.6754301477574884,-0.5212431454664297,0.9508987189973233,-0.8069201883892156,-0.7060735214995562,0.6568743538376289]}],[{"activationF":"sigmoid","weights":[0.6968850817982504,0.5281141006984348,-0.5210675222431624,0.7537927300454084,-0.9336162497911678,0.4929009813316637]},{"activationF":"sigmoid","weights":[0.3167643227226866,0.20075332988088634,-0.9740674719093683,0.36320119135230833,0.7047279699261897,-0.8381859435877697]},{"activationF":"sigmoid","weights":[-0.11892063222775273,0.5291420451966775,0.4580927777374595,0.6984002793665977,-0.15175762546796245,0.08990859477310842]}]]"""
+    
+    [<Fact>]
+    let ``neural network to json``() =
+        NeuralNetwork.toJson neuralNetwork
+        |> should equal neuralNetworkJson
+
+    [<Fact>]
+    let ``neural network of/to json``() =
+        NeuralNetwork.ofJson neuralNetworkJson
+        |> NeuralNetwork.toJson
+        |> should equal neuralNetworkJson
+
+    let inputValues = [ 1.0; 0.5625; 0.511111; 0.47619 ]
+    
+    let prediction =
+        NeuralNetwork.prediction(neuralNetwork, inputValues)
+
+    [<Fact>]
+    let ``neural network prediction``() =
+        prediction
+        |> should equal
+            [0.6529507583630635; 0.4969049184756722; 0.703216064707541]
+
+    let learningRate = 0.99
+    
+    let expectedOutput = [ 0.6; 0.7; 0.5 ]
+    
+    [<Fact>]
+    let ``neural network normal errors``() =
+        NeuralNetwork.errors(
+                                neuralNetwork,
+                                learningRate,
+                                inputValues,
+                                expectedOutput
+                            )
+        |> should equal
+            [ 0.0011183892036199091
+              0.000629093927036199
+              0.0005716210242513755
+              0.0005325657548717646 ]
+    
+    [<Fact>]
+    let ``neural network zero errors``() =
+        NeuralNetwork.errors(
+                                neuralNetwork,
+                                learningRate,
+                                inputValues,
+                                prediction
+                            )
+        |> should equal
+            [ 0.0; 0.0; 0.0; 0.0 ]
+
+    let fitNetwork = NeuralNetwork.fit(
+                                          neuralNetwork,
+                                          learningRate,
+                                          inputValues,
+                                          expectedOutput
+                                      )
+    
+    [<Fact>]
+    let ``fit neural network prediction``() =
+        NeuralNetwork.prediction(fitNetwork, inputValues)
+        |> should equal
+            [ 0.6450667577380073; 0.5334422676540814; 0.6770163620559069 ]

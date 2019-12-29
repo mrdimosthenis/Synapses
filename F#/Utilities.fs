@@ -55,5 +55,4 @@ let lazySplitAt
     (LazyList.rev x, y)
 
 let jsonOptions = JsonSerializerOptions()
-jsonOptions.WriteIndented <- true
 jsonOptions.Converters.Add(JsonFSharpConverter())

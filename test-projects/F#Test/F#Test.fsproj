@@ -13,22 +13,24 @@
         <Compile Include="Model\NetElems\NeuronTest.fs" />
         <Compile Include="Model\NetElems\LayerTest.fs" />
         <Compile Include="Model\NetElems\NetworkTest.fs" />
-        <Compile Include="Model\Encoding\DiscreteTest.fs" />
-        <Compile Include="Model\Encoding\ContinuousTest.fs" />
         <Compile Include="Model\Encoding\PreprocessorTest.fs" />
+        <Compile Include="SeedNetworkTest.fs" />
+        <Compile Include="CustomizedNetworkTest.fs" />
+        <Compile Include="PreprocessorTest.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-    <PackageReference Include="coverlet.collector" Version="1.1.0" />
-    <PackageReference Include="FsUnit.xUnit" Version="3.8.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="FSharp.Data" Version="3.3.2" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+        <PackageReference Include="coverlet.collector" Version="1.1.0" />
+        <PackageReference Include="FsUnit.xUnit" Version="3.8.0" />
+    </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Synapses.fsproj" />
+        <ProjectReference Include="../../F#/Synapses.fsproj" />
     </ItemGroup>
 
 </Project>

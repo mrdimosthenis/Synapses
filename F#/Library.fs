@@ -7,10 +7,6 @@ open Synapses.Model.Encoding
 
 type ActivationFunction = Activation.Function
 
-type NeuralNetwork = Network.Network
-
-type DataPreprocessor = Preprocessor.Preprocessor
-
 module ActivationFunction =
 
     let sigmoid: ActivationFunction =
@@ -25,10 +21,12 @@ module ActivationFunction =
     let leakyReLU: ActivationFunction =
             Activation.leakyReLU
 
+type NeuralNetwork = Network.Network
+
 module NeuralNetwork =
-    
-    let seedInit (maybeSeed: Option<int>)
-                 (layers: List<int>)
+
+    let seedInit (maybeSeed: Option<int>,
+                  layers: List<int>)
                  : NeuralNetwork =
                  let layerSizes = LazyList.ofList layers
                  let activationF =
@@ -44,34 +42,34 @@ module NeuralNetwork =
 
     let init (layers: List<int>)
              : NeuralNetwork =
-             seedInit None layers
-    
+             seedInit (None, layers)
+
     let initWithSeed
-                (seed: int)
-                (layers: List<int>)
+                (seed: int,
+                 layers: List<int>)
                 : NeuralNetwork =
-                seedInit (Some seed) layers
-    
+                seedInit (Some seed, layers)
+
     let customizedInit
-            (layers: List<int>)
-            (activationF: int -> ActivationFunction)
-            (weightInitF: int -> float)
+            (layers: List<int>,
+             activationF: int -> ActivationFunction,
+             weightInitF: int -> float)
             : NeuralNetwork =
             let layerSizes = LazyList.ofList layers
             Network.init layerSizes activationF weightInitF
 
     let prediction
-            (inputValues: List<float>)
-            (network: NeuralNetwork)
+            (network: NeuralNetwork,
+             inputValues: List<float>)
             : List<float> =
             let input = LazyList.ofList inputValues
             Network.output input network
             |> LazyList.toList
 
-    let errors (learningRate: float)
-               (inputValues: List<float>)
-               (expectedOutput: List<float>)
-               (network: NeuralNetwork)
+    let errors (network: NeuralNetwork,
+                learningRate: float,
+                inputValues: List<float>,
+                expectedOutput: List<float>)
                : List<float> =
                let input = LazyList.ofList inputValues
                let expOutput = LazyList.ofList expectedOutput
@@ -82,10 +80,10 @@ module NeuralNetwork =
                                 network
                LazyList.toList ers
 
-    let fit (learningRate: float)
-            (inputValues: List<float>)
-            (expectedOutput: List<float>)
-            (network: NeuralNetwork)
+    let fit (network: NeuralNetwork,
+             learningRate: float,
+             inputValues: List<float>,
+             expectedOutput: List<float>)
             : NeuralNetwork =
             let input = LazyList.ofList inputValues
             let expOutput = LazyList.ofList expectedOutput
@@ -97,10 +95,12 @@ module NeuralNetwork =
     let ofJson (json: string): NeuralNetwork =
             Network.fromJson json
 
+type DataPreprocessor = Preprocessor.Preprocessor
+
 module DataPreprocessor =
 
-    let init (keysWithDiscreteFlags: List<string * bool>)
-             (datapoints: seq<Map<string, string>>)
+    let init (keysWithDiscreteFlags: List<string * bool>,
+              datapoints: seq<Map<string, string>>)
              : DataPreprocessor =
              let keysWithFlags =
                         LazyList.ofList keysWithDiscreteFlags
@@ -108,15 +108,15 @@ module DataPreprocessor =
              Preprocessor.init keysWithFlags dataset
 
     let encodedDatapoint
-             (dataPreprocessor: DataPreprocessor)
-             (datapoint: Map<string, string>)
+             (dataPreprocessor: DataPreprocessor,
+              datapoint: Map<string, string>)
              : List<float> =
              Preprocessor.encode dataPreprocessor datapoint
              |> LazyList.toList
 
     let decodedDatapoint
-             (dataPreprocessor: DataPreprocessor)
-             (encodedValues: List<float>)
+             (dataPreprocessor: DataPreprocessor,
+              encodedValues: List<float>)
              : Map<string, string> =
              encodedValues
              |> LazyList.ofList
@@ -133,8 +133,8 @@ module DataPreprocessor =
 module Statistics =
 
     let rootMeanSquareError
-                (expectedValues: List<List<float>>)
-                (outputValues: List<List<float>>)
+                (expectedValues: List<List<float>>,
+                 outputValues: List<List<float>>)
                 : float =
                 let y_hats = expectedValues
                              |> List.map LazyList.ofList
