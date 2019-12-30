@@ -3,15 +3,15 @@ var assert = require('assert');
 require('../../../Scala/target/scala-2.13/synapses-opt.js');
 const csv = require('csv-parser');
 
-var datapoints = [];
+var datapointsArr = [];
 fs.createReadStream('../resources/mnist.csv')
     .pipe(csv())
     .on('data', (row) => {
-        datapoints.push(row);
+        datapointsArr.push(row);
     })
     .on('end', () => {
 
-        //array = array.shift();
+        let datapointsIter = datapointsArr[Symbol.iterator]();
 
         describe('preprocessor tests', function () {
 
@@ -21,7 +21,7 @@ fs.createReadStream('../resources/mnist.csv')
             let keysWithDiscreteFlags = [["label", true], ...pixelKeysWithFlags];
 
             let justCreatedPreprocessor =
-                DataPreprocessor.init(keysWithDiscreteFlags, datapoints);
+                DataPreprocessor.init(keysWithDiscreteFlags, datapointsIter);
 
             let justCreatedPreprocessorJson =
                 DataPreprocessor.toJson(justCreatedPreprocessor);
@@ -45,7 +45,7 @@ fs.createReadStream('../resources/mnist.csv')
 
             let preprocessor = DataPreprocessor.ofJson(preprocessorData);
 
-            let firstDatapoint = datapoints[0];
+            let firstDatapoint = datapointsArr[0];
 
             let firstEncodedDatapoint =
                 DataPreprocessor.encodedDatapoint(preprocessor, firstDatapoint);
