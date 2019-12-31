@@ -2,7 +2,7 @@ import java.io.File
 
 import minitest._
 import com.github.tototoshi.csv._
-import synapses.Library.DataPreprocessor
+import synapses.Library._
 
 import scala.io.Source
 
