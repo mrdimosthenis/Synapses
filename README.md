@@ -12,7 +12,7 @@ Run `npm i synapses` in the directory of your node project.
 
 Add this line to the list of **sbt** `libraryDependencies`.
 ```scala
-"synapses" % "scala_2.13" % "0.2" from "https://github.com/mrdimosthenis/Synapses/releases/download/0.2/synapses-assembly-0.2.jar"
+"synapses" % "scala_2.13" % "0.3" from "https://github.com/mrdimosthenis/Synapses/releases/download/0.3/synapses-assembly-0.3.jar"
 ```
 
 * F#
