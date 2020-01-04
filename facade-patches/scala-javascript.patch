@@ -3,8 +3,8 @@ IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
---- Scala/build.sbt	(revision 75296838e84bdcad1aa8751164f3c2180bbea507)
-+++ Scala/build.sbt	(date 1578140505502)
+--- Scala/build.sbt	(revision 8c2342ceaa875e19030ea49cc43d8e3ca4361fa6)
++++ Scala/build.sbt	(date 1578140763701)
 @@ -1,15 +1,15 @@
 -//enablePlugins(ScalaJSPlugin)
 +enablePlugins(ScalaJSPlugin)
@@ -32,66 +32,18 @@ IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
---- Scala/project/plugins.sbt	(revision 75296838e84bdcad1aa8751164f3c2180bbea507)
-+++ Scala/project/plugins.sbt	(date 1578140283927)
+--- Scala/project/plugins.sbt	(revision 8c2342ceaa875e19030ea49cc43d8e3ca4361fa6)
++++ Scala/project/plugins.sbt	(date 1578140763685)
 @@ -1,1 +1,1 @@
 -//addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31")
 +addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31")
-Index: Scala/target/scala-2.13/package.json
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- Scala/target/scala-2.13/package.json	(date 1578140505510)
-+++ Scala/target/scala-2.13/package.json	(date 1578140505510)
-@@ -0,0 +1,24 @@
-+{
-+  "name": "synapses",
-+  "version": "1.1.0",
-+  "description": "Lightweight cross-platform Neural Network library",
-+  "main": "synapses-opt.js",
-+  "scripts": {
-+    "test": "echo \"Error: no test specified\" && exit 1"
-+  },
-+  "repository": {
-+    "type": "git",
-+    "url": "git+https://github.com/mrdimosthenis/Synapses.git"
-+  },
-+  "keywords": [
-+    "machine-learning",
-+    "neural-network",
-+    "functional-programming"
-+  ],
-+  "author": "Dimosthenis Michailidis",
-+  "license": "MIT",
-+  "bugs": {
-+    "url": "https://github.com/mrdimosthenis/Synapses/issues"
-+  },
-+  "homepage": "https://github.com/mrdimosthenis/Synapses#readme"
-+}
-Index: .gitignore
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- .gitignore	(revision 75296838e84bdcad1aa8751164f3c2180bbea507)
-+++ .gitignore	(date 1578140399104)
-@@ -18,3 +18,8 @@
- /test-projects/F#Test/obj/
- /test-projects/JavaScriptTest/.idea/
- /test-projects/JavaScriptTest/node_modules/
-+/Scala/target/streams/
-+/Scala/target/.history
-+/Scala/target/scala-2.13/classes/
-+/Scala/target/scala-2.13/resolution-cache/
-+/Scala/target/scala-2.13/synapses-*
 Index: Scala/src/main/scala/synapses/Library.scala
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
---- Scala/src/main/scala/synapses/Library.scala	(revision 75296838e84bdcad1aa8751164f3c2180bbea507)
-+++ Scala/src/main/scala/synapses/Library.scala	(date 1578140304283)
+--- Scala/src/main/scala/synapses/Library.scala	(revision 8c2342ceaa875e19030ea49cc43d8e3ca4361fa6)
++++ Scala/src/main/scala/synapses/Library.scala	(date 1578140763693)
 @@ -4,21 +4,30 @@
  import synapses.model.netElems.Network.Network
  import synapses.model.netElems._
