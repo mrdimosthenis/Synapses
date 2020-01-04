@@ -1,18 +1,14 @@
-Index: Scala/build.sbt
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- Scala/build.sbt	(revision 8c2342ceaa875e19030ea49cc43d8e3ca4361fa6)
-+++ Scala/build.sbt	(date 1578140763701)
-@@ -1,15 +1,15 @@
+diff --git a/Scala/build.sbt b/Scala/build.sbt
+index 8655027..9a27fce 100644
+--- a/Scala/build.sbt
++++ b/Scala/build.sbt
+@@ -1,4 +1,4 @@
 -//enablePlugins(ScalaJSPlugin)
 +enablePlugins(ScalaJSPlugin)
  
  name := "synapses"
  
--version := "0.3"
-+version := "1.1.0"
+@@ -6,10 +6,10 @@ version := "0.3"
  
  scalaVersion := "2.13.1"
  
@@ -27,24 +23,18 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 +  "io.circe" %%% "circe-generic" % "0.12.3",
 +  "io.circe" %%% "circe-parser" % "0.12.3"
  )
-Index: Scala/project/plugins.sbt
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- Scala/project/plugins.sbt	(revision 8c2342ceaa875e19030ea49cc43d8e3ca4361fa6)
-+++ Scala/project/plugins.sbt	(date 1578140763685)
-@@ -1,1 +1,1 @@
+diff --git a/Scala/project/plugins.sbt b/Scala/project/plugins.sbt
+index 9e35540..2e1d872 100644
+--- a/Scala/project/plugins.sbt
++++ b/Scala/project/plugins.sbt
+@@ -1 +1 @@
 -//addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31")
 +addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31")
-Index: Scala/src/main/scala/synapses/Library.scala
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- Scala/src/main/scala/synapses/Library.scala	(revision 8c2342ceaa875e19030ea49cc43d8e3ca4361fa6)
-+++ Scala/src/main/scala/synapses/Library.scala	(date 1578140763693)
-@@ -4,21 +4,30 @@
+diff --git a/Scala/src/main/scala/synapses/Library.scala b/Scala/src/main/scala/synapses/Library.scala
+index 540cf2b..27600a4 100644
+--- a/Scala/src/main/scala/synapses/Library.scala
++++ b/Scala/src/main/scala/synapses/Library.scala
+@@ -4,21 +4,30 @@ import synapses.model.encoding.{Preprocessor, Serialization}
  import synapses.model.netElems.Network.Network
  import synapses.model.netElems._
  
@@ -75,7 +65,7 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
    object NeuralNetwork {
  
      private def seedInit(maybeSeed: Option[Long],
-@@ -35,54 +44,62 @@
+@@ -35,54 +44,62 @@ object Library {
        Network.init(layerSizes, activationF)(weightInitF)
      }
  
@@ -154,7 +144,7 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
      def ofJson(json: String): NeuralNetwork =
        Network
          .ofJson(json)
-@@ -93,40 +110,57 @@
+@@ -93,40 +110,57 @@ object Library {
  
    type DataPreprocessor = Serialization.Preprocessor
  
