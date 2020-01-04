@@ -31,7 +31,7 @@ index 9e35540..2e1d872 100644
 -//addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31")
 +addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31")
 diff --git a/Scala/src/main/scala/synapses/Library.scala b/Scala/src/main/scala/synapses/Library.scala
-index 540cf2b..27600a4 100644
+index e2f75b1..7d9cc64 100644
 --- a/Scala/src/main/scala/synapses/Library.scala
 +++ b/Scala/src/main/scala/synapses/Library.scala
 @@ -4,21 +4,30 @@ import synapses.model.encoding.{Preprocessor, Serialization}
@@ -144,7 +144,7 @@ index 540cf2b..27600a4 100644
      def ofJson(json: String): NeuralNetwork =
        Network
          .ofJson(json)
-@@ -93,40 +110,57 @@ object Library {
+@@ -93,42 +110,60 @@ object Library {
  
    type DataPreprocessor = Serialization.Preprocessor
  
@@ -207,11 +207,15 @@ index 540cf2b..27600a4 100644
 +  @JSExportTopLevel("Statistics")
    object Statistics {
  
--    def rootMeanSquareError(expectedValues: List[List[Double]],
--                            outputValues: List[List[Double]])
-+    @JSExport
-+    def rootMeanSquareError(expectedValues: js.Array[js.Array[Double]],
-+                            outputValues: js.Array[js.Array[Double]])
+-    def rootMeanSquareError(expectedValuesWithOutputValues: LazyList[(List[Double], List[Double])])
++    def rootMeanSquareError(expectedValuesWithOutputValues: js.Iterable[js.Array[js.Array[Double]]])
      : Double = {
-       val y_hats = expectedValues
-         .map(_.to(LazyList))
+-      val yHatsWithYs = expectedValuesWithOutputValues.map{ case (yHat, y) =>
+-        (yHat.to(LazyList), y.to(LazyList))
++      val yHatsWithYs = expectedValuesWithOutputValues
++        .to(LazyList)
++        .map{ arr =>
++        (arr(0).asInstanceOf[LazyList[Double]], arr(1).asInstanceOf[LazyList[Double]])
+       }
+       Mathematics.rootMeanSquareError(yHatsWithYs)
+     }
