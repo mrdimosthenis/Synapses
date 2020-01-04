@@ -23,17 +23,15 @@ let euclideanDistance
         |> sqrt
 
 let rootMeanSquareError
-        (y_hats: LazyList<LazyList<float>>)
-        (ys: LazyList<LazyList<float>>)
+        (yHatsWithYs: LazyList<LazyList<float> * LazyList<float>>)
         : float =
         let (n, sum) =
-                LazyList.map2
-                        (fun y_hat y ->
-                                let d = euclideanDistance y_hat y
+                LazyList.map
+                        (fun (yHat, y) ->
+                                let d = euclideanDistance yHat y
                                 d * d
                         )
-                        y_hats
-                        ys
+                        yHatsWithYs
                 |> LazyList.fold
                         (fun (accI, accS) sd -> (accI + 1, accS + sd))
                         (0, 0.0)
