@@ -18,3 +18,8 @@
 /test-projects/F#Test/obj/
 /test-projects/JavaScriptTest/.idea/
 /test-projects/JavaScriptTest/node_modules/
+/Scala/target/streams/
+/Scala/target/.history
+/Scala/target/scala-2.13/classes/
+/Scala/target/scala-2.13/resolution-cache/
+/Scala/target/scala-2.13/synapses-*
