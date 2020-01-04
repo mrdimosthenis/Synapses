@@ -1,0 +1,233 @@
+Index: Scala/build.sbt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Scala/build.sbt	(revision 89e4de38f4a2eb1b7597471ae41f482f0de572ba)
++++ Scala/build.sbt	(date 1578149401909)
+@@ -1,4 +1,4 @@
+-//enablePlugins(ScalaJSPlugin)
++enablePlugins(ScalaJSPlugin)
+ 
+ name := "synapses"
+ 
+@@ -6,10 +6,10 @@
+ 
+ scalaVersion := "2.13.1"
+ 
+-//scalaJSUseMainModuleInitializer := false
++scalaJSUseMainModuleInitializer := false
+ 
+ libraryDependencies ++= Seq(
+-  "io.circe" %% "circe-core" % "0.12.3",
+-  "io.circe" %% "circe-generic" % "0.12.3",
+-  "io.circe" %% "circe-parser" % "0.12.3"
++  "io.circe" %%% "circe-core" % "0.12.3",
++  "io.circe" %%% "circe-generic" % "0.12.3",
++  "io.circe" %%% "circe-parser" % "0.12.3"
+ )
+Index: Scala/project/plugins.sbt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Scala/project/plugins.sbt	(revision 89e4de38f4a2eb1b7597471ae41f482f0de572ba)
++++ Scala/project/plugins.sbt	(date 1578149275007)
+@@ -1,1 +1,1 @@
+-//addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31")
++addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31")
+Index: Scala/src/main/scala/synapses/Library.scala
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Scala/src/main/scala/synapses/Library.scala	(revision 89e4de38f4a2eb1b7597471ae41f482f0de572ba)
++++ Scala/src/main/scala/synapses/Library.scala	(date 1578149632380)
+@@ -4,21 +4,30 @@
+ import synapses.model.netElems.Network.Network
+ import synapses.model.netElems._
+ 
++import scala.scalajs.js
++import scala.scalajs.js.JSConverters._
++import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
+ import scala.util.Random
+ 
+ object Library {
+ 
+   type ActivationFunction = Activation
+ 
++  @JSExportTopLevel("ActivationFunction")
+   object ActivationFunction {
++    @JSExport
+     val sigmoid: ActivationFunction = Activation.sigmoid
++    @JSExport
+     val identity: ActivationFunction = Activation.identity
++    @JSExport
+     val tanh: ActivationFunction = Activation.tanh
++    @JSExport
+     val leakyReLU: ActivationFunction = Activation.leakyReLU
+   }
+ 
+   type NeuralNetwork = Network
+ 
++  @JSExportTopLevel("NeuralNetwork")
+   object NeuralNetwork {
+ 
+     private def seedInit(maybeSeed: Option[Long],
+@@ -35,54 +44,62 @@
+       Network.init(layerSizes, activationF)(weightInitF)
+     }
+ 
+-    def init(layers: List[Int]): NeuralNetwork =
+-      seedInit(None, layers)
++    @JSExport
++    def init(layers: js.Array[Int]): NeuralNetwork =
++      seedInit(None, layers.toList)
+ 
+-    def initWithSeed(seed: Long, layers: List[Int]): NeuralNetwork =
+-      seedInit(Some(seed), layers)
++    @JSExport
++    def initWithSeed(seed: Int, layers: js.Array[Int]): NeuralNetwork =
++      seedInit(Some(seed), layers.toList)
+ 
+-    def customizedInit(layers: List[Int],
+-                       activationF: Int => Activation,
+-                       weightInitF: Int => Double)
++    @JSExport
++    def customizedInit(layers: js.Array[Int],
++                       activationF: js.Function1[Int, Activation],
++                       weightInitF: js.Function1[Int, Double])
+     : NeuralNetwork = {
+       val layerSizes = layers.to(LazyList)
+       Network.init(layerSizes, activationF)(weightInitF)
+     }
+ 
++    @JSExport
+     def prediction(network: NeuralNetwork,
+-                   inputValues: List[Double])
+-    : List[Double] = {
++                   inputValues: js.Array[Double])
++    : js.Array[Double] = {
+       val input = inputValues.to(LazyList)
+       Network
+         .output(input)(network)
+-        .toList
++        .toJSArray
+     }
+ 
++    @JSExport
+     def errors(network: NeuralNetwork,
+                learningRate: Double,
+-               inputValues: List[Double],
+-               expectedOutput: List[Double])
+-    : List[Double] = {
++               inputValues: js.Array[Double],
++               expectedOutput: js.Array[Double])
++    : js.Array[Double] = {
+       val input = inputValues.to(LazyList)
+       val expected = expectedOutput.to(LazyList)
+       Network
+         .errors(learningRate, input, expected)(network)
+-        .toList
++        .toJSArray
+     }
+ 
++    @JSExport
+     def fit(network: NeuralNetwork,
+             learningRate: Double,
+-            inputValues: List[Double],
+-            expectedOutput: List[Double])
++            inputValues: js.Array[Double],
++            expectedOutput: js.Array[Double])
+     : NeuralNetwork = {
+       val input = inputValues.to(LazyList)
+       val expected = expectedOutput.to(LazyList)
+       Network.fit(learningRate, input, expected)(network)
+     }
+ 
++    @JSExport
+     def toJson(network: NeuralNetwork): String =
+       Network.toJson(network)
+ 
++    @JSExport
+     def ofJson(json: String): NeuralNetwork =
+       Network
+         .ofJson(json)
+@@ -93,43 +110,62 @@
+ 
+   type DataPreprocessor = Serialization.Preprocessor
+ 
++  @JSExportTopLevel("DataPreprocessor")
+   object DataPreprocessor {
+ 
+-    def init(keysWithDiscreteFlags: List[(String, Boolean)],
+-             datapoints: LazyList[Map[String, String]])
++    @JSExport
++    def init[A](keysWithDiscreteFlags: js.Array[js.Array[A]],
++                datapoints: js.Iterable[js.Dictionary[String]])
+     : DataPreprocessor = {
+-      val keysWithFlags = keysWithDiscreteFlags.to(LazyList)
+-      Preprocessor.init(keysWithFlags, datapoints)
++      val keysWithFlags = keysWithDiscreteFlags
++        .map { arr =>
++          (arr(0).asInstanceOf[String], arr(1).asInstanceOf[Boolean])
++        }
++        .to(LazyList)
++      Preprocessor.init(keysWithFlags, datapoints.map(_.toMap).to(LazyList))
+     }
+ 
++    @JSExport
+     def encodedDatapoint(dataPreprocessor: DataPreprocessor,
+-                         datapoint: Map[String, String])
+-    : List[Double] = Preprocessor
+-      .encode(datapoint)(dataPreprocessor)
+-      .toList
++                         datapoint: js.Dictionary[String])
++    : js.Array[Double] = {
++      Preprocessor
++        .encode(datapoint.toMap)(dataPreprocessor)
++        .toList
++        .toJSArray
++    }
+ 
++    @JSExport
+     def decodedDatapoint(dataPreprocessor: DataPreprocessor,
+-                         encodedValues: List[Double])
+-    : Map[String, String] = {
++                         encodedValues: js.Array[Double])
++    : js.Dictionary[String] = {
+       val values = encodedValues.to(LazyList)
+-      Preprocessor.decode(values)(dataPreprocessor)
++      Preprocessor
++        .decode(values)(dataPreprocessor)
++        .toJSDictionary
+     }
+ 
++    @JSExport
+     def toJson(dataPreprocessor: DataPreprocessor): String =
+       Preprocessor.toJson(dataPreprocessor)
+ 
++    @JSExport
+     def ofJson(json: String): DataPreprocessor =
+       Preprocessor.ofJson(json)
+ 
+   }
+ 
++  @JSExportTopLevel("Statistics")
+   object Statistics {
+ 
+-    def rootMeanSquareError(expectedValuesWithOutputValues: LazyList[(List[Double], List[Double])])
++    @JSExport
++    def rootMeanSquareError(expectedValuesWithOutputValues: js.Iterable[js.Array[js.Array[Double]]])
+     : Double = {
+-      val yHatsWithYs = expectedValuesWithOutputValues.map{ case (yHat, y) =>
+-        (yHat.to(LazyList), y.to(LazyList))
+-      }
++      val yHatsWithYs = expectedValuesWithOutputValues
++        .to(LazyList)
++        .map{ arr =>
++          (arr(0).asInstanceOf[LazyList[Double]], arr(1).asInstanceOf[LazyList[Double]])
++        }
+       Mathematics.rootMeanSquareError(yHatsWithYs)
+     }
+ 
