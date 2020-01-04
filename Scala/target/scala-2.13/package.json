@@ -1,6 +1,6 @@
 {
   "name": "synapses",
-  "version": "1.0.1",
+  "version": "7.1.0",
   "description": "Lightweight cross-platform Neural Network library",
   "main": "synapses-opt.js",
   "scripts": {

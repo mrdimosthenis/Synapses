@@ -2,7 +2,7 @@
 
 name := "synapses"
 
-version := "0.3"
+version := "7.1.0"
 
 scalaVersion := "2.13.1"
 

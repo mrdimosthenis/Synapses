@@ -6,18 +6,18 @@ Lightweight cross-platform Neural Network library
 
 * JavaScript
 
-Run `npm i synapses` in the directory of your node project.
+Run `npm i synapses@7.1.0` in the directory of your node project.
 
 * Scala
 
 Add this line to the list of **sbt** `libraryDependencies`.
 ```scala
-"synapses" % "scala_2.13" % "0.3" from "https://github.com/mrdimosthenis/Synapses/releases/download/0.3/synapses-assembly-0.3.jar"
+"synapses" % "scala_2.13" % "7.1.0" from "https://github.com/mrdimosthenis/Synapses/releases/download/7.1.0/synapses-assembly-7.1.0.jar"
 ```
 
 * F#
 
-Run `dotnet add package Synapses --version 7.0.2` in the directory of your project.
+Run `dotnet add package Synapses --version 7.1.0` in the directory of your project.
 
 ## Usage
 

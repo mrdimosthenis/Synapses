@@ -10,7 +10,7 @@
         <PackageTags>neural-network;machine-learning;functional-programming</PackageTags>
         <OutputType>Library</OutputType>
         <license>MIT</license>
-        <PackageVersion>7.0.2</PackageVersion>
+        <PackageVersion>7.1.0</PackageVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 

@@ -1,4 +1,4 @@
-## v1.1.0-Scala, v7.1.0-F#, v1.1.0-JavaScript
+## [7.1.0]
 ### Added
 - Create and use patches for facades.
 - Automate the build and test projects for all languages.
