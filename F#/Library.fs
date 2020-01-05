@@ -133,13 +133,9 @@ module DataPreprocessor =
 module Statistics =
 
     let rootMeanSquareError
-                (expectedValues: List<List<float>>,
-                 outputValues: List<List<float>>)
+                (expectedWithOutputValues: seq<List<float> * List<float>>)
                 : float =
-                let y_hats = expectedValues
-                             |> List.map LazyList.ofList
-                             |> LazyList.ofList
-                let ys = outputValues
-                         |> List.map LazyList.ofList
-                         |> LazyList.ofList
-                Mathematics.rootMeanSquareError y_hats ys
+                expectedWithOutputValues
+                |> LazyList.ofSeq
+                |> LazyList.map (fun (yHat, y) -> (LazyList.ofSeq yHat, LazyList.ofSeq y))
+                |> Mathematics.rootMeanSquareError

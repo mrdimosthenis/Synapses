@@ -14,20 +14,23 @@ type ``mathematics tests``() =
     
     [<Fact>]
     let ``RMSE zero a``() =
-        let ys = LazyList.ofList [ v1; v2 ]
-        Mathematics.rootMeanSquareError ys ys
+        let expectedWithOutputValues = LazyList.ofList [ (v1, v1) ]
+        Mathematics.rootMeanSquareError expectedWithOutputValues
         |> should equal 0.0
 
     [<Fact>]
     let ``RMSE zero b``() =
-        let ys = LazyList.ofList [ v1; v2; v3; v4 ]
-        Mathematics.rootMeanSquareError ys ys
+        let expectedWithOutputValues = LazyList.ofList [ (v1, v1)
+                                                         (v2, v2)
+                                                         (v3, v3)
+                                                         (v4, v4) ]
+        Mathematics.rootMeanSquareError expectedWithOutputValues
         |> should equal 0.0
 
     [<Fact>]
     let ``RMSE c``() =
-        let y_hats = LazyList.ofList [ v3; v4 ]
-        let ys = LazyList.ofList [ v3; v3 ]
-        Mathematics.rootMeanSquareError y_hats ys
+        let expectedWithOutputValues = LazyList.ofList [ (v3, v3)
+                                                         (v3, v4) ]
+        Mathematics.rootMeanSquareError expectedWithOutputValues
         |> should equal 0.7071067811865476
     

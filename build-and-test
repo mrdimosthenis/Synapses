@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# build f# nupkg
+cd F#
+dotnet restore
+dotnet build --configuration Release
+dotnet pack --configuration Release
+cd ../
+
+# run f# tests
+cd test-projects/F#Test
+dotnet restore
+dotnet test
+cd ../../
+
+# build scala jar
+cd Scala
+sbt assembly
+cd ../
+
+# run scala jvm tests
+cd test-projects/ScalaTest
+sbt test
+cd ../../
+
+# build javascript file
+git apply facade-patches/scala-javascript.patch
+cd Scala
+sbt fullOptJS
+cd ../
+git apply -R facade-patches/scala-javascript.patch
+
+# run javascript tests
+cd test-projects/JavaScriptTest
+npm test
+cd ../../

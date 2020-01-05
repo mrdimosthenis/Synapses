@@ -15,11 +15,9 @@ object Mathematics {
     Math.sqrt(s)
   }
 
-  def rootMeanSquareError(y_hats: LazyList[LazyList[Double]],
-                          ys: LazyList[LazyList[Double]])
+  def rootMeanSquareError(yHatsWithYs: LazyList[(LazyList[Double], LazyList[Double])])
   : Double = {
-    val (n, s) = y_hats
-      .zip(ys)
+    val (n, s) = yHatsWithYs
       .map { case (y_hat, y) =>
         val d = euclideanDistance(y_hat, y)
         d * d

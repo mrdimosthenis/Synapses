@@ -125,16 +125,12 @@ object Library {
 
   object Statistics {
 
-    def rootMeanSquareError(expectedValues: List[List[Double]],
-                            outputValues: List[List[Double]])
+    def rootMeanSquareError(expectedValuesWithOutputValues: LazyList[(List[Double], List[Double])])
     : Double = {
-      val y_hats = expectedValues
-        .map(_.to(LazyList))
-        .to(LazyList)
-      val ys = outputValues
-        .map(_.to(LazyList))
-        .to(LazyList)
-      Mathematics.rootMeanSquareError(y_hats, ys)
+      val yHatsWithYs = expectedValuesWithOutputValues.map{ case (yHat, y) =>
+        (yHat.to(LazyList), y.to(LazyList))
+      }
+      Mathematics.rootMeanSquareError(yHatsWithYs)
     }
 
   }

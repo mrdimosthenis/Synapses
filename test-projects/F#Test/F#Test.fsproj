@@ -17,6 +17,7 @@
         <Compile Include="SeedNetworkTest.fs" />
         <Compile Include="CustomizedNetworkTest.fs" />
         <Compile Include="PreprocessorTest.fs" />
+        <Compile Include="StatisticsTest.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
