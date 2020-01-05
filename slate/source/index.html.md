@@ -28,7 +28,7 @@ npm i synapses@7.1.0
 // add
 libraryDependencies +=
   "synapses" % "scala_2.13" % "7.1.0" from
-    "https://github.com/mrdimosthenis/Synapses/releases/download/7.1.0/synapses-assembly-7.1.0.jar"
+    """https://github.com/mrdimosthenis/Synapses/releases/download/7.1.0/synapses-assembly-7.1.0.jar"""
 // to build.sbt
 ```
 
@@ -69,42 +69,69 @@ There are 2 hidden layers with 6 and 5 neurons respectively.
 
 ```javascript
 let inputValues = [1.0, 0.5625, 0.511111, 0.47619];
-let prediction = NeuralNetwork.prediction(neuralNetwork, inputValues);
+let prediction =
+        NeuralNetwork.prediction(neuralNetwork, inputValues);
 ```
 
 ```scala
 val inputValues = List(1.0, 0.5625, 0.511111, 0.47619)
-val prediction = NeuralNetwork.prediction(neuralNetwork, inputValues)
+val prediction =
+        NeuralNetwork.prediction(neuralNetwork, inputValues)
 ```
 
 ```fsharp
 let inputValues = [1.0; 0.5625; 0.511111; 0.47619]
-let prediction = NeuralNetwork.prediction(neuralNetwork, inputValues)
+let prediction =
+        NeuralNetwork.prediction(neuralNetwork, inputValues)
 ```
 
-Note that the lengths of `inputValues` and `prediction` equal to the sizes of _input_ and _output_ layers respectively.
+`prediction` should be something like `[ 0.8296, 0.6996, 0.4541 ]`.
+
+<aside class="success">
+Note that the lengths of inputValues and prediction equal to the sizes of input and output layers respectively.
+</aside>
 
 ### Fit network
 
 ```javascript
 let learningRate = 0.5;
 let expectedOutput = [0.0, 1.0, 0.0];
-let fitNetwork = NeuralNetwork.fit(neuralNetwork, learningRate, inputValues, expectedOutput);
+let fitNetwork =
+        NeuralNetwork.fit(
+                            neuralNetwork,
+                            learningRate,
+                            inputValues,
+                            expectedOutput
+        );
 ```
 
 ```scala
 val learningRate = 0.5
 val expectedOutput = List(0.0, 1.0, 0.0)
-val fitNetwork = NeuralNetwork.fit(neuralNetwork, learningRate, inputValues, expectedOutput)
+val fitNetwork =
+        NeuralNetwork.fit(
+                            neuralNetwork,
+                            learningRate,
+                            inputValues,
+                            expectedOutpu
+        )
 ```
 
 ```fsharp
 let learningRate = 0.5
 let expectedOutput = [0.0; 1.0; 0.0]
-let fitNetwork = NeuralNetwork.fit(neuralNetwork, learningRate, inputValues, expectedOutput)
+let fitNetwork =
+        NeuralNetwork.fit(
+                            neuralNetwork,
+                            learningRate,
+                            inputValues,
+                            expectedOutput
+        )
 ```
 
 `fitNetwork` is a new neural network trained with a single observation.
+
+> to train a neural network, you should fit with multiple datapoints
 
 ### Create a customized neural network
 
@@ -129,7 +156,12 @@ function weightInitF(_layerIndex) {
     return 1.0 - 2.0 * Math.random();
 }
 
-let customizedNetwork = NeuralNetwork.customizedInit(layers, activationF, weightInitF);
+let customizedNetwork =
+        NeuralNetwork.customizedInit(
+                                        layers,
+                                        activationF,
+                                        weightInitF
+        );
 ```
 
 ```scala
@@ -141,9 +173,15 @@ def activationF(layerIndex: Int): ActivationFunction =
     case 3 => ActivationFunction.tanh
   }
 
-def weightInitF(_layerIndex: Int): Double = 1.0 - 2.0 * new Random().nextDouble()
+def weightInitF(_layerIndex: Int): Double =
+        1.0 - 2.0 * new Random().nextDouble()
 
-val customizedNetwork = NeuralNetwork.customizedInit(layers, activationF, weightInitF)
+val customizedNetwork =
+        NeuralNetwork.customizedInit(
+                                      layers,
+                                      activationF,
+                                      weightInitF
+        )
 ```
 
 ```fsharp
@@ -155,9 +193,15 @@ let activationF (layerIndex: int)
         | 2 -> ActivationFunction.leakyReLU
         | _ -> ActivationFunction.identity
 
-let weightInitF (_layerIndex: int): float = 1.0 - 2.0 * System.Random().NextDouble()
+let weightInitF (_layerIndex: int): float =
+        1.0 - 2.0 * System.Random().NextDouble()
 
-let customizedNetwork = NeuralNetwork.customizedInit(layers, activationF, weightInitF)
+let customizedNetwork =
+        NeuralNetwork.customizedInit(
+                                        layers,
+                                        activationF,
+                                        weightInitF
+        )
 ```
 
 ## Save and load a neural network
@@ -172,15 +216,15 @@ Call `NeuralNetwork.toJson` on a neural network and get a string representation 
 Use it as you like. Save `json` in the file system or insert into a database table.
 
 ```javascript
-let json = NeuralNetwork.toJson(fitNetwork);
+let json = NeuralNetwork.toJson(customizedNetwork);
 ```
 
 ```scala
-val json = NeuralNetwork.toJson(fitNetwork)
+val json = NeuralNetwork.toJson(customizedNetwork)
 ```
 
 ```fsharp
-let json = NeuralNetwork.toJson(fitNetwork)
+let json = NeuralNetwork.toJson(customizedNetwork)
 ```
 
 ### ofJson
@@ -232,20 +276,25 @@ let virginicaDatapoint = {
     species: "virginica"
 };
 
-let datasetArr = [setosaDatapoint, versicolorDatapoint, virginicaDatapoint];
+let datasetArr = [ setosaDatapoint,
+                   versicolorDatapoint,
+                   virginicaDatapoint ];
 
 let datasetIter = datasetArr[Symbol.iterator]();
                 
-let dataPreprocessor = DataPreprocessor.init(
-                            [ ["sepal_length", false],
-                              ["sepal_width", false],
-                              ["petal_length", false],
-                              ["petal_width", false],
-                              ["species", true] ],
-                            datasetIter
-                       );
+let dataPreprocessor =
+        DataPreprocessor.init(
+             [ ["sepal_length", false],
+               ["sepal_width", false],
+               ["petal_length", false],
+               ["petal_width", false],
+               ["species", true] ],
+             datasetIter
+        );
 
-let encodedDatapoints = datasetArr.map(x => DataPreprocessor.encodedDatapoint(dataPreprocessor, x));
+let encodedDatapoints = datasetArr.map(x =>
+        DataPreprocessor.encodedDatapoint(dataPreprocessor, x)
+);
 ```
 
 ```scala
@@ -273,18 +322,25 @@ val virginicaDatapoint = Map(
   "species" -> "virginica"
 )
 
-val dataset = LazyList(setosaDatapoint, versicolorDatapoint, virginicaDatapoint)
+val dataset = LazyList(
+                        setosaDatapoint,
+                        versicolorDatapoint,
+                        virginicaDatapoint
+                      )
 
-val dataPreprocessor = DataPreprocessor.init(
-                            List( ("sepal_length", false),
-                                  ("sepal_width", false),
-                                  ("petal_length", false),
-                                  ("petal_width", false),
-                                  ("species", true) ),
-                            dataset
-                       )
+val dataPreprocessor =
+        DataPreprocessor.init(
+             List( ("sepal_length", false),
+                   ("sepal_width", false),
+                   ("petal_length", false),
+                   ("petal_width", false),
+                   ("species", true) ),
+             dataset
+        )
 
-val encodedDatapoints = dataset.map(x => DataPreprocessor.encodedDatapoint(dataPreprocessor, x))
+val encodedDatapoints = dataset.map(x =>
+        DataPreprocessor.encodedDatapoint(dataPreprocessor, x)
+)
 ```
 
 ```fsharp
@@ -317,18 +373,29 @@ let dataset = Seq.ofList
                   versicolorDatapoint
                   virginicaDatapoint ]
                 
-let dataPreprocessor = DataPreprocessor.init(
-                            [ ("sepal_length", false)
-                              ("sepal_width", false)
-                              ("petal_length", false)
-                              ("petal_width", false)
-                              ("species", true) ],
-                            dataset
-                       )
+let dataPreprocessor =
+        DataPreprocessor.init(
+             [ ("sepal_length", false)
+               ("sepal_width", false)
+               ("petal_length", false)
+               ("petal_width", false)
+               ("species", true) ],
+             dataset
+        )
 
 let encodedDatapoints =
-        Seq.map (fun datapoint -> DataPreprocessor.encodedDatapoint(dataPreprocessor, datapoint))
+        Seq.map (fun datapoint ->
+                    DataPreprocessor.encodedDatapoint(dataPreprocessor, datapoint)
+                )
                 dataset
+```
+
+> `encodedDatapoints` equals to
+
+```json
+[ [ 0.0     , 1.0     , 0.0     , 0.0     , 0.0; 0.0; 1.0 ],
+  [ 1.0     , 0.562500, 0.511111, 0.476190, 0.0; 1.0; 0.0 ],
+  [ 0.166667, 0.0     , 1.0     , 1.0     , 1.0; 0.0; 0.0 ] ]
 ```
 
 Save and load the preprocessor by calling `DataPreprocessor.toJson` and `DataPreprocessor.ofJson`.
@@ -342,9 +409,12 @@ let expectedWithOutputValuesArr =
         [ [ [ 0.0, 0.0, 1.0], [ 0.0, 0.0, 1.0] ],
           [ [ 0.0, 0.0, 1.0], [ 0.0, 1.0, 1.0] ] ];
 
-let expectedWithOutputValuesIter = expectedWithOutputValuesArr[Symbol.iterator]();
+let expectedWithOutputValuesIter =
+        expectedWithOutputValuesArr[Symbol.iterator]();
 
-let rmse = Statistics.rootMeanSquareError(expectedWithOutputValuesIter);
+let rmse = Statistics.rootMeanSquareError(
+                        expectedWithOutputValuesIter
+);
 ```
 
 ```scala
@@ -354,7 +424,9 @@ val expectedWithOutputValues =
       (List(0.0, 0.0, 1.0), List(0.0, 1.0, 1.0))
     )
 
-val rmse = Statistics.rootMeanSquareError(expectedWithOutputValues)
+val rmse = Statistics.rootMeanSquareError(
+                        expectedWithOutputValues
+)
 ```
 
 ```fsharp
@@ -362,5 +434,7 @@ let expectedWithOutputValues =
         Seq.ofList [ ( [ 0.0; 0.0; 1.0], [ 0.0; 0.0; 1.0] )
                      ( [ 0.0; 0.0; 1.0], [ 0.0; 1.0; 1.0] ) ]
 
-let rmse = Statistics.rootMeanSquareError expectedWithOutputValues
+let rmse = Statistics.rootMeanSquareError(
+                        expectedWithOutputValues
+)
 ```
