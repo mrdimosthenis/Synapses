@@ -47,7 +47,6 @@ slate/build/
 slate/.cache
 slate/.vagrant
 slate/.sass-cache
-
 # YARD artifacts
 slate/.yardoc
 slate/_yardoc

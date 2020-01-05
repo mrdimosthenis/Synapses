@@ -1,239 +1,366 @@
 ---
-title: API Reference
+title: Synapses
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
   - javascript
+  - scala
+  - fsharp
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='https://github.com/mrdimosthenis/Synapses'>GitHub Repository</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors
+  - <a href='https://pngimage.net/icono-cerebro-png-5'> Logo Attribution </a>
 
 search: true
 ---
 
-# Introduction
+# Synapses
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+**Synapses** is a lightweight **Neural Network** library, for **js**, **jvm** and **.net**.
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
+// run
+npm i synapses@7.1.0
+// in the directory of your node project
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+```scala
+// add
+libraryDependencies +=
+  "synapses" % "scala_2.13" % "7.1.0" from
+    "https://github.com/mrdimosthenis/Synapses/releases/download/7.1.0/synapses-assembly-7.1.0.jar"
+// to build.sbt
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+```fsharp
+// run
+dotnet add package Synapses --version 7.1.0
+// in the directory of your project
 ```
 
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
+## Neural Network
+
+### Create a neural network
+
+Import `Synapses`, call `NeuralNetwork.init` and provide the size of each _layer_.
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+require('synapses');
+let layers = [4, 6, 5, 3];
+let neuralNetwork = NeuralNetwork.init(layers);
 ```
 
-> The above command returns JSON structured like this:
+```scala
+import synapses.Library._
+val layers = List(4, 6, 5, 3)
+val neuralNetwork = NeuralNetwork.init(layers)
+```
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+```fsharp
+open Synapses
+let layers = [4; 6; 5; 3]
+let neuralNetwork = NeuralNetwork.init(layers)
+```
+
+`neuralNetwork` has 4 layers. The first layer has 4 input nodes and the last layer has 3 output nodes.
+There are 2 hidden layers with 6 and 5 neurons respectively.
+
+### Get a prediction
+
+```javascript
+let inputValues = [1.0, 0.5625, 0.511111, 0.47619];
+let prediction = NeuralNetwork.prediction(neuralNetwork, inputValues);
+```
+
+```scala
+val inputValues = List(1.0, 0.5625, 0.511111, 0.47619)
+val prediction = NeuralNetwork.prediction(neuralNetwork, inputValues)
+```
+
+```fsharp
+let inputValues = [1.0; 0.5625; 0.511111; 0.47619]
+let prediction = NeuralNetwork.prediction(neuralNetwork, inputValues)
+```
+
+Note that the lengths of `inputValues` and `prediction` equal to the sizes of _input_ and _output_ layers respectively.
+
+### Fit network
+
+```javascript
+let learningRate = 0.5;
+let expectedOutput = [0.0, 1.0, 0.0];
+let fitNetwork = NeuralNetwork.fit(neuralNetwork, learningRate, inputValues, expectedOutput);
+```
+
+```scala
+val learningRate = 0.5
+val expectedOutput = List(0.0, 1.0, 0.0)
+val fitNetwork = NeuralNetwork.fit(neuralNetwork, learningRate, inputValues, expectedOutput)
+```
+
+```fsharp
+let learningRate = 0.5
+let expectedOutput = [0.0; 1.0; 0.0]
+let fitNetwork = NeuralNetwork.fit(neuralNetwork, learningRate, inputValues, expectedOutput)
+```
+
+`fitNetwork` is a new neural network trained with a single observation.
+
+### Create a customized neural network
+
+The _activation function_ of the neurons created with `NeuralNetwork.init`, is a sigmoid one.
+If you want to customize the _activation functions_ and the _weight distribution_, call `NeuralNetwork.customizedInit`.
+
+```javascript
+function activationF(layerIndex) {
+    switch (layerIndex) {
+        case 0:
+            return ActivationFunction.sigmoid;
+        case 1:
+            return ActivationFunction.identity;
+        case 2:
+            return ActivationFunction.leakyReLU;
+        case 3:
+            return ActivationFunction.tanh;
+    }
+}
+
+function weightInitF(_layerIndex) {
+    return 1.0 - 2.0 * Math.random();
+}
+
+let customizedNetwork = NeuralNetwork.customizedInit(layers, activationF, weightInitF);
+```
+
+```scala
+def activationF(layerIndex: Int): ActivationFunction =
+  layerIndex match {
+    case 0 => ActivationFunction.sigmoid
+    case 1 => ActivationFunction.identity
+    case 2 => ActivationFunction.leakyReLU
+    case 3 => ActivationFunction.tanh
   }
-]
+
+def weightInitF(_layerIndex: Int): Double = 1.0 - 2.0 * new Random().nextDouble()
+
+val customizedNetwork = NeuralNetwork.customizedInit(layers, activationF, weightInitF)
 ```
 
-This endpoint retrieves all kittens.
+```fsharp
+let activationF (layerIndex: int)
+        : ActivationFunction =
+        match layerIndex with
+        | 0 -> ActivationFunction.sigmoid
+        | 1 -> ActivationFunction.tanh
+        | 2 -> ActivationFunction.leakyReLU
+        | _ -> ActivationFunction.identity
 
-### HTTP Request
+let weightInitF (_layerIndex: int): float = 1.0 - 2.0 * System.Random().NextDouble()
 
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+let customizedNetwork = NeuralNetwork.customizedInit(layers, activationF, weightInitF)
 ```
 
-```python
-import kittn
+## Save and load a neural network
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+JSON instances are **compatible** across platforms!
+We can generate, train and save a neural network in Scala
+and then load and make predictions in Javascript!
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
+### toJson
+
+Call `NeuralNetwork.toJson` on a neural network and get a string representation of it.
+Use it as you like. Save `json` in the file system or insert into a database table.
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+let json = NeuralNetwork.toJson(fitNetwork);
 ```
 
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
+```scala
+val json = NeuralNetwork.toJson(fitNetwork)
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
+```fsharp
+let json = NeuralNetwork.toJson(fitNetwork)
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
+### ofJson
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+let loadedNetwork = NeuralNetwork.ofJson(json);
 ```
 
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
+```scala
+val loadedNetwork = NeuralNetwork.ofJson(json)
 ```
 
-This endpoint deletes a specific kitten.
+```fsharp
+let loadedNetwork = NeuralNetwork.ofJson(json)
+```
 
-### HTTP Request
+As the name suggests, `NeuralNetwork.ofJson` turns a json string into a neural network.
 
-`DELETE http://example.com/kittens/<ID>`
+## Encoding and decoding
 
-### URL Parameters
+_One hot encoding_ is a process that turns discrete attributes into a list of _0.0_ and _1.0_.
+_Minmax normalization_ scales continuous attributes into values between _0.0_ and _1.0_.
+You can use `DataPreprocessor` for datapoint encoding and decoding.
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+The first parameter of `DataPreprocessor.init` is a list of tuples _(attributeName, discreteOrNot)_.
 
+```javascript
+let setosaDatapoint = {
+    petal_length: "1.5",
+    petal_width: "0.1",
+    sepal_length: "4.9",
+    sepal_width: "3.1",
+    species: "setosa"
+};
+
+let versicolorDatapoint = {
+    petal_length: "3.8",
+    petal_width: "1.1",
+    sepal_length: "5.5",
+    sepal_width: "2.4",
+    species: "versicolor"
+};
+
+let virginicaDatapoint = {
+    petal_length: "6.0",
+    petal_width: "2.2",
+    sepal_length: "5.0",
+    sepal_width: "1.5",
+    species: "virginica"
+};
+
+let datasetArr = [setosaDatapoint, versicolorDatapoint, virginicaDatapoint];
+
+let datasetIter = datasetArr[Symbol.iterator]();
+                
+let dataPreprocessor = DataPreprocessor.init(
+                            [ ["sepal_length", false],
+                              ["sepal_width", false],
+                              ["petal_length", false],
+                              ["petal_width", false],
+                              ["species", true] ],
+                            datasetIter
+                       );
+
+let encodedDatapoints = datasetArr.map(x => DataPreprocessor.encodedDatapoint(dataPreprocessor, x));
+```
+
+```scala
+val setosaDatapoint = Map(
+  "petal_length" -> "1.5",
+  "petal_width" -> "0.1",
+  "sepal_length" -> "4.9",
+  "sepal_width" -> "3.1",
+  "species" -> "setosa"
+)
+
+val versicolorDatapoint = Map(
+  "petal_length" -> "3.8",
+  "petal_width" -> "1.1",
+  "sepal_length" -> "5.5",
+  "sepal_width" -> "2.4",
+  "species" -> "versicolor"
+)
+
+val virginicaDatapoint = Map(
+  "petal_length" -> "6.0",
+  "petal_width" -> "2.2",
+  "sepal_length" -> "5.0",
+  "sepal_width" -> "1.5",
+  "species" -> "virginica"
+)
+
+val dataset = LazyList(setosaDatapoint, versicolorDatapoint, virginicaDatapoint)
+
+val dataPreprocessor = DataPreprocessor.init(
+                            List( ("sepal_length", false),
+                                  ("sepal_width", false),
+                                  ("petal_length", false),
+                                  ("petal_width", false),
+                                  ("species", true) ),
+                            dataset
+                       )
+
+val encodedDatapoints = dataset.map(x => DataPreprocessor.encodedDatapoint(dataPreprocessor, x))
+```
+
+```fsharp
+let setosaDatapoint =
+        Map.ofList
+            [ ("petal_length", "1.5")
+              ("petal_width", "0.1")
+              ("sepal_length", "4.9")
+              ("sepal_width", "3.1")
+              ("species", "setosa") ]
+
+let versicolorDatapoint =
+        Map.ofList
+            [ ("petal_length", "3.8")
+              ("petal_width", "1.1")
+              ("sepal_length", "5.5")
+              ("sepal_width", "2.4")
+              ("species", "versicolor") ]
+
+let virginicaDatapoint =
+        Map.ofList
+            [ ("petal_length", "6.0")
+              ("petal_width", "2.2")
+              ("sepal_length", "5.0")
+              ("sepal_width", "1.5")
+              ("species", "virginica") ]
+
+let dataset = Seq.ofList
+                [ setosaDatapoint
+                  versicolorDatapoint
+                  virginicaDatapoint ]
+                
+let dataPreprocessor = DataPreprocessor.init(
+                            [ ("sepal_length", false)
+                              ("sepal_width", false)
+                              ("petal_length", false)
+                              ("petal_width", false)
+                              ("species", true) ],
+                            dataset
+                       )
+
+let encodedDatapoints =
+        Seq.map (fun datapoint -> DataPreprocessor.encodedDatapoint(dataPreprocessor, datapoint))
+                dataset
+```
+
+Save and load the preprocessor by calling `DataPreprocessor.toJson` and `DataPreprocessor.ofJson`.
+
+## Evaluation
+
+To evaluate a neural network, you can call `Statistics.rootMeanSquareError` and provide the expected and predicted values.
+
+```javascript
+let expectedWithOutputValuesArr =
+        [ [ [ 0.0, 0.0, 1.0], [ 0.0, 0.0, 1.0] ],
+          [ [ 0.0, 0.0, 1.0], [ 0.0, 1.0, 1.0] ] ];
+
+let expectedWithOutputValuesIter = expectedWithOutputValuesArr[Symbol.iterator]();
+
+let rmse = Statistics.rootMeanSquareError(expectedWithOutputValuesIter);
+```
+
+```scala
+val expectedWithOutputValues =
+    LazyList(
+      (List(0.0, 0.0, 1.0), List(0.0, 0.0, 1.0)),
+      (List(0.0, 0.0, 1.0), List(0.0, 1.0, 1.0))
+    )
+
+val rmse = Statistics.rootMeanSquareError(expectedWithOutputValues)
+```
+
+```fsharp
+let expectedWithOutputValues =
+        Seq.ofList [ ( [ 0.0; 0.0; 1.0], [ 0.0; 0.0; 1.0] )
+                     ( [ 0.0; 0.0; 1.0], [ 0.0; 1.0; 1.0] ) ]
+
+let rmse = Statistics.rootMeanSquareError expectedWithOutputValues
+```
