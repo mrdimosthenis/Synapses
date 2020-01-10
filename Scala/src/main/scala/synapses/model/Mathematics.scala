@@ -1,4 +1,4 @@
-package synapses
+package synapses.model
 
 object Mathematics {
 

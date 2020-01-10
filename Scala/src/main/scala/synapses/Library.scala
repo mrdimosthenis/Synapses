@@ -1,5 +1,6 @@
 package synapses
 
+import synapses.model.Mathematics
 import synapses.model.encoding.{Preprocessor, Serialization}
 import synapses.model.netElems.Network.Network
 import synapses.model.netElems._

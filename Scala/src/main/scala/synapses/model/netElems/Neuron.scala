@@ -1,6 +1,6 @@
 package synapses.model.netElems
 
-import synapses.Mathematics
+import synapses.model.Mathematics
 import synapses.model.netElems.Activation.ActivationSerialized
 
 case class Neuron(activationF: Activation,
