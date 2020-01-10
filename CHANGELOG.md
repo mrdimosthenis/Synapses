@@ -1,4 +1,4 @@
-## [7.1.0]
+## [7.1.1]
 ### Added
 - Java interface, tests and slate docs.
 - C# interface, tests and slate docs.
