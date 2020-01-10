@@ -1,7 +1,7 @@
-module MathematicsTest
+module Model.MathematicsTest
 
 open FSharpx.Collections
-open Synapses
+open Synapses.Model
 open Xunit
 open FsUnit.Xunit
 
