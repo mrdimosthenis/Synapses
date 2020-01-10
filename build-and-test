@@ -24,11 +24,9 @@ sbt test
 cd ../../
 
 # build javascript file
-git apply facade-patches/scala-javascript.patch
-cd Scala
+cd ScalaJS
 sbt fullOptJS
 cd ../
-git apply -R facade-patches/scala-javascript.patch
 
 # run javascript tests
 cd test-projects/JavaScriptTest
