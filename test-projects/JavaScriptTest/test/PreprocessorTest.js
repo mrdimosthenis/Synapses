@@ -1,6 +1,6 @@
 const fs = require('fs');
 var assert = require('assert');
-require('../../../Scala/target/scala-2.13/synapses-opt.js');
+require('../../../ScalaJS/target/scala-2.13/synapses-opt.js');
 const csv = require('csv-parser');
 
 var datapointsArr = [];

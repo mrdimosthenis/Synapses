@@ -1,5 +1,5 @@
 var assert = require('assert');
-require('../../../Scala/target/scala-2.13/synapses-opt.js');
+require('../../../ScalaJS/target/scala-2.13/synapses-opt.js');
 
 describe('statistics tests', function () {
 
