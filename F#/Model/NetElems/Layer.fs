@@ -1,7 +1,7 @@
 module Synapses.Model.Layer
 
 open FSharpx.Collections
-open Synapses
+open Synapses.Model
 open Synapses.Model.NetElems
 open System.Text.Json.Serialization
 

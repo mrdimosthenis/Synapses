@@ -15,8 +15,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Utilities.fs" />
-        <Compile Include="Mathematics.fs" />
+        <Compile Include="Model\Utilities.fs" />
+        <Compile Include="Model\Mathematics.fs" />
         <Compile Include="Model\NetElems\Activation.fs" />
         <Compile Include="Model\NetElems\Neuron.fs" />
         <Compile Include="Model\NetElems\Layer.fs" />
