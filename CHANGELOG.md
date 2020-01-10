@@ -1,12 +1,11 @@
 ## [7.1.0]
 ### Added
-- Create and use patches for facades.
-- Automate the build and test projects for all languages.
-- Introduce `Statistics.rootMeanSquareError` in documentation and wright tests for it.
+- Java interface, tests and slate docs.
+- C# interface, tests and slate docs.
+- Implementation and test index in README.md
 
 ### Changed
-- Create and use slate docs instead of readme.
-- `Statistics.rootMeanSquareError` works with stream/seq of tuples.
+- JVM instances are deployed to maven.
 
 ### Removed
-- _Nothing has been removed._
+- Patches for facades.
