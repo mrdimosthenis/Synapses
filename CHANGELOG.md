@@ -6,7 +6,7 @@
 - Symlinks
 
 ### Changed
-- Namespaces of implementation
+- Namespaces of implementation.
 - JVM instances are deployed to maven.
 
 ### Removed
