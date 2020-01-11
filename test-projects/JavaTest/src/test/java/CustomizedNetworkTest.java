@@ -15,10 +15,10 @@ import static org.junit.Assert.assertEquals;
 
 public class CustomizedNetworkTest {
 
-    int[] layers = {4, 6, 5, 3};
-
     public CustomizedNetworkTest() throws IOException {
     }
+
+    int[] layers = {4, 6, 5, 3};
 
     Activation activationF(int layerIndex) {
         switch (layerIndex) {
@@ -32,8 +32,6 @@ public class CustomizedNetworkTest {
                 return ActivationFunction$.MODULE$.tanh();
         }
     }
-
-    ;
 
     Random rnd = new Random();
 
