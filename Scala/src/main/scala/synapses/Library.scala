@@ -157,7 +157,7 @@ object Library {
       val keysWithFlags = keysWithDiscreteFlags
         .to(LazyList)
         .map { obj =>
-          (obj(0).asInstanceOf[String], obj(0).asInstanceOf[Boolean])
+          (obj(0).asInstanceOf[String], obj(1).asInstanceOf[Boolean])
         }
       val scalaDatapoints = datapoints
         .toScala(LazyList)
