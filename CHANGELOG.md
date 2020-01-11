@@ -2,7 +2,7 @@
 ### Added
 - Java interface, tests and slate docs.
 - C# interface, tests and slate docs.
-- Implementation and test index in README.md
+- Implementation index, test index and interface tables in README.md
 - Symlinks
 
 ### Changed
