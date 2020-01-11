@@ -24,6 +24,11 @@
 /test-projects/ScalaTest/project/target/
 /test-projects/ScalaTest/target/
 
+/test-projects/JavaTest/.idea/
+/test-projects/JavaTest/project/project/
+/test-projects/JavaTest/project/target/
+/test-projects/JavaTest/target/
+
 /test-projects/F#Test/.idea/
 /test-projects/F#Test/bin/
 /test-projects/F#Test/obj/
