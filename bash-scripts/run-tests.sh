@@ -10,6 +10,7 @@ sbt test
 cd ../../
 
 cd test-projects/JavaScriptTest
+npm update
 npm test
 cd ../../
 

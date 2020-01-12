@@ -21,7 +21,7 @@ search: true
 
 ```javascript
 // run
-npm i synapses@7.1.1
+npm i synapses@7.1.0
 // in the directory of your node project
 ```
 
@@ -30,7 +30,7 @@ npm i synapses@7.1.1
 <dependency>
     <groupId>com.github.mrdimosthenis</groupId>
     <artifactId>synapses_2.13</artifactId>
-    <version>7.1.1</version>
+    <version>7.1.0</version>
 </dependency>
 // to pom.xml
 ```
