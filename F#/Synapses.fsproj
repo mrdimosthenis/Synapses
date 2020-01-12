@@ -10,13 +10,13 @@
         <PackageTags>neural-network;machine-learning;functional-programming</PackageTags>
         <OutputType>Library</OutputType>
         <license>MIT</license>
-        <PackageVersion>7.1.0</PackageVersion>
+        <PackageVersion>7.1.1</PackageVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Utilities.fs" />
-        <Compile Include="Mathematics.fs" />
+        <Compile Include="Model\Utilities.fs" />
+        <Compile Include="Model\Mathematics.fs" />
         <Compile Include="Model\NetElems\Activation.fs" />
         <Compile Include="Model\NetElems\Neuron.fs" />
         <Compile Include="Model\NetElems\Layer.fs" />

@@ -1,4 +1,4 @@
-module Synapses.Utilities
+module Synapses.Model.Utilities
 
 open FSharpx.Collections
 open System.Text.Json

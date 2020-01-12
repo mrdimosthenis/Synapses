@@ -1,4 +1,4 @@
-module Synapses.Mathematics
+module Synapses.Model.Mathematics
 
 open FSharpx.Collections
 

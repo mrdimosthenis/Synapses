@@ -10,11 +10,25 @@
 /Scala/project/project/
 /Scala/project/target/
 /Scala/Scala.iml
+/Scala/target/
+
+/ScalaJS/.idea/
+/ScalaJS/node_modules/
+/ScalaJS/project/project/
+/ScalaJS/project/target/
+/ScalaJS/Scala.iml
+/ScalaJS/target/
 
 /test-projects/ScalaTest/.idea/
 /test-projects/ScalaTest/project/project/
 /test-projects/ScalaTest/project/target/
 /test-projects/ScalaTest/target/
+
+/test-projects/JavaTest/.idea/
+/test-projects/JavaTest/project/project/
+/test-projects/JavaTest/project/target/
+/test-projects/JavaTest/target/
+/test-projects/JavaTest/JavaTest.iml
 
 /test-projects/F#Test/.idea/
 /test-projects/F#Test/bin/
@@ -23,11 +37,8 @@
 /test-projects/JavaScriptTest/.idea/
 /test-projects/JavaScriptTest/node_modules/
 
-/Scala/target/streams/
-/Scala/target/.history
-/Scala/target/scala-2.13/classes/
-/Scala/target/scala-2.13/resolution-cache/
-/Scala/target/scala-2.13/synapses-*
+/JavaScript/synapses-opt.js
+/JavaScript/README.md
 
 *.gem
 *.rbc

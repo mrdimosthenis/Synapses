@@ -3,6 +3,7 @@ title: Synapses
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
+  - java
   - scala
   - fsharp
 
@@ -24,17 +25,26 @@ npm i synapses@7.1.0
 // in the directory of your node project
 ```
 
+```java
+// add
+<dependency>
+    <groupId>com.github.mrdimosthenis</groupId>
+    <artifactId>synapses_2.13</artifactId>
+    <version>7.1.0</version>
+</dependency>
+// to pom.xml
+```
+
 ```scala
 // add
 libraryDependencies +=
-  "synapses" % "scala_2.13" % "7.1.0" from
-    """https://github.com/mrdimosthenis/Synapses/releases/download/7.1.0/synapses-assembly-7.1.0.jar"""
+  "com.github.mrdimosthenis" %% "synapses" % "7.1.1"
 // to build.sbt
 ```
 
 ```fsharp
 // run
-dotnet add package Synapses --version 7.1.0
+dotnet add package Synapses --version 7.1.1
 // in the directory of your project
 ```
 
@@ -48,6 +58,12 @@ Import `Synapses`, call `NeuralNetwork.init` and provide the size of each _layer
 require('synapses');
 let layers = [4, 6, 5, 3];
 let neuralNetwork = NeuralNetwork.init(layers);
+```
+
+```java
+import synapses.jvm.library.*;
+int[] layers = {4, 6, 5, 3};
+NeuralNetwork neuralNetwork = NeuralNetwork.init(layers);
 ```
 
 ```scala
@@ -71,6 +87,12 @@ There are 2 hidden layers with 6 and 5 neurons respectively.
 let inputValues = [1.0, 0.5625, 0.511111, 0.47619];
 let prediction =
         NeuralNetwork.prediction(neuralNetwork, inputValues);
+```
+
+```java
+double[] inputValues = {1.0, 0.5625, 0.511111, 0.47619};
+double[] prediction =
+    NeuralNetwork.prediction(neuralNetwork, inputValues);
 ```
 
 ```scala
@@ -98,11 +120,23 @@ let learningRate = 0.5;
 let expectedOutput = [0.0, 1.0, 0.0];
 let fitNetwork =
         NeuralNetwork.fit(
-                            neuralNetwork,
-                            learningRate,
-                            inputValues,
-                            expectedOutput
+            neuralNetwork,
+            learningRate,
+            inputValues,
+            expectedOutput
         );
+```
+
+```java
+double learningRate = 0.5;
+double[] expectedOutput = {0.0, 1.0, 0.0};
+NeuralNetwork fitNetwork =
+    NeuralNetwork.fit(
+        neuralNetwork,
+        learningRate,
+        inputValues,
+        expectedOutput
+    );
 ```
 
 ```scala
@@ -110,10 +144,10 @@ val learningRate = 0.5
 val expectedOutput = List(0.0, 1.0, 0.0)
 val fitNetwork =
         NeuralNetwork.fit(
-                            neuralNetwork,
-                            learningRate,
-                            inputValues,
-                            expectedOutpu
+            neuralNetwork,
+            learningRate,
+            inputValues,
+            expectedOutpu
         )
 ```
 
@@ -122,10 +156,10 @@ let learningRate = 0.5
 let expectedOutput = [0.0; 1.0; 0.0]
 let fitNetwork =
         NeuralNetwork.fit(
-                            neuralNetwork,
-                            learningRate,
-                            inputValues,
-                            expectedOutput
+            neuralNetwork,
+            learningRate,
+            inputValues,
+            expectedOutput
         )
 ```
 
@@ -158,10 +192,37 @@ function weightInitF(_layerIndex) {
 
 let customizedNetwork =
         NeuralNetwork.customizedInit(
-                                        layers,
-                                        activationF,
-                                        weightInitF
+            layers,
+            activationF,
+            weightInitF
         );
+```
+
+```java
+ActivationFunction activationF(int layerIndex) {
+    switch (layerIndex) {
+        case 0:
+            return ActivationFunction.sigmoid();
+        case 1:
+            return ActivationFunction.identity();
+        case 2:
+            return ActivationFunction.leakyReLU();
+        default:
+            return ActivationFunction.tanh();
+    }
+}
+
+double weightInitF(int _layerIndex) {
+    Random rnd = new Random();
+    return 1.0 - 2.0 * rnd.nextDouble();
+}
+
+NeuralNetwork customizedNetwork =
+    NeuralNetwork.customizedInit(
+        layers,
+        this::activationF,
+        this::weightInitF
+    );
 ```
 
 ```scala
@@ -178,9 +239,9 @@ def weightInitF(_layerIndex: Int): Double =
 
 val customizedNetwork =
         NeuralNetwork.customizedInit(
-                                      layers,
-                                      activationF,
-                                      weightInitF
+            layers,
+            activationF,
+            weightInitF
         )
 ```
 
@@ -198,9 +259,9 @@ let weightInitF (_layerIndex: int): float =
 
 let customizedNetwork =
         NeuralNetwork.customizedInit(
-                                        layers,
-                                        activationF,
-                                        weightInitF
+            layers,
+            activationF,
+            weightInitF
         )
 ```
 
@@ -219,6 +280,10 @@ Use it as you like. Save `json` in the file system or insert into a database tab
 let json = NeuralNetwork.toJson(customizedNetwork);
 ```
 
+```java
+String json = NeuralNetwork.toJson(customizedNetwork);
+```
+
 ```scala
 val json = NeuralNetwork.toJson(customizedNetwork)
 ```
@@ -231,6 +296,10 @@ let json = NeuralNetwork.toJson(customizedNetwork)
 
 ```javascript
 let loadedNetwork = NeuralNetwork.ofJson(json);
+```
+
+```java
+NeuralNetwork loadedNetwork = NeuralNetwork.ofJson(json);
 ```
 
 ```scala
@@ -284,16 +353,79 @@ let datasetIter = datasetArr[Symbol.iterator]();
                 
 let dataPreprocessor =
         DataPreprocessor.init(
-             [ ["sepal_length", false],
-               ["sepal_width", false],
-               ["petal_length", false],
+             [ ["petal_length", false],
                ["petal_width", false],
+               ["sepal_length", false],
+               ["sepal_width", false],
                ["species", true] ],
              datasetIter
         );
 
 let encodedDatapoints = datasetArr.map(x =>
         DataPreprocessor.encodedDatapoint(dataPreprocessor, x)
+);
+```
+
+```java
+Map<String, String> setosaDatapoint =
+        new HashMap<String, String>() {
+            {
+                put("petal_length", "1.5");
+                put("petal_width", "0.1");
+                put("sepal_length", "4.9");
+                put("sepal_width", "3.1");
+                put("species", "setosa");
+            }
+        };
+
+Map<String, String> versicolorDatapoint =
+        new HashMap<String, String>() {
+            {
+                put("petal_length", "3.8");
+                put("petal_width", "1.1");
+                put("sepal_length", "5.5");
+                put("sepal_width", "2.4");
+                put("species", "versicolor");
+            }
+        };
+
+Map<String, String> virginicaDatapoint =
+        new HashMap<String, String>() {
+            {
+                put("petal_length", "6.0");
+                put("petal_width", "2.2");
+                put("sepal_length", "5.0");
+                put("sepal_width", "1.5");
+                put("species", "virginica");
+            }
+        };
+
+Map[] datasetArr = {
+        setosaDatapoint,
+        versicolorDatapoint,
+        virginicaDatapoint
+};
+
+Stream datasetStream =
+        Arrays.stream(datasetArr);
+
+DataPreprocessor dataPreprocessor =
+        DataPreprocessor.init(
+                new Object[][]{
+                        {"petal_length", false},
+                        {"petal_width", false},
+                        {"sepal_length", false},
+                        {"sepal_width", false},
+                        {"species", true}
+                },
+                datasetStream
+        );
+
+Stream<double[]> encodedDatapoints = datasetStream.map(x ->
+    DataPreprocessor
+        .encodedDatapoint(
+            dataPreprocessor, (Map<String, String>) x
+        )
 );
 ```
 
@@ -330,10 +462,10 @@ val dataset = LazyList(
 
 val dataPreprocessor =
         DataPreprocessor.init(
-             List( ("sepal_length", false),
-                   ("sepal_width", false),
-                   ("petal_length", false),
+             List( ("petal_length", false),
                    ("petal_width", false),
+                   ("sepal_length", false),
+                   ("sepal_width", false),
                    ("species", true) ),
              dataset
         )
@@ -375,10 +507,10 @@ let dataset = Seq.ofList
                 
 let dataPreprocessor =
         DataPreprocessor.init(
-             [ ("sepal_length", false)
-               ("sepal_width", false)
-               ("petal_length", false)
+             [ ("petal_length", false)
                ("petal_width", false)
+               ("sepal_length", false)
+               ("sepal_width", false)
                ("species", true) ],
              dataset
         )
@@ -393,9 +525,9 @@ let encodedDatapoints =
 > `encodedDatapoints` equals to
 
 ```json
-[ [ 0.0     , 1.0     , 0.0     , 0.0     , 0.0; 0.0; 1.0 ],
-  [ 1.0     , 0.562500, 0.511111, 0.476190, 0.0; 1.0; 0.0 ],
-  [ 0.166667, 0.0     , 1.0     , 1.0     , 1.0; 0.0; 0.0 ] ]
+[ [ 0.0     , 0.0     , 0.0     , 1.0     , 0.0; 0.0; 1.0 ],
+  [ 0.511111, 0.476190, 1.0     , 0.562500, 0.0; 1.0; 0.0 ],
+  [ 1.0     , 1.0     , 0.166667, 0.0     , 1.0; 0.0; 0.0 ] ]
 ```
 
 Save and load the preprocessor by calling `DataPreprocessor.toJson` and `DataPreprocessor.ofJson`.
@@ -415,6 +547,19 @@ let expectedWithOutputValuesIter =
 let rmse = Statistics.rootMeanSquareError(
                         expectedWithOutputValuesIter
 );
+```
+
+```java
+double[][][] expectedWithOutputValuesArr = {
+        {{0.0, 0.0, 1.0}, {0.0, 0.0, 1.0}},
+        {{0.0, 0.0, 1.0}, {0.0, 1.0, 1.0}}
+};
+
+Stream<double[][]> expectedWithOutputValuesStream =
+    Arrays.stream(expectedWithOutputValuesArr);
+
+double rmse = Statistics
+    .rootMeanSquareError(expectedWithOutputValuesStream);
 ```
 
 ```scala

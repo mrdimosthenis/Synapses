@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "csv-parser": "^2.3.2"
+    "csv-parser": "^2.3.2",
+    "mocha": "^7.0.0",
+    "synapses": "^7.1.0"
   }
 }

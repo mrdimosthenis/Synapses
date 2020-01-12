@@ -1,3 +1,16 @@
+## [7.1.1]
+### Added
+- Java interface, tests and slate docs.
+- Symlinks
+
+### Changed
+- Namespaces of implementation.
+- JVM instances are deployed to maven.
+- Fix preprocessor example in slate.
+
+### Removed
+- Patches for facades.
+
 ## [7.1.0]
 ### Added
 - Create and use patches for facades.

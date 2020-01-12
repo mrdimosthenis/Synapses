@@ -1,7 +1,7 @@
 module Synapses.Model.Encoding.Preprocessor
 
 open FSharpx.Collections
-open Synapses
+open Synapses.Model
 open Synapses.Model.Encoding
 open Synapses.Model.Encoding.Discrete
 open Synapses.Model.Encoding.Continuous

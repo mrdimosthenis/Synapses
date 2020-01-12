@@ -1,5 +1,5 @@
 var assert = require('assert');
-require('../../../Scala/target/scala-2.13/synapses-opt.js');
+require('synapses');
 
 describe('seed network tests', function () {
 
