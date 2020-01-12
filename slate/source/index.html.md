@@ -21,7 +21,7 @@ search: true
 
 ```javascript
 // run
-npm i synapses@7.1.0
+npm i synapses@7.1.1
 // in the directory of your node project
 ```
 
@@ -30,7 +30,7 @@ npm i synapses@7.1.0
 <dependency>
     <groupId>com.github.mrdimosthenis</groupId>
     <artifactId>synapses_2.13</artifactId>
-    <version>7.1.0</version>
+    <version>7.1.1</version>
 </dependency>
 // to pom.xml
 ```
@@ -38,13 +38,13 @@ npm i synapses@7.1.0
 ```scala
 // add
 libraryDependencies +=
-  "com.github.mrdimosthenis" %% "synapses" % "7.1.0"
+  "com.github.mrdimosthenis" %% "synapses" % "7.1.1"
 // to build.sbt
 ```
 
 ```fsharp
 // run
-dotnet add package Synapses --version 7.1.0
+dotnet add package Synapses --version 7.1.1
 // in the directory of your project
 ```
 
