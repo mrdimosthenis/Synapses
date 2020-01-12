@@ -284,10 +284,10 @@ let datasetIter = datasetArr[Symbol.iterator]();
                 
 let dataPreprocessor =
         DataPreprocessor.init(
-             [ ["sepal_length", false],
-               ["sepal_width", false],
-               ["petal_length", false],
+             [ ["petal_length", false],
                ["petal_width", false],
+               ["sepal_length", false],
+               ["sepal_width", false],
                ["species", true] ],
              datasetIter
         );
@@ -330,10 +330,10 @@ val dataset = LazyList(
 
 val dataPreprocessor =
         DataPreprocessor.init(
-             List( ("sepal_length", false),
-                   ("sepal_width", false),
-                   ("petal_length", false),
+             List( ("petal_length", false),
                    ("petal_width", false),
+                   ("sepal_length", false),
+                   ("sepal_width", false),
                    ("species", true) ),
              dataset
         )
@@ -375,10 +375,10 @@ let dataset = Seq.ofList
                 
 let dataPreprocessor =
         DataPreprocessor.init(
-             [ ("sepal_length", false)
-               ("sepal_width", false)
-               ("petal_length", false)
+             [ ("petal_length", false)
                ("petal_width", false)
+               ("sepal_length", false)
+               ("sepal_width", false)
                ("species", true) ],
              dataset
         )
@@ -393,9 +393,9 @@ let encodedDatapoints =
 > `encodedDatapoints` equals to
 
 ```json
-[ [ 0.0     , 1.0     , 0.0     , 0.0     , 0.0; 0.0; 1.0 ],
-  [ 1.0     , 0.562500, 0.511111, 0.476190, 0.0; 1.0; 0.0 ],
-  [ 0.166667, 0.0     , 1.0     , 1.0     , 1.0; 0.0; 0.0 ] ]
+[ [ 0.0     , 0.0     , 0.0     , 1.0     , 0.0; 0.0; 1.0 ],
+  [ 0.511111, 0.476190, 1.0     , 0.562500, 0.0; 1.0; 0.0 ],
+  [ 1.0     , 1.0     , 0.166667, 0.0     , 1.0; 0.0; 0.0 ] ]
 ```
 
 Save and load the preprocessor by calling `DataPreprocessor.toJson` and `DataPreprocessor.ofJson`.
