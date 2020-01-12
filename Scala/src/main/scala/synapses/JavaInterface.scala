@@ -1,12 +1,10 @@
-package synapses.jvm
+package synapses
 
 import scala.jdk.StreamConverters._
 import scala.jdk.FunctionConverters._
 import scala.jdk.CollectionConverters._
 
-import synapses.Library
-
-object Interface {
+object JavaInterface {
 
   object NeuralNetwork {
 
@@ -105,12 +103,12 @@ object Interface {
       Library
         .DataPreprocessor
         .encodedDatapoint(dataPreprocessor, datapoint.asScala.toMap)
-      .toArray
+        .toArray
 
     def decodedDatapoint(dataPreprocessor: Library.DataPreprocessor,
                          encodedValues: Array[Double])
     : java.util.Map[String, String] =
-     Library
+      Library
         .DataPreprocessor
         .decodedDatapoint(dataPreprocessor, encodedValues.toList)
         .asJava
