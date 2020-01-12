@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-import synapses.Library.*;
+import synapses.jvm.library.*;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -20,7 +20,7 @@ public class StatisticsTest {
     public void neuralNetworkPrediction() {
         assertEquals(
                 0.7071067811865476,
-                Statistics$.MODULE$.rootMeanSquareError(expectedWithOutputValuesStream),
+                Statistics.rootMeanSquareError(expectedWithOutputValuesStream),
                 0.0);
     }
 

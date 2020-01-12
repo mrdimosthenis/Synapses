@@ -1,13 +1,6 @@
 import org.junit.Test;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import scala.collection.immutable.LazyList;
-
-import synapses.Library.*;
+import synapses.jvm.library.*;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,6 +10,11 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.*;
 import java.util.stream.StreamSupport;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -44,13 +42,9 @@ public class PreprocessorTest {
     Object[][] keysWithDiscreteFlags = ArrayUtils
             .addAll(new Object[][]{{"label", true}}, pixelKeysWithFlags);
 
-    LazyList justCreatedPreprocessor = DataPreprocessor$
-            .MODULE$
-            .init(keysWithDiscreteFlags, datapointsStream);
+    DataPreprocessor justCreatedPreprocessor = DataPreprocessor.init(keysWithDiscreteFlags, datapointsStream);
 
-    String justCreatedPreprocessorJson = DataPreprocessor$
-            .MODULE$
-            .toJson(justCreatedPreprocessor);
+    String justCreatedPreprocessorJson = DataPreprocessor.toJson(justCreatedPreprocessor);
 
     @Test
     public void justCreatedPreprocessorJson() {
@@ -65,16 +59,16 @@ public class PreprocessorTest {
 
     @Test
     public void justCreatedPreprocessorToOfJson() {
-        LazyList preprocessorJson = DataPreprocessor$.MODULE$.ofJson(justCreatedPreprocessorJson);
+        DataPreprocessor preprocessorJson = DataPreprocessor.ofJson(justCreatedPreprocessorJson);
         assertEquals(
                 justCreatedPreprocessorJson,
-                DataPreprocessor$.MODULE$.toJson(preprocessorJson)
+                DataPreprocessor.toJson(preprocessorJson)
         );
     }
 
     String preprocessorData = Files.readString(Paths.get("../resources/preprocessor.json"));
 
-    LazyList preprocessor = DataPreprocessor$.MODULE$.ofJson(preprocessorData);
+    DataPreprocessor preprocessor = DataPreprocessor.ofJson(preprocessorData);
 
     Reader newDatapointsReader = new FileReader("../resources/mnist.csv");
     Iterable<CSVRecord> newDatapointsRecords = CSVFormat
@@ -87,9 +81,7 @@ public class PreprocessorTest {
             .next()
             .toMap();
 
-    double[] firstEncodedDatapoint = DataPreprocessor$
-            .MODULE$
-            .encodedDatapoint(preprocessor, firstDatapoint);
+    double[] firstEncodedDatapoint = DataPreprocessor.encodedDatapoint(preprocessor, firstDatapoint);
 
     @Test
     public void firstEncodedDatapoint() {
@@ -101,9 +93,7 @@ public class PreprocessorTest {
         );
     }
 
-    Map firstDecodedDatapoint = DataPreprocessor$
-            .MODULE$
-            .decodedDatapoint(preprocessor, firstEncodedDatapoint);
+    Map firstDecodedDatapoint = DataPreprocessor.decodedDatapoint(preprocessor, firstEncodedDatapoint);
 
     Map<String, String> firstDecodedDatapointTreeMap = new TreeMap<>(firstDecodedDatapoint);
 

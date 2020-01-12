@@ -1,9 +1,6 @@
 import org.junit.Test;
 
-import scala.collection.immutable.LazyList;
-
-import synapses.Library.*;
-import synapses.model.netElems.Activation;
+import synapses.jvm.library.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,16 +17,16 @@ public class CustomizedNetworkTest {
 
     int[] layers = {4, 6, 5, 3};
 
-    Activation activationF(int layerIndex) {
+    ActivationFunction activationF(int layerIndex) {
         switch (layerIndex) {
             case 0:
-                return ActivationFunction$.MODULE$.sigmoid();
+                return ActivationFunction.sigmoid();
             case 1:
-                return ActivationFunction$.MODULE$.identity();
+                return ActivationFunction.identity();
             case 2:
-                return ActivationFunction$.MODULE$.leakyReLU();
+                return ActivationFunction.leakyReLU();
             default:
-                return ActivationFunction$.MODULE$.tanh();
+                return ActivationFunction.tanh();
         }
     }
 
@@ -39,32 +36,32 @@ public class CustomizedNetworkTest {
         return 1.0 - 2.0 * rnd.nextDouble();
     }
 
-    LazyList justCreatedNeuralNetwork = NeuralNetwork$.MODULE$.customizedInit(
+    NeuralNetwork justCreatedNeuralNetwork = NeuralNetwork.customizedInit(
             layers,
             this::activationF,
             this::weightInitF
     );
 
-    String justCreatedNeuralNetworkJson = NeuralNetwork$.MODULE$.toJson(justCreatedNeuralNetwork);
+    String justCreatedNeuralNetworkJson = NeuralNetwork.toJson(justCreatedNeuralNetwork);
 
     @Test
     public void neuralNetworkOfToJson() {
-        LazyList netJson = NeuralNetwork$.MODULE$.ofJson(justCreatedNeuralNetworkJson);
+        NeuralNetwork netJson = NeuralNetwork.ofJson(justCreatedNeuralNetworkJson);
         assertEquals(
                 justCreatedNeuralNetworkJson,
-                NeuralNetwork$.MODULE$.toJson(netJson)
+                NeuralNetwork.toJson(netJson)
         );
     }
 
     String neuralNetworkJson = Files.readString(Paths.get("../resources/network.json"));
 
-    LazyList neuralNetwork = NeuralNetwork$.MODULE$.ofJson(neuralNetworkJson);
+    NeuralNetwork neuralNetwork = NeuralNetwork.ofJson(neuralNetworkJson);
 
     double[] inputValues = {1.0, 0.5625, 0.511111, 0.47619};
 
     double[] expectedOutput = {0.4, 0.05, 0.2};
 
-    double[] prediction = NeuralNetwork$.MODULE$.prediction(neuralNetwork, inputValues);
+    double[] prediction = NeuralNetwork.prediction(neuralNetwork, inputValues);
 
     @Test
     public void neuralNetworkPrediction() {
@@ -83,7 +80,7 @@ public class CustomizedNetworkTest {
         double[] expected = {-0.18229373795952453, -0.10254022760223255, -0.09317233470223055, -0.086806455078946};
         assertArrayEquals(
                 expected,
-                NeuralNetwork$.MODULE$.errors(neuralNetwork, learningRate, inputValues, expectedOutput),
+                NeuralNetwork.errors(neuralNetwork, learningRate, inputValues, expectedOutput),
                 0.0
         );
     }
@@ -93,12 +90,12 @@ public class CustomizedNetworkTest {
         double[] expected = {0, 0, 0, 0};
         assertArrayEquals(
                 expected,
-                NeuralNetwork$.MODULE$.errors(neuralNetwork, learningRate, inputValues, prediction),
+                NeuralNetwork.errors(neuralNetwork, learningRate, inputValues, prediction),
                 0.0
         );
     }
 
-    LazyList fitNeuralNetwork = NeuralNetwork$.MODULE$.fit(
+    NeuralNetwork fitNeuralNetwork = NeuralNetwork.fit(
             neuralNetwork,
             learningRate,
             inputValues,
@@ -110,7 +107,7 @@ public class CustomizedNetworkTest {
         double[] expected = {-0.006109464554743645, -0.1770428172237149, 0.6087944183600162};
         assertArrayEquals(
                 expected,
-                NeuralNetwork$.MODULE$.prediction(fitNeuralNetwork, inputValues),
+                NeuralNetwork.prediction(fitNeuralNetwork, inputValues),
                 0.0
         );
     }
