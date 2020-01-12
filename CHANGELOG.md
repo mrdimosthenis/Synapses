@@ -8,6 +8,7 @@
 ### Changed
 - Namespaces of implementation.
 - JVM instances are deployed to maven.
+- Fix preprocessor example in slate.
 
 ### Removed
 - Patches for facades.
