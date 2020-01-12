@@ -1,6 +1,6 @@
 const fs = require('fs');
 var assert = require('assert');
-require('../../../ScalaJS/target/scala-2.13/synapses-opt.js');
+require('synapses');
 
 var seed = 1;
 
