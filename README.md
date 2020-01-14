@@ -2,7 +2,9 @@
 
 A lightweight **Neural Network** library, for **js**, **jvm** and **.net**.
 
-**Documentation**: https://mrdimosthenis.github.io/Synapses
+## Documentation
+
+**https://mrdimosthenis.github.io/Synapses**
 
 The interface of the library is common across programming languages.
 Take a look at the functions:
@@ -105,3 +107,10 @@ JavaScript                       | `iterable`                               | `n
 Java                             | `Stream<double[][]>`                     | `double`
 Scala                            | `LazyList[(List[Double], List[Double])]` | `Double`
 F#                               | `seq<List<float> * List<float>>`         | `float`
+
+## Tests
+
+* [JavaScript](test-projects%2FJavaScriptTest%2Ftest)
+* [Java](test-projects%2FJavaTest%2Fsrc%2Ftest%2Fjava)
+* [Scala](test-projects%2FScalaTest%2Fsrc%2Ftest%2Fscala)
+* [F#](test-projects%2FF%23Test)
