@@ -7,7 +7,7 @@ A lightweight **Neural Network** library, for **js**, **jvm** and **.net**.
 The interface of the library is common across programming languages.
 Take a look at the functions:
 
-##### Neural Network
+##### Create a Neural Network
 
 `NeuralNetwork.init` | param1: `layers` | _returns_
 ---                  | ---              | ---
@@ -16,12 +16,14 @@ Java                 | `int[]`          | `NeuralNetwork`
 Scala                | `List[Int]`      | `NeuralNetwork`
 F#                   | `List<int>`      | `NeuralNetwork`
 
-`NeuralNetwork.prediction` | param1: `neuralNetwork` | param2: `inputValues` | _returns_
----                        | ---                     | ---                   | ---
-JavaScript                 | `NeuralNetwork`         | `number[]`            | `number[]`
-Java                       | `NeuralNetwork`         | `double[]`            | `double[]`
-Scala                      | `NeuralNetwork`         | `List[Double]`        | `List[Double]`
-F#                         | `NeuralNetwork`         | `List<float>`         | `List<float>`
+`NeuralNetwork.customizedInit` | param1: `layers` | param2: `activationF`             | param3: `weightInitF` | _returns_
+---                            | ---              | ---                               | ---                   | ---
+JavaScript                     | `number[]`       | `(number) => ActivationFunction`  | `(number) => number`  | `NeuralNetwork`
+Java                           | `int[]`          | `IntFunction<ActivationFunction>` | `IntFunction<Double>` | `NeuralNetwork`
+Scala                          | `List[Int]`      | `Int => ActivationFunction`       | `Int => Double`       | `NeuralNetwork`
+F#                             | `List<int>`      | `int -> ActivationFunction`       | `int -> float`        | `NeuralNetwork`
+
+##### Train a Neural Network
 
 `NeuralNetwork.fit` | param1: `neuralNetwork` | param2: `learningRate` | param3: `inputValues` | param4: `expectedOutput` | _returns_
 ---                 | ---                     | ---                    | ---                   | ---                      | ---
@@ -30,14 +32,31 @@ Java                | `NeuralNetwork`         | `double`               | `double
 Scala               | `NeuralNetwork`         | `Double`               | `List[Double]`        | `List[Double]`           | `NeuralNetwork`
 F#                  | `NeuralNetwork`         | `float`                | `List<float>`         | `List<float>`            | `NeuralNetwork`
 
-`NeuralNetwork.customizedInit` | param1: `layers` | param2: `activationF`             | param3: `weightInitF` | _returns_
----                            | ---              | ---                               | ---                   | ---
-JavaScript                     | `number[]`       | `(number) => ActivationFunction`  | `(number) => number`  | `NeuralNetwork`
-Java                           | `int[]`          | `IntFunction<ActivationFunction>` | `IntFunction<Double>` | `NeuralNetwork`
-Scala                          | `List[Int]`      | `Int => ActivationFunction`       | `Int => Double`       | `NeuralNetwork`
-F#                             | `List<int>`      | `int -> ActivationFunction`       | `int -> float`        | `NeuralNetwork`
 
-##### Data Preprocessor
+`NeuralNetwork.prediction` | param1: `neuralNetwork` | param2: `inputValues` | _returns_
+---                        | ---                     | ---                   | ---
+JavaScript                 | `NeuralNetwork`         | `number[]`            | `number[]`
+Java                       | `NeuralNetwork`         | `double[]`            | `double[]`
+Scala                      | `NeuralNetwork`         | `List[Double]`        | `List[Double]`
+F#                         | `NeuralNetwork`         | `List<float>`         | `List<float>`
+
+##### Convert a Neural Network
+
+`NeuralNetwork.toJson` | param1: `neuralNetwork` | _returns_
+---                    | ---                     | ---
+JavaScript             | `NeuralNetwork`         | `string`
+Java                   | `NeuralNetwork`         | `String`
+Scala                  | `NeuralNetwork`         | `String`
+F#                     | `NeuralNetwork`         | `string`
+
+`NeuralNetwork.ofJson` | param1: `json` | _returns_
+---                    | ---            | ---
+JavaScript             | `string`       | `NeuralNetwork`
+Java                   | `String`       | `NeuralNetwork`
+Scala                  | `String`       | `NeuralNetwork`
+F#                     | `string`       | `NeuralNetwork`
+
+##### Create a Data Preprocessor
 
 `DataPreprocessor.init` | param1: `keysWithDiscreteFlags` | param2: `datapoints`            | _returns_
 ---                     | ---                             | ---                             | ---
@@ -45,6 +64,8 @@ JavaScript              | `any[][]`                       | `iterable`          
 Java                    | `Object[][]`                    | `Stream<Map<String,String>>`    | `DataPreprocessor`
 Scala                   | `List[(String, Boolean)]`       | `LazyList[Map[String, String]]` | `DataPreprocessor`
 F#                      | `List<string * bool>`           | `seq<Map<string, string>>`      | `DataPreprocessor`
+
+##### Encode with a Data Preprocessor
 
 `DataPreprocessor.encodedDatapoint` | param1: `dataPreprocessor` | param2: `datapoint`   | _returns_
 ---                                 | ---                        | ---                   | ---
@@ -60,7 +81,23 @@ Java                                | `DataPreprocessor`         | `double[]`   
 Scala                               | `DataPreprocessor`         | `List[Double]`             | `Map[String, String]`
 F#                                  | `DataPreprocessor`         | `List<float>`              | `Map<string, string>`
 
-##### Statistics
+##### Convert a Data Preprocessor
+
+`DataPreprocessor.toJson` | param1: `dataPreprocessor` | _returns_
+---                       | ---                     | ---
+JavaScript                | `DataPreprocessor`         | `string`
+Java                      | `DataPreprocessor`         | `String`
+Scala                     | `DataPreprocessor`         | `String`
+F#                        | `DataPreprocessor`         | `string`
+
+`DataPreprocessor.ofJson` | param1: `json` | _returns_
+---                       | ---            | ---
+JavaScript                | `string`       | `DataPreprocessor`
+Java                      | `String`       | `DataPreprocessor`
+Scala                     | `String`       | `DataPreprocessor`
+F#                        | `string`       | `DataPreprocessor`
+
+##### Calculate the Root Mean Square Error
 
 `Statistics.rootMeanSquareError` | param1: `expectedWithOutputValues`       | _returns_
 ---                              | ---                                      | ---
