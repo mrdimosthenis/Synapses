@@ -9,7 +9,7 @@ A lightweight **Neural Network** library, for **js**, **jvm** and **.net**.
 The interface of the library is common across programming languages.
 Take a look at the functions:
 
-##### Create a Neural Network
+### Create a Neural Network
 
 `NeuralNetwork.init` | param1: `layers` | _returns_
 ---                  | ---              | ---
@@ -25,7 +25,7 @@ Java                           | `int[]`          | `IntFunction<ActivationFunct
 Scala                          | `List[Int]`      | `Int => ActivationFunction`       | `Int => Double`       | `NeuralNetwork`
 F#                             | `List<int>`      | `int -> ActivationFunction`       | `int -> float`        | `NeuralNetwork`
 
-##### Train a Neural Network
+### Train a Neural Network
 
 `NeuralNetwork.fit` | param1: `neuralNetwork` | param2: `learningRate` | param3: `inputValues` | param4: `expectedOutput` | _returns_
 ---                 | ---                     | ---                    | ---                   | ---                      | ---
@@ -42,7 +42,7 @@ Java                       | `NeuralNetwork`         | `double[]`            | `
 Scala                      | `NeuralNetwork`         | `List[Double]`        | `List[Double]`
 F#                         | `NeuralNetwork`         | `List<float>`         | `List<float>`
 
-##### Convert a Neural Network
+### Convert a Neural Network
 
 `NeuralNetwork.toJson` | param1: `neuralNetwork` | _returns_
 ---                    | ---                     | ---
@@ -58,7 +58,7 @@ Java                   | `String`       | `NeuralNetwork`
 Scala                  | `String`       | `NeuralNetwork`
 F#                     | `string`       | `NeuralNetwork`
 
-##### Create a Data Preprocessor
+### Create a Data Preprocessor
 
 `DataPreprocessor.init` | param1: `keysWithDiscreteFlags` | param2: `datapoints`            | _returns_
 ---                     | ---                             | ---                             | ---
@@ -67,7 +67,7 @@ Java                    | `Object[][]`                    | `Stream<Map<String,S
 Scala                   | `List[(String, Boolean)]`       | `LazyList[Map[String, String]]` | `DataPreprocessor`
 F#                      | `List<string * bool>`           | `seq<Map<string, string>>`      | `DataPreprocessor`
 
-##### Encode with a Data Preprocessor
+### Encode with a Data Preprocessor
 
 `DataPreprocessor.encodedDatapoint` | param1: `dataPreprocessor` | param2: `datapoint`   | _returns_
 ---                                 | ---                        | ---                   | ---
@@ -83,7 +83,7 @@ Java                                | `DataPreprocessor`         | `double[]`   
 Scala                               | `DataPreprocessor`         | `List[Double]`             | `Map[String, String]`
 F#                                  | `DataPreprocessor`         | `List<float>`              | `Map<string, string>`
 
-##### Convert a Data Preprocessor
+### Convert a Data Preprocessor
 
 `DataPreprocessor.toJson` | param1: `dataPreprocessor` | _returns_
 ---                       | ---                     | ---
@@ -99,7 +99,7 @@ Java                      | `String`       | `DataPreprocessor`
 Scala                     | `String`       | `DataPreprocessor`
 F#                        | `string`       | `DataPreprocessor`
 
-##### Calculate the Root Mean Square Error
+### Calculate the Root Mean Square Error
 
 `Statistics.rootMeanSquareError` | param1: `expectedWithOutputValues`       | _returns_
 ---                              | ---                                      | ---
