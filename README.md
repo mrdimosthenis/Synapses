@@ -7,7 +7,6 @@ A lightweight **Neural Network** library, for **js**, **jvm** and **.net**.
 **https://mrdimosthenis.github.io/Synapses**
 
 The interface of the library is common across programming languages.
-Take a look at the functions:
 
 ### Create a Neural Network
 
@@ -114,3 +113,16 @@ F#                               | `seq<List<float> * List<float>>`         | `f
 * [Java](test-projects%2FJavaTest%2Fsrc%2Ftest%2Fjava)
 * [Scala](test-projects%2FScalaTest%2Fsrc%2Ftest%2Fscala)
 * [F#](test-projects%2FF%23Test)
+
+## Implementation
+
+* [JavaScript](ScalaJS%2Fsrc%2Fmain%2Fscala%2Fsynapses%2FLibrary.scala) - built with [Scala.js](https://www.scala-js.org/)
+* [Java](Scala%2Fsrc%2Fmain%2Fjava%2Fsynapses%2Fjvm%2Flibrary) - Scala interoperability
+* [Scala](Scala%2Fsrc%2Fmain%2Fscala%2Fsynapses%2Fmodel)
+* [F#](F%23%2FModel)
+
+## Dependencies
+
+* [circe](https://github.com/circe/circe)
+* [FSharpx.Collections](https://github.com/fsprojects/FSharpx.Collections)
+* [FSharp.SystemTextJson](https://github.com/Tarmil/FSharp.SystemTextJson)
