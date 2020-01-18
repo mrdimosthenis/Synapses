@@ -27,10 +27,6 @@
         <Compile Include="Model\Encoding\Continuous.fs" />
         <Compile Include="Model\Encoding\Preprocessor.fs" />
         <Compile Include="Library.fs" />
-        <Compile Include="net\ActivationFunction.cs" />
-        <Compile Include="net\NeuralNetwork.cs" />
-        <Compile Include="net\DataPreprocessor.cs" />
-        <Compile Include="net\Statistics.cs" />
         <Content Include="LICENSE" />
     </ItemGroup>
 
