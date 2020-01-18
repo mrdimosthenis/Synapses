@@ -9,7 +9,7 @@ namespace Synapses.net
 {
     public class DataPreprocessor
     {
-        LazyList<Preprocessor.Attribute> contents;
+        readonly LazyList<Preprocessor.Attribute> contents;
 
         public DataPreprocessor(LazyList<Preprocessor.Attribute> _contents)
         {

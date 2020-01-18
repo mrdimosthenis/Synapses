@@ -28,6 +28,7 @@
         <Compile Include="net\ActivationFunction.cs" />
         <Compile Include="net\NeuralNetwork.cs" />
         <Compile Include="net\DataPreprocessor.cs" />
+        <Compile Include="net\Statistics.cs" />
         <Content Include="LICENSE" />
     </ItemGroup>
 
