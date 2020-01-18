@@ -11,24 +11,32 @@ public class ActivationFunction {
         contents = _contents;
     }
 
-    public static ActivationFunction sigmoid() {
-        Activation _contents = Library.ActivationFunction$.MODULE$.sigmoid();
-        return new ActivationFunction(_contents);
-    }
+    public static ActivationFunction sigmoid =
+            new ActivationFunction(
+                    Library.ActivationFunction$
+                            .MODULE$
+                            .sigmoid()
+            );
 
-    public static ActivationFunction identity() {
-        Activation _contents = Library.ActivationFunction$.MODULE$.identity();
-        return new ActivationFunction(_contents);
-    }
+    public static ActivationFunction identity =
+            new ActivationFunction(
+                    Library.ActivationFunction$
+                            .MODULE$
+                            .identity()
+            );
 
-    public static ActivationFunction tanh() {
-        Activation _contents = Library.ActivationFunction$.MODULE$.tanh();
-        return new ActivationFunction(_contents);
-    }
+    public static ActivationFunction tanh =
+            new ActivationFunction(
+                    Library.ActivationFunction$
+                            .MODULE$
+                            .tanh()
+            );
 
-    public static ActivationFunction leakyReLU() {
-        Activation _contents = Library.ActivationFunction$.MODULE$.leakyReLU();
-        return new ActivationFunction(_contents);
-    }
+    public static ActivationFunction leakyReLU =
+            new ActivationFunction(
+                    Library.ActivationFunction$
+                            .MODULE$
+                            .leakyReLU()
+            );
 
 }
