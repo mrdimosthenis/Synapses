@@ -78,11 +78,11 @@ namespace Synapses.net
             return new NeuralNetwork(_contents);
         }
         
-        public static String ToJson(NeuralNetwork network){
+        public static string ToJson(NeuralNetwork network){
             return NeuralNetworkModule.toJson(network.contents);
         }
         
-        public static NeuralNetwork OfJson(String json){
+        public static NeuralNetwork OfJson(string json){
             LazyList<LazyList<Model.Neuron.Neuron>> _contents = NeuralNetworkModule.ofJson(json);
             return new NeuralNetwork(_contents);
         }
