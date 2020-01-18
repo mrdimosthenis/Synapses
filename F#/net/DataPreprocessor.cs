@@ -4,7 +4,6 @@ using System.Linq;
 using FSharpx.Collections;
 using Microsoft.FSharp.Collections;
 using Synapses.Model.Encoding;
-using static Synapses.DataPreprocessor;
 
 namespace Synapses.net
 {
