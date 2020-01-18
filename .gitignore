@@ -5,6 +5,11 @@
 /F#/obj/
 /F#/nuget.config
 
+/CSharp/.idea/
+/CSharp/bin/
+/CSharp/obj/
+/CSharp/nuget.config
+
 /Scala/.idea/
 /Scala/node_modules/
 /Scala/project/project/

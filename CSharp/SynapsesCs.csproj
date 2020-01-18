@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>SynapsesCs</Title>
+        <Authors>Dimosthenis Michailidis</Authors>
+        <Description>A lightweight Neural Network library, for js, jvm and .net</Description>
+        <RepositoryUrl>https://github.com/mrdimosthenis/Synapses</RepositoryUrl>
+        <PackageTags>neural-network;machine-learning;functional-programming</PackageTags>
+        <OutputType>Library</OutputType>
+        <license>MIT</license>
+        <PackageVersion>7.1.1</PackageVersion>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageProjectUrl>https://mrdimosthenis.github.io/Synapses</PackageProjectUrl>
+        <PackageLicenseUrl>https://rem.mit-license.org/</PackageLicenseUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FSharpx.Collections" Version="2.1.1" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynapsesCs", "SynapsesCs.csproj", "{B41AF9FD-A0C1-493D-954E-ED0C1EC5742B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B41AF9FD-A0C1-493D-954E-ED0C1EC5742B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B41AF9FD-A0C1-493D-954E-ED0C1EC5742B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41AF9FD-A0C1-493D-954E-ED0C1EC5742B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B41AF9FD-A0C1-493D-954E-ED0C1EC5742B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
