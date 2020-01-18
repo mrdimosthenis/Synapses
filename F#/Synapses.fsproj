@@ -10,8 +10,10 @@
         <PackageTags>neural-network;machine-learning;functional-programming</PackageTags>
         <OutputType>Library</OutputType>
         <license>MIT</license>
-        <PackageVersion>7.1.1</PackageVersion>
+        <PackageVersion>7.1.2</PackageVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageProjectUrl>https://mrdimosthenis.github.io/Synapses</PackageProjectUrl>
+        <PackageLicenseUrl>https://rem.mit-license.org/</PackageLicenseUrl>
     </PropertyGroup>
 
     <ItemGroup>
