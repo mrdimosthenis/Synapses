@@ -16,7 +16,7 @@ namespace Synapses.net
             contents = _contents;
         }
 
-        public static DataPreprocessor Init(
+        public static DataPreprocessor init(
             (string, bool)[] keysWithDiscreteFlags,
             IEnumerable<Dictionary<string, string>> datapoints)
         {
@@ -37,7 +37,7 @@ namespace Synapses.net
             return new DataPreprocessor(_contents);
         }
 
-        public static double[] EncodedDatapoint(
+        public static double[] encodedDatapoint(
             DataPreprocessor dataPreprocessor,
             Dictionary<String, String> datapoint)
         {
@@ -50,7 +50,7 @@ namespace Synapses.net
                 .ToArray();
         }
 
-        public static Dictionary<String, String> DecodedDatapoint(
+        public static Dictionary<String, String> decodedDatapoint(
             DataPreprocessor dataPreprocessor,
             double[] encodedValues)
         {
@@ -60,12 +60,12 @@ namespace Synapses.net
                 .ToDictionary(x => x.Key, x => x.Value);
         }
 
-        public static String ToJson(DataPreprocessor dataPreprocessor)
+        public static String toJson(DataPreprocessor dataPreprocessor)
         {
             return DataPreprocessorModule.toJson(dataPreprocessor.contents);
         }
 
-        public static DataPreprocessor OfJson(String json)
+        public static DataPreprocessor ofJson(String json)
         {
             LazyList<Preprocessor.Attribute> _contents = DataPreprocessorModule.ofJson(json);
             return new DataPreprocessor(_contents);

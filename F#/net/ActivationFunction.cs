@@ -11,28 +11,16 @@ namespace Synapses.net
             contents = _contents;
         }
 
-        public static ActivationFunction Sigmoid()
-        {
-            Function _contents = ActivationFunctionModule.sigmoid;
-            return new ActivationFunction(_contents);
-        }
+        public static ActivationFunction sigmoid =
+            new ActivationFunction(ActivationFunctionModule.sigmoid);
 
-        public static ActivationFunction Identity()
-        {
-            Function _contents = ActivationFunctionModule.identity;
-            return new ActivationFunction(_contents);
-        }
+        public static ActivationFunction identity =
+            new ActivationFunction(ActivationFunctionModule.identity);
 
-        public static ActivationFunction Tanh()
-        {
-            Function _contents = ActivationFunctionModule.tanh;
-            return new ActivationFunction(_contents);
-        }
+        public static ActivationFunction tanh =
+            new ActivationFunction(ActivationFunctionModule.tanh);
 
-        public static ActivationFunction LeakyReLu()
-        {
-            Function _contents = ActivationFunctionModule.leakyReLU;
-            return new ActivationFunction(_contents);
-        }
+        public static ActivationFunction leakyReLU =
+            new ActivationFunction(ActivationFunctionModule.leakyReLU);
     }
 }
