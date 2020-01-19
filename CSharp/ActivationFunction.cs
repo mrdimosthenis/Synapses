@@ -1,3 +1,4 @@
+using Synapses;
 using static Synapses.Model.NetElems.Activation;
 
 namespace SynapsesCs

@@ -13,11 +13,17 @@
         <PackageVersion>7.1.1</PackageVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageProjectUrl>https://mrdimosthenis.github.io/Synapses</PackageProjectUrl>
-        <PackageLicenseUrl>https://rem.mit-license.org/</PackageLicenseUrl>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="FSharp.Core" Version="4.7.0" />
         <PackageReference Include="FSharpx.Collections" Version="2.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Synapses, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\F#\bin\Release\netstandard2.0\Synapses.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

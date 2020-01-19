@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FSharpx.Collections;
 using Microsoft.FSharp.Collections;
+using Synapses;
 using Synapses.Model.Encoding;
 
 namespace SynapsesCs
