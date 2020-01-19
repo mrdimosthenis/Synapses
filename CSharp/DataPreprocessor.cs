@@ -6,7 +6,7 @@ using Microsoft.FSharp.Collections;
 using Synapses;
 using Synapses.Model.Encoding;
 
-namespace SynapsesCs
+namespace SynapsesCSharp
 {
     public class DataPreprocessor
     {

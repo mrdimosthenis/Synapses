@@ -3,7 +3,7 @@
     <PropertyGroup>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>SynapsesCs</Title>
+        <Title>SynapsesCSharp</Title>
         <Authors>Dimosthenis Michailidis</Authors>
         <Description>A lightweight Neural Network library, for js, jvm and .net</Description>
         <RepositoryUrl>https://github.com/mrdimosthenis/Synapses</RepositoryUrl>

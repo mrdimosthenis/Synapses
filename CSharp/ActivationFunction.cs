@@ -1,7 +1,7 @@
 using Synapses;
 using static Synapses.Model.NetElems.Activation;
 
-namespace SynapsesCs
+namespace SynapsesCSharp
 {
     public class ActivationFunction
     {

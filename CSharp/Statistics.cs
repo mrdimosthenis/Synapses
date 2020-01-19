@@ -4,7 +4,7 @@ using System.Linq;
 using FSharpx.Collections;
 using Microsoft.FSharp.Collections;
 
-namespace SynapsesCs
+namespace SynapsesCSharp
 {
     public class Statistics
     {

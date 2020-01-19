@@ -7,7 +7,7 @@ using Synapses;
 using Synapses.Model;
 using Synapses.Model.NetElems;
 
-namespace SynapsesCs
+namespace SynapsesCSharp
 {
     public class NeuralNetwork
     {
