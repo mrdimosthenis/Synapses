@@ -20,13 +20,13 @@ public class CustomizedNetworkTest {
     ActivationFunction activationF(int layerIndex) {
         switch (layerIndex) {
             case 0:
-                return ActivationFunction.sigmoid();
+                return ActivationFunction.sigmoid;
             case 1:
-                return ActivationFunction.identity();
+                return ActivationFunction.identity;
             case 2:
-                return ActivationFunction.leakyReLU();
+                return ActivationFunction.leakyReLU;
             default:
-                return ActivationFunction.tanh();
+                return ActivationFunction.tanh;
         }
     }
 

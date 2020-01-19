@@ -5,6 +5,11 @@ dotnet restore
 dotnet test
 cd ../../
 
+cd test-projects/CSharpTest
+dotnet restore
+dotnet test
+cd ../../
+
 cd test-projects/ScalaTest
 sbt test
 cd ../../

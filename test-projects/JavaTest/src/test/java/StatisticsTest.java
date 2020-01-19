@@ -17,7 +17,7 @@ public class StatisticsTest {
     Stream<double[][]> expectedWithOutputValuesStream = Arrays.stream(expectedWithOutputValuesArr);
 
     @Test
-    public void neuralNetworkPrediction() {
+    public void rootMeanSquareError() {
         assertEquals(
                 0.7071067811865476,
                 Statistics.rootMeanSquareError(expectedWithOutputValuesStream),
