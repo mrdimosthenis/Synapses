@@ -14,6 +14,7 @@ The interface of the library is common across programming languages.
 ---                  | ---              | ---
 JavaScript           | `number[]`       | `NeuralNetwork`
 Java                 | `int[]`          | `NeuralNetwork`
+C#                   | `int[]`          | `NeuralNetwork`
 Scala                | `List[Int]`      | `NeuralNetwork`
 F#                   | `List<int>`      | `NeuralNetwork`
 
@@ -21,6 +22,7 @@ F#                   | `List<int>`      | `NeuralNetwork`
 ---                            | ---              | ---                               | ---                   | ---
 JavaScript                     | `number[]`       | `(number) => ActivationFunction`  | `(number) => number`  | `NeuralNetwork`
 Java                           | `int[]`          | `IntFunction<ActivationFunction>` | `IntFunction<Double>` | `NeuralNetwork`
+C#                             | `int[]`          | `Func<int, ActivationFunction>`   | `Func<int, Double>`   | `NeuralNetwork`
 Scala                          | `List[Int]`      | `Int => ActivationFunction`       | `Int => Double`       | `NeuralNetwork`
 F#                             | `List<int>`      | `int -> ActivationFunction`       | `int -> float`        | `NeuralNetwork`
 
@@ -30,14 +32,15 @@ F#                             | `List<int>`      | `int -> ActivationFunction` 
 ---                 | ---                     | ---                    | ---                   | ---                      | ---
 JavaScript          | `NeuralNetwork`         | `number`               | `number[]`            | `number[]`               | `NeuralNetwork`
 Java                | `NeuralNetwork`         | `double`               | `double[]`            | `double[]`               | `NeuralNetwork`
+C#                  | `NeuralNetwork`         | `double`               | `double[]`            | `double[]`               | `NeuralNetwork`
 Scala               | `NeuralNetwork`         | `Double`               | `List[Double]`        | `List[Double]`           | `NeuralNetwork`
 F#                  | `NeuralNetwork`         | `float`                | `List<float>`         | `List<float>`            | `NeuralNetwork`
-
 
 `NeuralNetwork.prediction` | param1: `neuralNetwork` | param2: `inputValues` | _returns_
 ---                        | ---                     | ---                   | ---
 JavaScript                 | `NeuralNetwork`         | `number[]`            | `number[]`
 Java                       | `NeuralNetwork`         | `double[]`            | `double[]`
+C#                         | `NeuralNetwork`         | `double[]`            | `double[]`
 Scala                      | `NeuralNetwork`         | `List[Double]`        | `List[Double]`
 F#                         | `NeuralNetwork`         | `List<float>`         | `List<float>`
 
@@ -47,6 +50,7 @@ F#                         | `NeuralNetwork`         | `List<float>`         | `
 ---                    | ---                     | ---
 JavaScript             | `NeuralNetwork`         | `string`
 Java                   | `NeuralNetwork`         | `String`
+C#                     | `NeuralNetwork`         | `string`
 Scala                  | `NeuralNetwork`         | `String`
 F#                     | `NeuralNetwork`         | `string`
 
@@ -54,31 +58,35 @@ F#                     | `NeuralNetwork`         | `string`
 ---                    | ---            | ---
 JavaScript             | `string`       | `NeuralNetwork`
 Java                   | `String`       | `NeuralNetwork`
+C#                     | `string`       | `NeuralNetwork`
 Scala                  | `String`       | `NeuralNetwork`
 F#                     | `string`       | `NeuralNetwork`
 
 ### Create a Data Preprocessor
 
-`DataPreprocessor.init` | param1: `keysWithDiscreteFlags` | param2: `datapoints`            | _returns_
----                     | ---                             | ---                             | ---
-JavaScript              | `any[][]`                       | `iterable`                      | `DataPreprocessor`
-Java                    | `Object[][]`                    | `Stream<Map<String,String>>`    | `DataPreprocessor`
-Scala                   | `List[(String, Boolean)]`       | `LazyList[Map[String, String]]` | `DataPreprocessor`
-F#                      | `List<string * bool>`           | `seq<Map<string, string>>`      | `DataPreprocessor`
+`DataPreprocessor.init` | param1: `keysWithDiscreteFlags` | param2: `datapoints`                      | _returns_
+---                     | ---                             | ---                                       | ---
+JavaScript              | `any[][]`                       | `iterable`                                | `DataPreprocessor`
+Java                    | `Object[][]`                    | `Stream<Map<String,String>>`              | `DataPreprocessor`
+C#                      | `(string, bool)[]`              | `IEnumerable<Dictionary<string, string>>` | `DataPreprocessor`
+Scala                   | `List[(String, Boolean)]`       | `LazyList[Map[String, String]]`           | `DataPreprocessor`
+F#                      | `List<string * bool>`           | `seq<Map<string, string>>`                | `DataPreprocessor`
 
 ### Encode with a Data Preprocessor
 
-`DataPreprocessor.encodedDatapoint` | param1: `dataPreprocessor` | param2: `datapoint`   | _returns_
----                                 | ---                        | ---                   | ---
-JavaScript                          | `DataPreprocessor`         | `object`              | `number[]`
-Java                                | `DataPreprocessor`         | `Map<String,String>`  | `double[]`
-Scala                               | `DataPreprocessor`         | `Map[String, String]` | `List[Double]`
-F#                                  | `DataPreprocessor`         | `Map<string, string>` | `List<float>`
+`DataPreprocessor.encodedDatapoint` | param1: `dataPreprocessor` | param2: `datapoint`          | _returns_
+---                                 | ---                        | ---                          | ---
+JavaScript                          | `DataPreprocessor`         | `object`                     | `number[]`
+Java                                | `DataPreprocessor`         | `Map<String,String>`         | `double[]`
+C#                                  | `DataPreprocessor`         | `Dictionary<string, string>` | `double[]`
+Scala                               | `DataPreprocessor`         | `Map[String, String]`        | `List[Double]`
+F#                                  | `DataPreprocessor`         | `Map<string, string>`        | `List<float>`
 
 `DataPreprocessor.decodedDatapoint` | param1: `dataPreprocessor` | param2: `encodedDatapoint` | _returns_
 ---                                 | ---                        | ---                        | ---
 JavaScript                          | `DataPreprocessor`         | `number[]`                 | `object`
 Java                                | `DataPreprocessor`         | `double[]`                 | `Map<String,String>`
+C#                                  | `DataPreprocessor`         | `double[]`                 | `Dictionary<string, string>`
 Scala                               | `DataPreprocessor`         | `List[Double]`             | `Map[String, String]`
 F#                                  | `DataPreprocessor`         | `List<float>`              | `Map<string, string>`
 
@@ -88,6 +96,7 @@ F#                                  | `DataPreprocessor`         | `List<float>`
 ---                       | ---                     | ---
 JavaScript                | `DataPreprocessor`         | `string`
 Java                      | `DataPreprocessor`         | `String`
+C#                        | `DataPreprocessor`         | `string`
 Scala                     | `DataPreprocessor`         | `String`
 F#                        | `DataPreprocessor`         | `string`
 
@@ -95,6 +104,7 @@ F#                        | `DataPreprocessor`         | `string`
 ---                       | ---            | ---
 JavaScript                | `string`       | `DataPreprocessor`
 Java                      | `String`       | `DataPreprocessor`
+C#                        | `string`       | `DataPreprocessor`
 Scala                     | `String`       | `DataPreprocessor`
 F#                        | `string`       | `DataPreprocessor`
 
@@ -104,6 +114,7 @@ F#                        | `string`       | `DataPreprocessor`
 ---                              | ---                                      | ---
 JavaScript                       | `iterable`                               | `number`
 Java                             | `Stream<double[][]>`                     | `double`
+C#                               | `IEnumerable<(double[], double[])>`      | `double`
 Scala                            | `LazyList[(List[Double], List[Double])]` | `Double`
 F#                               | `seq<List<float> * List<float>>`         | `float`
 
@@ -111,6 +122,7 @@ F#                               | `seq<List<float> * List<float>>`         | `f
 
 * [JavaScript](test-projects%2FJavaScriptTest%2Ftest)
 * [Java](test-projects%2FJavaTest%2Fsrc%2Ftest%2Fjava)
+* [C#](test-projects%2FCSharpTest)
 * [Scala](test-projects%2FScalaTest%2Fsrc%2Ftest%2Fscala)
 * [F#](test-projects%2FF%23Test)
 
@@ -118,6 +130,7 @@ F#                               | `seq<List<float> * List<float>>`         | `f
 
 * [JavaScript](ScalaJS%2Fsrc%2Fmain%2Fscala%2Fsynapses%2FLibrary.scala) - built with [Scala.js](https://www.scala-js.org/)
 * [Java](Scala%2Fsrc%2Fmain%2Fjava%2Fsynapses%2Fjvm%2Flibrary) - Scala interoperability
+* [C#](CSharp) - F# dependency
 * [Scala](Scala%2Fsrc%2Fmain%2Fscala%2Fsynapses%2Fmodel)
 * [F#](F%23%2FModel)
 
