@@ -38,7 +38,7 @@ npm i synapses@7.1.0
 
 ```csharp
 // run
-dotnet add package SynapsesCSharp --version 7.1.1
+dotnet add package SynapsesCSharp --version 7.1.2
 // in the directory of your project
 ```
 
