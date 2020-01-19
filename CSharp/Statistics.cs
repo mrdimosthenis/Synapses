@@ -9,7 +9,7 @@ namespace SynapsesCs
     public class Statistics
     {
         
-        public double rootMeanSquareError(IEnumerable<(double [], double [])> expectedValuesWithOutputValues)
+        public static double rootMeanSquareError(IEnumerable<(double [], double [])> expectedValuesWithOutputValues)
         {
             LazyList<Tuple<FSharpList<double>, FSharpList<double>>> expWithOuts = LazyList
                 .ofSeq(expectedValuesWithOutputValues.Select(exOut =>
