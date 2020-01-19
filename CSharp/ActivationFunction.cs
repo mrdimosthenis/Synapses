@@ -5,7 +5,7 @@ namespace SynapsesCs
 {
     public class ActivationFunction
     {
-        Function contents;
+        public Function contents;
 
         public ActivationFunction(Function _contents)
         {

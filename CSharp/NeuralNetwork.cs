@@ -36,12 +36,12 @@ namespace SynapsesCs
 
         public static NeuralNetwork customizedInit(
             int[] layers,
-            Func<int, Activation.Function> activationF,
+            Func<int, ActivationFunction> activationF,
             Func<int, Double> weightInitF)
         {
             FSharpList<int> ls = ListModule.OfSeq(layers);
             FSharpFunc<int, Activation.Function> actF =
-                (Converter<int, Activation.Function>) (x => activationF(x));
+                (Converter<int, Activation.Function>) (x => activationF(x).contents);
             FSharpFunc<int, Double> weightF =
                 (Converter<int, Double>) (x => weightInitF(x));
             LazyList<LazyList<Neuron.Neuron>> _contents =
