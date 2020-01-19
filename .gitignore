@@ -39,6 +39,10 @@
 /test-projects/F#Test/bin/
 /test-projects/F#Test/obj/
 
+/test-projects/CSharpTest/.idea/
+/test-projects/CSharpTest/bin/
+/test-projects/CSharpTest/obj/
+
 /test-projects/JavaScriptTest/.idea/
 /test-projects/JavaScriptTest/node_modules/
 
