@@ -18,7 +18,7 @@ namespace SynapsesCs
             contents = _contents;
         }
 
-        public static NeuralNetwork init(int[] layers)
+        public NeuralNetwork init(int[] layers)
         {
             FSharpList<int> ls = ListModule.OfSeq(layers);
             LazyList<LazyList<Neuron.Neuron>> _contents =
@@ -26,7 +26,7 @@ namespace SynapsesCs
             return new NeuralNetwork(_contents);
         }
 
-        public static NeuralNetwork initWithSeed(int seed, int[] layers)
+        public NeuralNetwork initWithSeed(int seed, int[] layers)
         {
             FSharpList<int> ls = ListModule.OfSeq(layers);
             LazyList<LazyList<Neuron.Neuron>> _contents =
@@ -34,7 +34,7 @@ namespace SynapsesCs
             return new NeuralNetwork(_contents);
         }
 
-        public static NeuralNetwork customizedInit(
+        public NeuralNetwork customizedInit(
             int[] layers,
             Func<int, Activation.Function> activationF,
             Func<int, Double> weightInitF)
@@ -49,14 +49,14 @@ namespace SynapsesCs
             return new NeuralNetwork(_contents);
         }
         
-        public static double[] prediction(NeuralNetwork network, double[] inputValues){
+        public double[] prediction(NeuralNetwork network, double[] inputValues){
             FSharpList<double> ivs = ListModule.OfSeq(inputValues);
             return NeuralNetworkModule
                 .prediction(network.contents, ivs)
                 .ToArray();
         }
         
-        public static double[] errors(
+        public double[] errors(
             NeuralNetwork network,
             double learningRate,
             double[] inputValues,
@@ -68,7 +68,7 @@ namespace SynapsesCs
                 .ToArray();
         }
         
-        public static NeuralNetwork fit(
+        public NeuralNetwork fit(
             NeuralNetwork network,
             double learningRate,
             double[] inputValues,
@@ -80,11 +80,11 @@ namespace SynapsesCs
             return new NeuralNetwork(_contents);
         }
         
-        public static string toJson(NeuralNetwork network){
+        public string toJson(NeuralNetwork network){
             return NeuralNetworkModule.toJson(network.contents);
         }
         
-        public static NeuralNetwork ofJson(string json){
+        public NeuralNetwork ofJson(string json){
             LazyList<LazyList<Neuron.Neuron>> _contents = NeuralNetworkModule.ofJson(json);
             return new NeuralNetwork(_contents);
         }

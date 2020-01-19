@@ -12,16 +12,16 @@ namespace SynapsesCs
             contents = _contents;
         }
 
-        public static ActivationFunction sigmoid =
+        public ActivationFunction sigmoid =
             new ActivationFunction(ActivationFunctionModule.sigmoid);
 
-        public static ActivationFunction identity =
+        public ActivationFunction identity =
             new ActivationFunction(ActivationFunctionModule.identity);
 
-        public static ActivationFunction tanh =
+        public ActivationFunction tanh =
             new ActivationFunction(ActivationFunctionModule.tanh);
 
-        public static ActivationFunction leakyReLU =
+        public ActivationFunction leakyReLU =
             new ActivationFunction(ActivationFunctionModule.leakyReLU);
     }
 }
