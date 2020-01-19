@@ -4,6 +4,7 @@ title: Synapses
 language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
   - java
+  - csharp
   - scala
   - fsharp
 
@@ -33,6 +34,12 @@ npm i synapses@7.1.0
     <version>7.1.0</version>
 </dependency>
 // to pom.xml
+```
+
+```csharp
+// run
+dotnet add package SynapsesCSharp --version 7.1.1
+// in the directory of your project
 ```
 
 ```scala
@@ -66,6 +73,12 @@ int[] layers = {4, 6, 5, 3};
 NeuralNetwork neuralNetwork = NeuralNetwork.init(layers);
 ```
 
+```csharp
+using SynapsesCSharp;
+int[] layers = {4, 6, 5, 3};
+NeuralNetwork neuralNetwork = NeuralNetwork.init(layers);
+```
+
 ```scala
 import synapses.Library._
 val layers = List(4, 6, 5, 3)
@@ -90,6 +103,12 @@ let prediction =
 ```
 
 ```java
+double[] inputValues = {1.0, 0.5625, 0.511111, 0.47619};
+double[] prediction =
+    NeuralNetwork.prediction(neuralNetwork, inputValues);
+```
+
+```csharp
 double[] inputValues = {1.0, 0.5625, 0.511111, 0.47619};
 double[] prediction =
     NeuralNetwork.prediction(neuralNetwork, inputValues);
@@ -139,6 +158,18 @@ NeuralNetwork fitNetwork =
     );
 ```
 
+```csharp
+double learningRate = 0.5;
+double[] expectedOutput = {0.0, 1.0, 0.0};
+NeuralNetwork fitNetwork =
+    NeuralNetwork.fit(
+        neuralNetwork,
+        learningRate,
+        inputValues,
+        expectedOutput
+    );
+```
+
 ```scala
 val learningRate = 0.5
 val expectedOutput = List(0.0, 1.0, 0.0)
@@ -147,7 +178,7 @@ val fitNetwork =
             neuralNetwork,
             learningRate,
             inputValues,
-            expectedOutpu
+            expectedOutput
         )
 ```
 
@@ -225,6 +256,33 @@ NeuralNetwork customizedNetwork =
     );
 ```
 
+```csharp
+ActivationFunction activationF(int layerIndex) {
+    switch (layerIndex) {
+        case 0:
+            return ActivationFunction.sigmoid;
+        case 1:
+            return ActivationFunction.identity;
+        case 2:
+            return ActivationFunction.leakyReLU;
+        default:
+            return ActivationFunction.tanh;
+    }
+}
+
+double weightInitF(int _layerIndex) {
+    Random rnd = new Random();
+    return 1.0 - 2.0 * rnd.NextDouble();
+}
+
+NeuralNetwork customizedNetwork =
+    NeuralNetwork.customizedInit(
+        layers,
+        activationF,
+        weightInitF
+    );
+```
+
 ```scala
 def activationF(layerIndex: Int): ActivationFunction =
   layerIndex match {
@@ -284,6 +342,10 @@ let json = NeuralNetwork.toJson(customizedNetwork);
 String json = NeuralNetwork.toJson(customizedNetwork);
 ```
 
+```csharp
+string json = NeuralNetwork.toJson(customizedNetwork);
+```
+
 ```scala
 val json = NeuralNetwork.toJson(customizedNetwork)
 ```
@@ -299,6 +361,10 @@ let loadedNetwork = NeuralNetwork.ofJson(json);
 ```
 
 ```java
+NeuralNetwork loadedNetwork = NeuralNetwork.ofJson(json);
+```
+
+```csharp
 NeuralNetwork loadedNetwork = NeuralNetwork.ofJson(json);
 ```
 
@@ -426,6 +492,65 @@ Stream<double[]> encodedDatapoints = datasetStream.map(x ->
         .encodedDatapoint(
             dataPreprocessor, (Map<String, String>) x
         )
+);
+```
+
+```csharp
+Dictionary<string, string> setosaDatapoint =
+    new Dictionary<string, string>()
+        {
+            {"petal_length", "1.5"},
+            {"petal_length", "1.5"},
+            {"petal_width", "0.1"},
+            {"sepal_length", "4.9"},
+            {"sepal_width", "3.1"},
+            {"species", "setosa"}
+        };
+
+Dictionary<string, string> versicolorDatapoint =
+    new Dictionary<string, string>()
+        {
+            {"petal_length", "3.8"},
+            {"petal_width", "1.1"},
+            {"sepal_length", "5.5"},
+            {"sepal_width", "2.4"},
+            {"species", "versicolor"}
+        };
+
+Dictionary<string, string> virginicaDatapoint =
+    new Dictionary<string, string>()
+        {
+            {"petal_length", "6.0"},
+            {"petal_width", "2.2"},
+            {"sepal_length", "5.0"},
+            {"sepal_width", "1.5"},
+            {"species", "virginica"}
+        };
+
+IEnumerable<Dictionary<string, string>> dataset =
+    new List<Dictionary<string, string>>()
+    {
+        setosaDatapoint,
+        versicolorDatapoint,
+        virginicaDatapoint
+    };
+
+DataPreprocessor dataPreprocessor =
+    DataPreprocessor.init(
+        new (string, bool)[]
+            {
+                ("petal_length", false),
+                ("petal_width", false),
+                ("sepal_length", false),
+                ("sepal_width", false),
+                ("species", true)
+            },
+        dataset
+    );
+
+IEnumerable<double[]> encodedDatapoints = dataset.Select(x =>
+    DataPreprocessor
+        .encodedDatapoint(dataPreprocessor, x)
 );
 ```
 
@@ -560,6 +685,18 @@ Stream<double[][]> expectedWithOutputValuesStream =
 
 double rmse = Statistics
     .rootMeanSquareError(expectedWithOutputValuesStream);
+```
+
+```csharp
+IEnumerable<(double[], double[])> expectedWithOutputValues =
+    new List<(double[], double[])>()
+    {
+        (new double[] {0.0, 0.0, 1.0}, new double[] {0.0, 0.0, 1.0}),
+        (new double[] {0.0, 0.0, 1.0}, new double[] {0.0, 1.0, 1.0})
+    };
+
+double rmse = Statistics
+    .rootMeanSquareError(expectedWithOutputValues);
 ```
 
 ```scala
