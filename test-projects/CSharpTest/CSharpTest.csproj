@@ -18,8 +18,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="SynapsesCs">
-            <HintPath>..\..\CSharp\bin\Release\netstandard2.0\SynapsesCs.dll</HintPath>
+        <Reference Include="SynapsesCSharp">
+            <HintPath>..\..\CSharp\bin\Release\netstandard2.0\SynapsesCSharp.dll</HintPath>
         </Reference>
     </ItemGroup>
 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Xunit;
-using SynapsesCs;
+using SynapsesCSharp;
 
 namespace CSharpTest
 {

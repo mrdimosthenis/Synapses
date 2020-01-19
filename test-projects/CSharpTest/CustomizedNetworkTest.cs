@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using Xunit;
-using SynapsesCs;
+using SynapsesCSharp;
 
 namespace CSharpTest
 {
