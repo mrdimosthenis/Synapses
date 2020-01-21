@@ -1,28 +1,31 @@
 /.idea/
 
-/F#/.idea/
-/F#/bin/
-/F#/obj/
-/F#/nuget.config
+implementation/FSharp/.idea/
+implementation/FSharp/bin/
+implementation/FSharp/obj/
+implementation/FSharp/nuget.config
 
-/CSharp/.idea/
-/CSharp/bin/
-/CSharp/obj/
-/CSharp/nuget.config
+implementation/CSharp/.idea/
+implementation/CSharp/bin/
+implementation/CSharp/obj/
+implementation/CSharp/nuget.config
 
-/Scala/.idea/
-/Scala/node_modules/
-/Scala/project/project/
-/Scala/project/target/
-/Scala/Scala.iml
-/Scala/target/
+implementation/Scala/.idea/
+implementation/Scala/node_modules/
+implementation/Scala/project/project/
+implementation/Scala/project/target/
+implementation/Scala/Scala.iml
+implementation/Scala/target/
 
-/ScalaJS/.idea/
-/ScalaJS/node_modules/
-/ScalaJS/project/project/
-/ScalaJS/project/target/
-/ScalaJS/Scala.iml
-/ScalaJS/target/
+implementation/ScalaJS/.idea/
+implementation/ScalaJS/node_modules/
+implementation/ScalaJS/project/project/
+implementation/ScalaJS/project/target/
+implementation/ScalaJS/Scala.iml
+implementation/ScalaJS/target/
+
+implementation/JavaScript/synapses-opt.js
+implementation/JavaScript/README.md
 
 /test-projects/ScalaTest/.idea/
 /test-projects/ScalaTest/project/project/
@@ -35,9 +38,9 @@
 /test-projects/JavaTest/target/
 /test-projects/JavaTest/JavaTest.iml
 
-/test-projects/F#Test/.idea/
-/test-projects/F#Test/bin/
-/test-projects/F#Test/obj/
+/test-projects/FSharpTest/.idea/
+/test-projects/FSharpTest/bin/
+/test-projects/FSharpTest/obj/
 
 /test-projects/CSharpTest/.idea/
 /test-projects/CSharpTest/bin/
@@ -46,29 +49,26 @@
 /test-projects/JavaScriptTest/.idea/
 /test-projects/JavaScriptTest/node_modules/
 
-/JavaScript/synapses-opt.js
-/JavaScript/README.md
-
 *.gem
 *.rbc
-slate/.bundle
-slate/.config
-slate/coverage
-slate/InstalledFiles
-slate/lib/bundler/man
-slate/pkg
-slate/rdoc
-slate/spec/reports
-slate/test/tmp
-slate/test/version_tmp
-slate/tmp
+documentation/.bundle
+documentation/.config
+documentation/coverage
+documentation/InstalledFiles
+documentation/lib/bundler/man
+documentation/pkg
+documentation/rdoc
+documentation/spec/reports
+documentation/test/tmp
+documentation/test/version_tmp
+documentation/tmp
 *.DS_STORE
-slate/build/
-slate/.cache
-slate/.vagrant
-slate/.sass-cache
+documentation/build/
+documentation/.cache
+documentation/.vagrant
+documentation/.sass-cache
 # YARD artifacts
-slate/.yardoc
-slate/_yardoc
-slate/doc/
-slate/.idea/
+documentation/.yardoc
+documentation/_yardoc
+documentation/doc/
+documentation/.idea/

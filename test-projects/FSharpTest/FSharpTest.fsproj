@@ -5,6 +5,8 @@
 
         <IsPackable>false</IsPackable>
         <GenerateProgramFile>false</GenerateProgramFile>
+        <AssemblyName>FSharpTest</AssemblyName>
+        <RootNamespace>FSharpTest</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

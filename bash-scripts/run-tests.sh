@@ -1,6 +1,6 @@
 cd ../
 
-cd test-projects/F#Test
+cd test-projects/FSharpTest
 dotnet restore
 dotnet test
 cd ../../
