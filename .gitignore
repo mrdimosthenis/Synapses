@@ -4,11 +4,13 @@ implementation/FSharp/.idea/
 implementation/FSharp/bin/
 implementation/FSharp/obj/
 implementation/FSharp/nuget.config
+implementation/FSharp/README.md
 
 implementation/CSharp/.idea/
 implementation/CSharp/bin/
 implementation/CSharp/obj/
 implementation/CSharp/nuget.config
+implementation/CSharp/README.md
 
 implementation/Scala/.idea/
 implementation/Scala/node_modules/
@@ -16,6 +18,7 @@ implementation/Scala/project/project/
 implementation/Scala/project/target/
 implementation/Scala/Scala.iml
 implementation/Scala/target/
+implementation/Scala/README.md
 
 implementation/ScalaJS/.idea/
 implementation/ScalaJS/node_modules/
@@ -23,6 +26,7 @@ implementation/ScalaJS/project/project/
 implementation/ScalaJS/project/target/
 implementation/ScalaJS/Scala.iml
 implementation/ScalaJS/target/
+implementation/ScalaJS/README.md
 
 implementation/JavaScript/synapses-opt.js
 implementation/JavaScript/README.md
