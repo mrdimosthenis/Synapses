@@ -31,6 +31,9 @@ implementation/ScalaJS/README.md
 implementation/JavaScript/synapses-opt.js
 implementation/JavaScript/README.md
 
+implementation/Python/.idea
+implementation/Python/venv
+
 /test-projects/ScalaTest/.idea/
 /test-projects/ScalaTest/project/project/
 /test-projects/ScalaTest/project/target/
