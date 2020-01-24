@@ -1,8 +1,8 @@
 from typing import List, Callable, Tuple
 from dataclasses import dataclass
 from functional import seq
-from fn import _
 from functional.pipeline import Sequence
+from fn import _
 
 from model.mathematics import dot_product
 from model.net_elems import activation
@@ -32,11 +32,11 @@ def output(input: Sequence, neuron: Neuron) -> float:
     return neuron.activation_f.f(activation_input)
 
 
-def backPropagated(learning_rate: float,
-                   input: Sequence,
-                   output_with_error: Tuple[float, float],
-                   neuron: Neuron
-                   ) -> Tuple[Sequence, Neuron]:
+def back_propagated(learning_rate: float,
+                    input: Sequence,
+                    output_with_error: Tuple[float, float],
+                    neuron: Neuron
+                    ) -> Tuple[Sequence, Neuron]:
     (output, error) = output_with_error
     output_inverse = neuron \
         .activation_f \
