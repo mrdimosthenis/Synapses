@@ -24,8 +24,8 @@ def init(input_size: int,
                          weight_init_f()))
 
 
-def output(input: Sequence, layer: Layer) -> Sequence:
-    return layer.map(lambda x: neuron.output(input, x))
+def output(input: Sequence, layer_val: Layer) -> Sequence:
+    return layer_val.map(lambda x: neuron.output(input, x))
 
 
 def back_propagated(learning_rate: float,
@@ -48,8 +48,8 @@ def back_propagated(learning_rate: float,
 LayerSerialized = List[NeuronSerialized]
 
 
-def serialized(layer: Layer) -> LayerSerialized:
-    return layer \
+def serialized(layer_val: Layer) -> LayerSerialized:
+    return layer_val \
         .map(lambda x: neuron.serialized(x)) \
         .to_list()
 

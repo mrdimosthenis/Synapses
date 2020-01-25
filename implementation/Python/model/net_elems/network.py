@@ -30,9 +30,9 @@ def init(layer_sizes: Sequence,
 
 
 def output(input: Sequence,
-           network: Network
+           network_val: Network
            ) -> Sequence:
-    return network.fold_left(
+    return network_val.fold_left(
         input,
         lambda acc, x: layer.output(acc, x)
     )
@@ -41,8 +41,8 @@ def output(input: Sequence,
 def fed_forward_acc_f(already_fed: Sequence,
                       next_layer: Layer
                       ) -> Sequence:
-    (errors, layer) = already_fed.head
-    next_input = layer.output(errors, layer)
+    (errors, layer_val) = already_fed.head()
+    next_input = layer.output(errors, layer_val)
     return utilities\
         .lazy_cons((next_input, next_layer), already_fed)
 
@@ -50,7 +50,7 @@ def fed_forward_acc_f(already_fed: Sequence,
 def fed_forward(input: Sequence,
                 network: Network
                 ) -> Sequence:
-    init_feed = seq((input, network.head))
+    init_feed = seq([(input, network.head())])
     return network \
         .tail() \
         .fold_left(init_feed, lambda acc, x: fed_forward_acc_f(acc, x))
@@ -141,8 +141,8 @@ def fit(learning_rate: float,
 NetworkSerialized = List[LayerSerialized]
 
 
-def serialized(network: Network) -> NetworkSerialized:
-    return network \
+def serialized(network_val: Network) -> NetworkSerialized:
+    return network_val \
         .map(lambda x: layer.serialized(x)) \
         .to_list()
 
