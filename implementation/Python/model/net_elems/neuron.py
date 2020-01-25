@@ -4,6 +4,7 @@ from functional import seq
 from functional.pipeline import Sequence
 from fn import _
 
+from model import utilities
 from model.mathematics import dot_product
 from model.net_elems import activation
 
@@ -26,7 +27,7 @@ def init(input_size: int,
 
 def output(input: Sequence, neuron: Neuron) -> float:
     activation_input = dot_product(
-        seq([1.0]) + input,
+        utilities.lazy_cons(1.0, input),
         neuron.weights
     )
     return neuron.activation_f.f(activation_input)
@@ -45,7 +46,7 @@ def back_propagated(learning_rate: float,
     in_errors = input.map(_ * common)
     new_weights = neuron \
         .weights \
-        .zip(seq([1.0] + input)) \
+        .zip(utilities.lazy_cons(1.0, input)) \
         .map(lambda t: t[0] - learning_rate * common * t[1])
     new_neuron = Neuron(neuron.activation_f, new_weights)
     return in_errors, new_neuron

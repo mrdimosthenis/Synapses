@@ -5,6 +5,7 @@ from functional import seq
 from functional.pipeline import Sequence
 from fn import _
 
+from model import utilities
 from model.net_elems import layer
 from model.net_elems.activation import Activation
 from model.net_elems.layer import Layer, LayerSerialized
@@ -43,7 +44,8 @@ def fed_forward_acc_f(already_fed: Sequence,
                       ) -> Sequence:
     (errors, layer) = already_fed.head
     next_input = layer.output(errors, layer)
-    return seq([(next_input, next_layer)]) + already_fed
+    return utilities\
+        .lazy_cons((next_input, next_layer), already_fed)
 
 
 def fed_forward(input: Sequence,
@@ -70,8 +72,8 @@ def back_propagated_acc_f(learning_rate: float,
         last_output_with_errors,
         last_layer
     )
-    next_already_propagated = \
-        seq([propagated_layer]) + already_propagated
+    next_already_propagated = utilities\
+        .lazy_cons(propagated_layer, already_propagated)
     return (next_errors, next_already_propagated)
 
 
