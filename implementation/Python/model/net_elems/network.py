@@ -92,7 +92,7 @@ def back_propagated(learning_rate: float,
         output_with_errors,
         last_layer
     )
-    init_acc = (init_errors, seq(first_propagated))
+    init_acc = (init_errors, seq([first_propagated]))
     return reversed_inputs_with_layers \
         .tail() \
         .fold_left(init_acc,
