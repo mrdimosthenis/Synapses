@@ -24,28 +24,28 @@ def init(input_size: int,
     return Neuron(activation_f, weights)
 
 
-def output(input: Sequence, neuron: Neuron) -> float:
+def output(input_val: Sequence, neuron: Neuron) -> float:
     activation_input = dot_product(
-        utilities.lazy_cons(1.0, input),
+        utilities.lazy_cons(1.0, input_val),
         neuron.weights
     )
     return neuron.activation_f.f(activation_input)
 
 
 def back_propagated(learning_rate: float,
-                    input: Sequence,
+                    input_val: Sequence,
                     output_with_error: Tuple[float, float],
                     neuron: Neuron
                     ) -> Tuple[Sequence, Neuron]:
-    (output, error) = output_with_error
+    (output_val, error) = output_with_error
     output_inverse = neuron \
         .activation_f \
-        .inverse(output)
+        .inverse(output_val)
     common = error * neuron.activation_f.deriv(output_inverse)
-    in_errors = input.map(lambda x: x * common)
+    in_errors = input_val.map(lambda x: x * common)
     new_weights = neuron \
         .weights \
-        .zip(utilities.lazy_cons(1.0, input)) \
+        .zip(utilities.lazy_cons(1.0, input_val)) \
         .map(lambda t: t[0] - learning_rate * common * t[1])
     new_neuron = Neuron(neuron.activation_f, new_weights)
     return in_errors, new_neuron
@@ -64,8 +64,8 @@ def serialized(neuron: Neuron) -> NeuronSerialized:
     )
 
 
-def deserialized(neuronSerialized: NeuronSerialized) -> Neuron:
+def deserialized(neuron_serialized: NeuronSerialized) -> Neuron:
     return Neuron(
-        activation.deserialized(neuronSerialized.activation_f),
-        seq(neuronSerialized.weights)
+        activation.deserialized(neuron_serialized.activation_f),
+        seq(neuron_serialized.weights)
     )

@@ -24,18 +24,18 @@ def init(input_size: int,
                          weight_init_f()))
 
 
-def output(input: Sequence, layer_val: Layer) -> Sequence:
-    return layer_val.map(lambda x: neuron.output(input, x))
+def output(input_val: Sequence, layer_val: Layer) -> Sequence:
+    return layer_val.map(lambda x: neuron.output(input_val, x))
 
 
 def back_propagated(learning_rate: float,
-                    input: Sequence,
+                    input_val: Sequence,
                     output_with_errors: Sequence,
                     layer: Layer
                     ) -> Tuple[Sequence, Layer]:
     errors_multi_with_new_neurons = output_with_errors \
         .zip(layer) \
-        .map(lambda t: neuron.back_propagated(learning_rate, input, t[0], t[1]))
+        .map(lambda t: neuron.back_propagated(learning_rate, input_val, t[0], t[1]))
     (errors_multi, new_neurons) = utilities \
         .lazy_unzip(errors_multi_with_new_neurons)
     in_errors = errors_multi.fold_left(
