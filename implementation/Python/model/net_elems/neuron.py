@@ -2,7 +2,6 @@ from typing import List, Callable, Tuple
 from dataclasses import dataclass
 from functional import seq
 from functional.pipeline import Sequence
-from fn import _
 
 from model import utilities
 from model.mathematics import dot_product
@@ -43,7 +42,7 @@ def back_propagated(learning_rate: float,
         .activation_f \
         .inverse(output)
     common = error * neuron.activation_f.deriv(output_inverse)
-    in_errors = input.map(_ * common)
+    in_errors = input.map(lambda x: x * common)
     new_weights = neuron \
         .weights \
         .zip(utilities.lazy_cons(1.0, input)) \

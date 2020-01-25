@@ -3,7 +3,6 @@ from typing import Callable, List
 
 from functional import seq
 from functional.pipeline import Sequence
-from fn import _
 
 from model import utilities
 from model.net_elems import layer
@@ -35,7 +34,7 @@ def output(input: Sequence,
            ) -> Sequence:
     return network.fold_left(
         input,
-        layer.output(_, _)
+        lambda acc, x: layer.output(acc, x)
     )
 
 
@@ -54,7 +53,7 @@ def fed_forward(input: Sequence,
     init_feed = seq((input, network.head))
     return network \
         .tail() \
-        .fold_left(init_feed, fed_forward_acc_f(_, _))
+        .fold_left(init_feed, lambda acc, x: fed_forward_acc_f(acc, x))
 
 
 def back_propagated_acc_f(learning_rate: float,
@@ -97,7 +96,8 @@ def back_propagated(learning_rate: float,
     return reversed_inputs_with_layers \
         .tail() \
         .fold_left(init_acc,
-                   back_propagated_acc_f(learning_rate, _, _))
+                   lambda acc, x:
+                   back_propagated_acc_f(learning_rate, acc, x))
 
 
 def errors_with_fit_net(learning_rate: float,
@@ -143,7 +143,7 @@ NetworkSerialized = List[LayerSerialized]
 
 def serialized(network: Network) -> NetworkSerialized:
     return network \
-        .map(layer.serialized(_)) \
+        .map(lambda x: layer.serialized(x)) \
         .to_list()
 
 
@@ -152,7 +152,7 @@ def to_json(network: Network) -> str:
 
 
 def deserialized(network_serialized: NetworkSerialized) -> Network:
-    return seq(network_serialized).map(layer.serialized(_))
+    return seq(network_serialized).map(lambda x: layer.serialized(x))
 
 
 def of_json(s: str) -> Network:

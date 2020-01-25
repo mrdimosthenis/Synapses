@@ -2,7 +2,6 @@ from itertools import count
 from typing import Callable, Tuple, List
 from functional import seq
 from functional.pipeline import Sequence
-from fn import _
 
 from model import utilities
 from model.net_elems import activation
@@ -26,7 +25,7 @@ def init(input_size: int,
 
 
 def output(input: Sequence, layer: Layer) -> Sequence:
-    return layer.map(neuron.output(input, _))
+    return layer.map(lambda x: neuron.output(input, x))
 
 
 def back_propagated(learning_rate: float,
@@ -41,7 +40,7 @@ def back_propagated(learning_rate: float,
         .lazy_unzip(errors_multi_with_new_neurons)
     in_errors = errors_multi.fold_left(
         seq(count(0)).map(lambda _: 0.0),
-        _.zip(_).map(lambda t: t[0] + t[1])
+        lambda acc, x: acc.zip(x).map(lambda t: t[0] + t[1])
     )
     return in_errors, new_neurons
 
@@ -51,10 +50,10 @@ LayerSerialized = List[NeuronSerialized]
 
 def serialized(layer: Layer) -> LayerSerialized:
     return layer \
-        .map(neuron.serialized(_)) \
+        .map(lambda x: neuron.serialized(x)) \
         .to_list()
 
 
 def deserialized(layer_serialized: LayerSerialized) -> Layer:
     return seq(layer_serialized) \
-        .map(neuron.deserialized(_))
+        .map(lambda x: neuron.deserialized(x))
