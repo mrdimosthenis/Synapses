@@ -146,7 +146,11 @@ def serialized(network_val: Network) -> NetworkSerialized:
 
 
 def to_json(network: Network) -> str:
-    return json.dumps(serialized(network), separators=(',', ':'))
+    return json.dumps(
+        serialized(network),
+        separators=(',', ':'),
+        cls=utilities.EnhancedJSONEncoder
+    )
 
 
 def deserialized(network_serialized: NetworkSerialized) -> Network:
