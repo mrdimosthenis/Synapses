@@ -33,6 +33,9 @@ implementation/JavaScript/README.md
 
 implementation/Python/.idea
 implementation/Python/venv
+implementation/Python/build
+implementation/Python/dist
+implementation/Python/SynapsesPy.egg-info
 implementation/Python/README.md
 
 /test-projects/ScalaTest/.idea/
