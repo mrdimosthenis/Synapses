@@ -4,8 +4,8 @@ from functional import seq
 from functional.pipeline import Sequence
 
 from model import utilities
-from model.net_elems import activation
 from model.net_elems import neuron
+from model.net_elems.activation import Activation
 from model.net_elems.neuron import NeuronSerialized
 
 Layer = Sequence
@@ -13,7 +13,7 @@ Layer = Sequence
 
 def init(input_size: int,
          output_size: int,
-         activation_f: activation.Activation,
+         activation_f: Activation,
          weight_init_f: Callable[[], Callable[[], float]]
          ) -> Layer:
     return seq \
