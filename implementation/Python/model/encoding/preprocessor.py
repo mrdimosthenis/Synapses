@@ -115,7 +115,8 @@ def serialized_f(attr: Attribute
 def serialized(preprocessor: Preprocessor
                ) -> PreprocessorSerialized:
     return preprocessor \
-        .map(lambda x: serialized_f(x))
+        .map(lambda x: serialized_f(x)) \
+        .to_list()
 
 
 def deserialized_f(attr: AttributeSerialized
@@ -129,7 +130,11 @@ def deserialized_f(attr: AttributeSerialized
 
 
 def to_json(preprocessor: Preprocessor) -> str:
-    return json.dumps(serialized(preprocessor), separators=(',', ':'))
+    return json.dumps(
+        serialized(preprocessor),
+        separators=(',', ':'),
+        cls=utilities.EnhancedJSONEncoder
+    )
 
 
 def deserialized(preprocessor_serialized: PreprocessorSerialized

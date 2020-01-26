@@ -1,7 +1,8 @@
 from typing import Tuple, TypeVar
-
 from functional import seq
 from functional.pipeline import Sequence
+import dataclasses
+import json
 
 T = TypeVar('T')
 
@@ -26,3 +27,10 @@ def lazy_split_at(n: int,
                   ls: Sequence
                   ) -> (Sequence, Sequence):
     return ls.take(n), ls.drop(n)
+
+
+class EnhancedJSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if dataclasses.is_dataclass(o):
+            return dataclasses.asdict(o)
+        return super().default(o)
