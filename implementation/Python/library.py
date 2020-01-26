@@ -1,5 +1,5 @@
 from random import seed, random
-from typing import List, Optional, Callable, Iterable, Dict
+from typing import List, Optional, Callable, Iterable, Dict, Tuple
 from functional import seq
 
 from model import mathematics
@@ -113,7 +113,7 @@ DataPreprocessor = Preprocessor
 class DataPreprocessor:
 
     @staticmethod
-    def init(keys_with_discrete_flags: List[(str, bool)],
+    def init(keys_with_discrete_flags: List[Tuple[str, bool]],
              datapoints: Iterable[Dict[str, str]]
              ) -> DataPreprocessor:
         keys_with_flags = seq(keys_with_discrete_flags)
@@ -149,7 +149,7 @@ class Statistics:
     @staticmethod
     def rootMeanSquareError(
             expected_values_with_output_values:
-            Iterable[(List[float], List[float])]
+            Iterable[Tuple[List[float], List[float]]]
     ) -> float:
         y_hats_with_ys = seq(expected_values_with_output_values) \
             .map(lambda t: (seq(t[0]), seq(t[1])))
