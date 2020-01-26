@@ -9,17 +9,22 @@ from model.net_elems import activation, network
 from model.net_elems.activation import Activation
 from model.net_elems.network import Network
 
+ActivationFunction = Activation
+
 
 class ActivationFunction:
-    sigmoid = activation.sigmoid
-    identity = activation.identity
-    tanh = activation.tanh
-    leakyReLU = activation.leakyReLU
+    sigmoid: ActivationFunction = activation.sigmoid
+    identity: ActivationFunction = activation.identity
+    tanh: ActivationFunction = activation.tanh
+    leakyReLU: ActivationFunction = activation.leakyReLU
+
+
+NeuralNetwork = Network
 
 
 def seed_init_network(maybe_seed: Optional[int],
                       layers: List[int]
-                      ) -> Network:
+                      ) -> NeuralNetwork:
     layer_sizes = seq(layers)
     if maybe_seed is not None:
         seed(maybe_seed)
@@ -33,20 +38,20 @@ def seed_init_network(maybe_seed: Optional[int],
 class NeuralNetwork:
 
     @staticmethod
-    def init(layers: List[int]) -> Network:
+    def init(layers: List[int]) -> NeuralNetwork:
         return seed_init_network(None, layers)
 
     @staticmethod
     def initWithSeed(seed_val: int,
                      layers: List[int]
-                     ) -> Network:
+                     ) -> NeuralNetwork:
         return seed_init_network(seed_val, layers)
 
     @staticmethod
     def customizedInit(layers: List[int],
                        activation_f: Callable[[int], Activation],
                        weight_init_f: Callable[[int], float]
-                       ) -> Network:
+                       ) -> NeuralNetwork:
         layer_sizes = seq(layers)
         return network.init(
             layer_sizes,
@@ -55,7 +60,7 @@ class NeuralNetwork:
         )
 
     @staticmethod
-    def prediction(network_val: Network,
+    def prediction(network_val: NeuralNetwork,
                    input_values: List[float]
                    ) -> List[float]:
         input_val = seq(input_values)
@@ -64,7 +69,7 @@ class NeuralNetwork:
             .to_list()
 
     @staticmethod
-    def errors(network_val: Network,
+    def errors(network_val: NeuralNetwork,
                learning_rate: float,
                input_values: List[float],
                expected_output: List[float]
@@ -79,11 +84,11 @@ class NeuralNetwork:
             .to_list()
 
     @staticmethod
-    def fit(network_val: Network,
+    def fit(network_val: NeuralNetwork,
             learning_rate: float,
             input_values: List[float],
             expected_output: List[float]
-            ) -> Network:
+            ) -> NeuralNetwork:
         input_val = seq(input_values)
         expected_val = seq(expected_output)
         return network.fit(
@@ -94,12 +99,15 @@ class NeuralNetwork:
         )
 
     @staticmethod
-    def toJson(network_val: Network) -> str:
+    def toJson(network_val: NeuralNetwork) -> str:
         return network.to_json(network_val)
 
     @staticmethod
-    def ofJson(json_val: str) -> Network:
+    def ofJson(json_val: str) -> NeuralNetwork:
         return network.of_json(json_val)
+
+
+DataPreprocessor = Preprocessor
 
 
 class DataPreprocessor:
@@ -107,13 +115,13 @@ class DataPreprocessor:
     @staticmethod
     def init(keys_with_discrete_flags: List[(str, bool)],
              datapoints: Iterable[Dict[str, str]]
-             ) -> Preprocessor:
+             ) -> DataPreprocessor:
         keys_with_flags = seq(keys_with_discrete_flags)
         dataset = seq(datapoints)
         return preprocessor.init(keys_with_flags, dataset)
 
     @staticmethod
-    def encodedDatapoint(preprocessor_val: Preprocessor,
+    def encodedDatapoint(preprocessor_val: DataPreprocessor,
                          datapoint: Dict[str, str]
                          ) -> List[float]:
         return preprocessor \
@@ -121,18 +129,18 @@ class DataPreprocessor:
             .to_list()
 
     @staticmethod
-    def decodedDatapoint(preprocessor_val: Preprocessor,
+    def decodedDatapoint(preprocessor_val: DataPreprocessor,
                          encoded_values: List[float]
                          ) -> Dict[str, str]:
         return preprocessor \
             .decode(encoded_values, preprocessor_val)
 
     @staticmethod
-    def toJson(preprocessor_val: Preprocessor) -> str:
+    def toJson(preprocessor_val: DataPreprocessor) -> str:
         return preprocessor.to_json(preprocessor_val)
 
     @staticmethod
-    def ofJson(json_val: str) -> Preprocessor:
+    def ofJson(json_val: str) -> DataPreprocessor:
         return preprocessor.of_json(json_val)
 
 
