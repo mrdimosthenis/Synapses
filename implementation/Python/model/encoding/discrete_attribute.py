@@ -47,9 +47,9 @@ def serialized(discrete_attribute: DiscreteAttribute
     )
 
 
-def deserialized(discrete_attribute_serialized: DiscreteAttributeSerialized
+def deserialized(discrete_attribute_serialized: Dict
                  ) -> DiscreteAttribute:
     return DiscreteAttribute(
-        discrete_attribute_serialized.key,
-        seq(discrete_attribute_serialized.values)
+        discrete_attribute_serialized['key'],
+        seq(discrete_attribute_serialized['values'])
     )

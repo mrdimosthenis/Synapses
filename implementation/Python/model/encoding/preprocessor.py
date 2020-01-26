@@ -1,12 +1,11 @@
 import json
-from typing import Dict
+from typing import Dict, List
 from functional import seq
 from functional.pipeline import Sequence
 
 from model import utilities
 from model.encoding import discrete_attribute, continuous_attribute
-from model.encoding.serialization import Preprocessor, DiscreteAttribute, ContinuousAttribute, Attribute, \
-    PreprocessorSerialized, AttributeSerialized, DiscreteAttributeSerialized, ContinuousAttributeSerialized
+from model.encoding.serialization import Preprocessor, DiscreteAttribute, ContinuousAttribute, Attribute
 
 
 def updated_f(datapoint: Dict[str, str],
@@ -102,46 +101,57 @@ def decode(encoded_datapoint: Sequence,
         .to_dict()
 
 
-def serialized_f(attr: Attribute
-                 ) -> AttributeSerialized:
+def f_sharp_serialized_f(attr: Attribute
+                         ) -> Dict:
     if isinstance(attr, DiscreteAttribute):
-        return discrete_attribute.serialized(attr)
+        return {
+            "Case": "SerializableDiscrete",
+            "Fields": [discrete_attribute.serialized(attr)]
+        }
     elif isinstance(attr, ContinuousAttribute):
-        return continuous_attribute.serialized(attr)
+        return {
+            "Case": "SerializableContinuous",
+            "Fields": [continuous_attribute.serialized(attr)]
+        }
     else:
         raise Exception('Attribute is neither Discrete nor Continuous')
 
 
-def serialized(preprocessor: Preprocessor
-               ) -> PreprocessorSerialized:
+def f_sharp_serialized(preprocessor: Preprocessor
+                       ) -> List[Dict]:
     return preprocessor \
-        .map(lambda x: serialized_f(x)) \
+        .map(lambda x: f_sharp_serialized_f(x)) \
         .to_list()
 
 
 def to_json(preprocessor: Preprocessor) -> str:
     return json.dumps(
-        serialized(preprocessor),
+        f_sharp_serialized(preprocessor),
         separators=(',', ':'),
         cls=utilities.EnhancedJSONEncoder
     )
 
 
-def deserialized_f(attr: AttributeSerialized
-                   ) -> Attribute:
-    if isinstance(attr, DiscreteAttributeSerialized):
-        return discrete_attribute.deserialized(attr)
-    elif isinstance(attr, ContinuousAttributeSerialized):
-        return continuous_attribute.deserialized(attr)
+def f_sharp_deserialized_f(attr: Dict
+                           ) -> Attribute:
+    case = attr.get("Case")
+    if case == "SerializableDiscrete":
+        return discrete_attribute.deserialized(
+            attr['Fields'][0]
+        )
+    elif case == "SerializableContinuous":
+        return continuous_attribute.deserialized(
+            attr['Fields'][0]
+        )
     else:
         raise Exception('Attribute is neither Discrete nor Continuous')
 
 
-def deserialized(preprocessor_serialized: PreprocessorSerialized
-                 ) -> Preprocessor:
+def f_sharp_deserialized(preprocessor_serialized: List[Dict]
+                         ) -> Preprocessor:
     return seq(preprocessor_serialized) \
-        .map(lambda x: deserialized_f(x))
+        .map(lambda x: f_sharp_deserialized_f(x))
 
 
 def of_json(s: str) -> Preprocessor:
-    return deserialized(json.loads(s))
+    return f_sharp_deserialized(json.loads(s))

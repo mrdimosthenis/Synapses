@@ -51,10 +51,10 @@ def serialized(continuous_attribute: ContinuousAttribute
     )
 
 
-def deserialized(continuous_attribute_serialized: ContinuousAttributeSerialized
+def deserialized(continuous_attribute_serialized: Dict
                  ) -> ContinuousAttribute:
     return ContinuousAttribute(
-        continuous_attribute_serialized.key,
-        continuous_attribute_serialized.min,
-        continuous_attribute_serialized.max
+        continuous_attribute_serialized['key'],
+        continuous_attribute_serialized['min'],
+        continuous_attribute_serialized['max']
     )

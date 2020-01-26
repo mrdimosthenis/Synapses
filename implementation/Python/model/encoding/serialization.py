@@ -21,9 +21,10 @@ class ContinuousAttribute(Attribute):
     max: float
 
 
-##
-
 Preprocessor = Sequence
+
+
+##
 
 
 @dataclass(frozen=True)
@@ -42,5 +43,3 @@ class ContinuousAttributeSerialized(AttributeSerialized):
     key: str
     min: float
     max: float
-
-PreprocessorSerialized = List[AttributeSerialized]
