@@ -119,6 +119,14 @@ def serialized(preprocessor: Preprocessor
         .to_list()
 
 
+def to_json(preprocessor: Preprocessor) -> str:
+    return json.dumps(
+        serialized(preprocessor),
+        separators=(',', ':'),
+        cls=utilities.EnhancedJSONEncoder
+    )
+
+
 def deserialized_f(attr: AttributeSerialized
                    ) -> Attribute:
     if isinstance(attr, DiscreteAttributeSerialized):
@@ -127,14 +135,6 @@ def deserialized_f(attr: AttributeSerialized
         return continuous_attribute.deserialized(attr)
     else:
         raise Exception('Attribute is neither Discrete nor Continuous')
-
-
-def to_json(preprocessor: Preprocessor) -> str:
-    return json.dumps(
-        serialized(preprocessor),
-        separators=(',', ':'),
-        cls=utilities.EnhancedJSONEncoder
-    )
 
 
 def deserialized(preprocessor_serialized: PreprocessorSerialized
