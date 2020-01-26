@@ -44,9 +44,17 @@ def decode(encoded_values: Sequence,
 
 def serialized(continuous_attribute: ContinuousAttribute
                ) -> ContinuousAttributeSerialized:
-    return continuous_attribute
+    return ContinuousAttributeSerialized(
+        continuous_attribute.key,
+        continuous_attribute.min,
+        continuous_attribute.max
+    )
 
 
 def deserialized(continuous_attribute_serialized: ContinuousAttributeSerialized
                  ) -> ContinuousAttribute:
-    return continuous_attribute_serialized
+    return ContinuousAttribute(
+        continuous_attribute_serialized.key,
+        continuous_attribute_serialized.min,
+        continuous_attribute_serialized.max
+    )
