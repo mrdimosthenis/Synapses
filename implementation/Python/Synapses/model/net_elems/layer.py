@@ -3,10 +3,10 @@ from typing import Callable, Tuple, List
 from functional import seq
 from functional.pipeline import Sequence
 
-from synapses.model import utilities
-from synapses.model.net_elems import neuron
-from synapses.model.net_elems.activation import Activation
-from synapses.model.net_elems.neuron import NeuronSerialized
+from Synapses.model import utilities
+from Synapses.model.net_elems import neuron
+from Synapses.model.net_elems.activation import Activation
+from Synapses.model.net_elems.neuron import NeuronSerialized
 
 Layer = Sequence
 

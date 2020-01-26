@@ -4,10 +4,10 @@ from typing import Callable, List
 from functional import seq
 from functional.pipeline import Sequence
 
-from synapses.model import utilities
-from synapses.model.net_elems import layer
-from synapses.model.net_elems.activation import Activation
-from synapses.model.net_elems.layer import Layer, LayerSerialized
+from Synapses.model import utilities
+from Synapses.model.net_elems import layer
+from Synapses.model.net_elems.activation import Activation
+from Synapses.model.net_elems.layer import Layer, LayerSerialized
 
 Network = Sequence
 

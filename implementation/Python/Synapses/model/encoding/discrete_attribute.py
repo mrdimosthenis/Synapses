@@ -3,8 +3,8 @@ from typing import Dict
 from functional import seq
 from functional.pipeline import Sequence
 
-from synapses.model import utilities
-from synapses.model.encoding.serialization import DiscreteAttribute, DiscreteAttributeSerialized
+from Synapses.model import utilities
+from Synapses.model.encoding.serialization import DiscreteAttribute, DiscreteAttributeSerialized
 
 
 def updated(datapoint: Dict[str, str],

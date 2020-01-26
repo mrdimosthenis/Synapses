@@ -3,12 +3,12 @@ from typing import List, Optional, Callable, Iterable, Dict, Tuple
 
 from functional import seq
 
-from synapses.model import mathematics
-from synapses.model.encoding import preprocessor
-from synapses.model.encoding.serialization import Preprocessor
-from synapses.model.net_elems import activation, network
-from synapses.model.net_elems.activation import Activation
-from synapses.model.net_elems.network import Network
+from Synapses.model import mathematics
+from Synapses.model.encoding import preprocessor
+from Synapses.model.encoding.serialization import Preprocessor
+from Synapses.model.net_elems import activation, network
+from Synapses.model.net_elems.activation import Activation
+from Synapses.model.net_elems.network import Network
 
 ActivationFunction = Activation
 
