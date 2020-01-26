@@ -20,3 +20,9 @@ def lazy_unzip(ls: Sequence) -> Tuple[Sequence, Sequence]:
     xs = reversed_xs.reverse()
     ys = reversed_ys.reverse()
     return xs, ys
+
+
+def lazy_split_at(n: int,
+                  ls: Sequence
+                  ) -> (Sequence, Sequence):
+    return ls.take(n), ls.drop(n)

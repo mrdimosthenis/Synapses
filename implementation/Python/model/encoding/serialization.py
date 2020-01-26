@@ -32,11 +32,15 @@ class AttributeSerialized:
 
 
 @dataclass(frozen=True)
-class DiscreteAttributeSerialized(Attribute):
+class DiscreteAttributeSerialized(AttributeSerialized):
     key: str
     values: List[str]
 
 
-ContinuousAttributeSerialized = ContinuousAttribute
+@dataclass(frozen=True)
+class ContinuousAttributeSerialized(AttributeSerialized):
+    key: str
+    min: float
+    max: float
 
 PreprocessorSerialized = List[AttributeSerialized]
