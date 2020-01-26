@@ -1,4 +1,4 @@
-from typing import List, Callable, Tuple
+from typing import List, Callable, Tuple, Dict
 from dataclasses import dataclass
 from functional import seq
 from functional.pipeline import Sequence
@@ -64,8 +64,8 @@ def serialized(neuron: Neuron) -> NeuronSerialized:
     )
 
 
-def deserialized(neuron_serialized: NeuronSerialized) -> Neuron:
+def deserialized(neuron_serialized: Dict) -> Neuron:
     return Neuron(
-        activation.deserialized(neuron_serialized.activationF),
-        seq(neuron_serialized.weights)
+        activation.deserialized(neuron_serialized['activationF']),
+        seq(neuron_serialized['weights'])
     )

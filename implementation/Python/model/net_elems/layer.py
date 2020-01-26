@@ -49,7 +49,7 @@ LayerSerialized = List[NeuronSerialized]
 
 
 def serialized(layer_val: Layer) -> LayerSerialized:
-    return layer_val \
+    return seq(layer_val) \
         .map(lambda x: neuron.serialized(x)) \
         .to_list()
 

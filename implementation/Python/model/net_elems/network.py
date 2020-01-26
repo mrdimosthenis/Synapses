@@ -154,7 +154,7 @@ def to_json(network: Network) -> str:
 
 
 def deserialized(network_serialized: NetworkSerialized) -> Network:
-    return seq(network_serialized).map(lambda x: layer.serialized(x))
+    return seq(network_serialized).map(lambda x: layer.deserialized(x))
 
 
 def of_json(s: str) -> Network:
