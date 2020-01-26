@@ -1,11 +1,12 @@
 import json
 from typing import Dict, List
+
 from functional import seq
 from functional.pipeline import Sequence
 
-from model import utilities
-from model.encoding import discrete_attribute, continuous_attribute
-from model.encoding.serialization import Preprocessor, DiscreteAttribute, ContinuousAttribute, Attribute
+from synapses.model import utilities
+from synapses.model.encoding import discrete_attribute, continuous_attribute
+from synapses.model.encoding.serialization import Preprocessor, DiscreteAttribute, ContinuousAttribute, Attribute
 
 
 def updated_f(datapoint: Dict[str, str],

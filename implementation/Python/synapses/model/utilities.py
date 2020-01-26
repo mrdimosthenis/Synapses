@@ -1,8 +1,9 @@
 from typing import Tuple, TypeVar
+import json
+
 from functional import seq
 from functional.pipeline import Sequence
 import dataclasses
-import json
 
 T = TypeVar('T')
 

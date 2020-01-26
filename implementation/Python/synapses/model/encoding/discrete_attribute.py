@@ -1,9 +1,10 @@
 from typing import Dict
+
 from functional import seq
 from functional.pipeline import Sequence
 
-from model import utilities
-from model.encoding.serialization import DiscreteAttribute, DiscreteAttributeSerialized
+from synapses.model import utilities
+from synapses.model.encoding.serialization import DiscreteAttribute, DiscreteAttributeSerialized
 
 
 def updated(datapoint: Dict[str, str],

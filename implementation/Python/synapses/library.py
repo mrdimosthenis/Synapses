@@ -1,13 +1,14 @@
 from random import seed, random
 from typing import List, Optional, Callable, Iterable, Dict, Tuple
+
 from functional import seq
 
-from model import mathematics
-from model.encoding import preprocessor
-from model.encoding.serialization import Preprocessor
-from model.net_elems import activation, network
-from model.net_elems.activation import Activation
-from model.net_elems.network import Network
+from synapses.model import mathematics
+from synapses.model.encoding import preprocessor
+from synapses.model.encoding.serialization import Preprocessor
+from synapses.model.net_elems import activation, network
+from synapses.model.net_elems.activation import Activation
+from synapses.model.net_elems.network import Network
 
 ActivationFunction = Activation
 

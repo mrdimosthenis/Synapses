@@ -1,4 +1,5 @@
 import math
+
 from functional.pipeline import Sequence
 
 

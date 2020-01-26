@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from functional import seq
 from functional.pipeline import Sequence
 
-from model import utilities
-from model.mathematics import dot_product
-from model.net_elems import activation
+from synapses.model import utilities
+from synapses.model.mathematics import dot_product
+from synapses.model.net_elems import activation
 
 
 @dataclass(frozen=True)
