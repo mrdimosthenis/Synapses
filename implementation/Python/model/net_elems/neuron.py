@@ -53,7 +53,7 @@ def back_propagated(learning_rate: float,
 
 @dataclass(frozen=True)
 class NeuronSerialized:
-    activation_f: activation.ActivationSerialized
+    activationF: activation.ActivationSerialized
     weights: List[float]
 
 
@@ -66,6 +66,6 @@ def serialized(neuron: Neuron) -> NeuronSerialized:
 
 def deserialized(neuron_serialized: NeuronSerialized) -> Neuron:
     return Neuron(
-        activation.deserialized(neuron_serialized.activation_f),
+        activation.deserialized(neuron_serialized.activationF),
         seq(neuron_serialized.weights)
     )
