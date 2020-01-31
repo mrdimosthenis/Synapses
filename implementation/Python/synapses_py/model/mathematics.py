@@ -26,5 +26,5 @@ def root_mean_square_error_d(y_hat: Sequence, y: Sequence) -> float:
 def root_mean_square_error(y_hats_with_ys: Sequence) -> float:
     (n, s) = y_hats_with_ys \
         .map(lambda t: root_mean_square_error_d(t[0], t[1])) \
-        .fold_left((0, 0.0), lambda acc, x: (acc[0][0] + 1, acc[0][1] + x))
+        .fold_left((0, 0.0), lambda acc, x: (acc[0] + 1, acc[1] + x))
     return math.sqrt(s / n)
