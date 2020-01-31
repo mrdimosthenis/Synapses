@@ -121,14 +121,14 @@ F#                        | `string`       | `DataPreprocessor`
 
 ### Evaluate
 
-`Statistics.rootMeanSquareError` | param1: `expectedWithOutputValues`       | _returns_
----                              | ---                                      | ---
-JavaScript                       | `iterable`                               | `number`
-Python                           | `[Tuple[List[float], List[float]]]`      | `float`
-Java                             | `Stream<double[][]>`                     | `double`
-C#                               | `IEnumerable<(double[], double[])>`      | `double`
-Scala                            | `LazyList[(List[Double], List[Double])]` | `Double`
-F#                               | `seq<List<float> * List<float>>`         | `float`
+`Statistics.rootMeanSquareError` | param1: `expectedWithOutputValues`          | _returns_
+---                              | ---                                         | ---
+JavaScript                       | `iterable`                                  | `number`
+Python                           | `Iterable[Tuple[List[float], List[float]]]` | `float`
+Java                             | `Stream<double[][]>`                        | `double`
+C#                               | `IEnumerable<(double[], double[])>`         | `double`
+Scala                            | `LazyList[(List[Double], List[Double])]`    | `Double`
+F#                               | `seq<List<float> * List<float>>`            | `float`
 
 ## Dependencies
 
