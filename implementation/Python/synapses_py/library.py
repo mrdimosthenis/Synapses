@@ -133,8 +133,9 @@ class DataPreprocessor:
     def decodedDatapoint(preprocessor_val: DataPreprocessor,
                          encoded_values: List[float]
                          ) -> Dict[str, str]:
+        encoded_datapoint = seq(encoded_values)
         return preprocessor \
-            .decode(encoded_values, preprocessor_val)
+            .decode(encoded_datapoint, preprocessor_val)
 
     @staticmethod
     def toJson(preprocessor_val: DataPreprocessor) -> str:
