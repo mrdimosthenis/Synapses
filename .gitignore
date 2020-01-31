@@ -60,6 +60,9 @@ implementation/Python/README.md
 /test-projects/JavaScriptTest/.idea/
 /test-projects/JavaScriptTest/node_modules/
 
+/test-projects/PythonTest/.idea/
+/test-projects/PythonTest/venv/
+
 *.gem
 *.rbc
 documentation/.bundle
