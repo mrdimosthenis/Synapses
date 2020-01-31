@@ -4,9 +4,9 @@ from typing import Dict, List
 from functional import seq
 from functional.pipeline import Sequence
 
-from SynapsesPy.model import utilities
-from SynapsesPy.model.encoding import discrete_attribute, continuous_attribute
-from SynapsesPy.model.encoding.serialization import Preprocessor, DiscreteAttribute, ContinuousAttribute, Attribute
+from synapses_py.model import utilities
+from synapses_py.model.encoding import discrete_attribute, continuous_attribute
+from synapses_py.model.encoding.serialization import Preprocessor, DiscreteAttribute, ContinuousAttribute, Attribute
 
 
 def updated_f(datapoint: Dict[str, str],

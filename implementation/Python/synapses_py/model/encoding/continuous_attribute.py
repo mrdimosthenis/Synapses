@@ -3,7 +3,7 @@ from typing import Dict
 from functional import seq
 from functional.pipeline import Sequence
 
-from SynapsesPy.model.encoding.serialization import ContinuousAttribute, ContinuousAttributeSerialized
+from synapses_py.model.encoding.serialization import ContinuousAttribute, ContinuousAttributeSerialized
 
 
 def parse(s: str) -> float:
