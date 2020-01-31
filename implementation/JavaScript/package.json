@@ -1,7 +1,7 @@
 {
   "name": "synapses",
   "version": "7.1.0",
-  "description": "A lightweight Neural Network library, for js, jvm and .net",
+  "description": "A cross-platform library for Neural Networks",
   "main": "synapses-opt.js",
   "scripts": {
     "test": "mocha"

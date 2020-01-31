@@ -50,7 +50,7 @@ class NeuralNetwork:
 
     @staticmethod
     def customizedInit(layers: List[int],
-                       activation_f: Callable[[int], Activation],
+                       activation_f: Callable[[int], ActivationFunction],
                        weight_init_f: Callable[[int], float]
                        ) -> NeuralNetwork:
         layer_sizes = seq(layers)
