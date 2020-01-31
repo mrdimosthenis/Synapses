@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "synapses_py"
-version = "7.1.2.rc2"
+version = "7.1.2.rc3"
 description = "A cross-platform library for Neural Networks"
 
 license = "MIT"
