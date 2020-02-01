@@ -1,6 +1,6 @@
 # Synapses
 
-A **cross-platform** library for **Neural Networks**.
+A **lightweight** library for **neural networks** that **runs anywhere**.
 
 ## [Documentation](https://mrdimosthenis.github.io/Synapses)
 

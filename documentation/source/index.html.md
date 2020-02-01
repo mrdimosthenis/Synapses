@@ -19,7 +19,7 @@ search: true
 
 # Synapses
 
-**Synapses** is a **cross-platform** library for **Neural Networks**.
+**Synapses** is a **lightweight** library for **neural networks** that **runs anywhere**.
 
 ```javascript
 // run
@@ -379,7 +379,7 @@ let customizedNetwork =
 ## Save and load a neural network
 
 JSON instances are **compatible** across platforms!
-We can generate, train and save a neural network in Scala
+We can generate, train and save a neural network in Python
 and then load and make predictions in Javascript!
 
 ### toJson
