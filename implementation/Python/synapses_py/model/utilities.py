@@ -30,6 +30,12 @@ def lazy_split_at(n: int,
     return ls.take(n), ls.drop(n)
 
 
+def lazy_realization(ls: Sequence) -> Sequence:
+    # this is odd but it gives different results from cached
+    ls.__str__()
+    return ls
+
+
 class EnhancedJSONEncoder(json.JSONEncoder):
     def default(self, o):
         if dataclasses.is_dataclass(o):
