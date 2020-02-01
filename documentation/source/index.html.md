@@ -3,6 +3,7 @@ title: Synapses
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
+  - python
   - java
   - csharp
   - scala
@@ -18,12 +19,18 @@ search: true
 
 # Synapses
 
-**Synapses** is a lightweight **Neural Network** library, for **js**, **jvm** and **.net**.
+**Synapses** is a **cross-platform** library for **Neural Networks**.
 
 ```javascript
 // run
 npm i synapses@7.1.0
 // in the directory of your node project
+```
+
+```python
+# run
+pip install synapses-py==7.1.2
+# in the directory of your project
 ```
 
 ```java
@@ -67,6 +74,12 @@ let layers = [4, 6, 5, 3];
 let neuralNetwork = NeuralNetwork.init(layers);
 ```
 
+```python
+from synapses_py import *
+layers = [4, 6, 5, 3]
+neuralNetwork = NeuralNetwork.init(layers)
+```
+
 ```java
 import synapses.jvm.library.*;
 int[] layers = {4, 6, 5, 3};
@@ -100,6 +113,12 @@ There are 2 hidden layers with 6 and 5 neurons respectively.
 let inputValues = [1.0, 0.5625, 0.511111, 0.47619];
 let prediction =
         NeuralNetwork.prediction(neuralNetwork, inputValues);
+```
+
+```python
+inputValues = [1.0, 0.5625, 0.511111, 0.47619]
+let prediction = \
+        NeuralNetwork.prediction(neuralNetwork, inputValues)
 ```
 
 ```java
@@ -144,6 +163,18 @@ let fitNetwork =
             inputValues,
             expectedOutput
         );
+```
+
+```python
+learningRate = 0.5
+expectedOutput = [0.0, 1.0, 0.0]
+fitNetwork = \
+        NeuralNetwork.fit(
+            neuralNetwork,
+            learningRate,
+            inputValues,
+            expectedOutput
+        )
 ```
 
 ```java
@@ -227,6 +258,28 @@ let customizedNetwork =
             activationF,
             weightInitF
         );
+```
+
+```python
+def activationF(layerIndex):
+    if layerIndex == 0:
+        return ActivationFunction.sigmoid
+    elif layerIndex == 1:
+        return ActivationFunction.identity
+    elif layerIndex == 2:
+        return ActivationFunction.leakyReLU
+    else:
+        return ActivationFunction.tanh
+
+def weightInitF(_layerIndex):
+    return 1.0 - 2.0 * random()
+
+customizedNetwork = \
+        NeuralNetwork.customizedInit(
+            layers,
+            activationF,
+            weightInitF
+        )
 ```
 
 ```java
@@ -338,6 +391,10 @@ Use it as you like. Save `json` in the file system or insert into a database tab
 let json = NeuralNetwork.toJson(customizedNetwork);
 ```
 
+```python
+json = NeuralNetwork.toJson(customizedNetwork)
+```
+
 ```java
 String json = NeuralNetwork.toJson(customizedNetwork);
 ```
@@ -358,6 +415,10 @@ let json = NeuralNetwork.toJson(customizedNetwork)
 
 ```javascript
 let loadedNetwork = NeuralNetwork.ofJson(json);
+```
+
+```python
+loadedNetwork = NeuralNetwork.ofJson(json)
 ```
 
 ```java
@@ -430,6 +491,51 @@ let dataPreprocessor =
 let encodedDatapoints = datasetArr.map(x =>
         DataPreprocessor.encodedDatapoint(dataPreprocessor, x)
 );
+```
+
+```python
+setosaDatapoint = {
+    "petal_length": "1.5",
+    "petal_width": "0.1",
+    "sepal_length": "4.9",
+    "sepal_width": "3.1",
+    "species": "setosa"
+}
+
+versicolorDatapoint = {
+    "petal_length": "3.8",
+    "petal_width": "1.1",
+    "sepal_length": "5.5",
+    "sepal_width": "2.4",
+    "species": "versicolor"
+}
+
+virginicaDatapoint = {
+    "petal_length": "6.0",
+    "petal_width": "2.2",
+    "sepal_length": "5.0",
+    "sepal_width": "1.5",
+    "species": "virginica"
+}
+
+datasetList = [ setosaDatapoint,
+                versicolorDatapoint,
+                virginicaDatapoint ]
+
+dataPreprocessor = \
+        DataPreprocessor.init(
+             [ ("petal_length", False),
+               ("petal_width", False),
+               ("sepal_length", False),
+               ("sepal_width", False),
+               ("species", True) ],
+             iter(datasetList)
+        )
+
+encodedDatapoints = map(lambda x:
+        DataPreprocessor.encodedDatapoint(dataPreprocessor, x),
+        datasetList
+)
 ```
 
 ```java
@@ -672,6 +778,19 @@ let expectedWithOutputValuesIter =
 let rmse = Statistics.rootMeanSquareError(
                         expectedWithOutputValuesIter
 );
+```
+
+```python
+expectedWithOutputValuesList = \
+        [ ( [ 0.0, 0.0, 1.0], [ 0.0, 0.0, 1.0] ),
+          ( [ 0.0, 0.0, 1.0], [ 0.0, 1.0, 1.0] ) ];
+
+expectedWithOutputValuesIter = \
+        iter(expectedWithOutputValuesList)
+
+rmse = Statistics.rootMeanSquareError(
+                        expectedWithOutputValuesIter
+)
 ```
 
 ```java
