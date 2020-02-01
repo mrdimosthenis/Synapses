@@ -40,13 +40,15 @@ class NeuralNetwork:
 
     @staticmethod
     def init(layers: List[int]) -> NeuralNetwork:
-        return seed_init_network(None, layers)
+        return seed_init_network(None, layers)\
+            .cache()
 
     @staticmethod
     def initWithSeed(seed_val: int,
                      layers: List[int]
                      ) -> NeuralNetwork:
-        return seed_init_network(seed_val, layers)
+        return seed_init_network(seed_val, layers)\
+            .cache()
 
     @staticmethod
     def customizedInit(layers: List[int],
@@ -58,7 +60,7 @@ class NeuralNetwork:
             layer_sizes,
             activation_f,
             weight_init_f
-        )
+        ).cache()
 
     @staticmethod
     def prediction(network_val: NeuralNetwork,
@@ -97,7 +99,7 @@ class NeuralNetwork:
             input_val,
             expected_val,
             network_val
-        )
+        ).cache()
 
     @staticmethod
     def toJson(network_val: NeuralNetwork) -> str:
@@ -105,7 +107,9 @@ class NeuralNetwork:
 
     @staticmethod
     def ofJson(json_val: str) -> NeuralNetwork:
-        return network.of_json(json_val)
+        return network\
+            .of_json(json_val)\
+            .cache()
 
 
 DataPreprocessor = Preprocessor
@@ -119,7 +123,9 @@ class DataPreprocessor:
              ) -> DataPreprocessor:
         keys_with_flags = seq(keys_with_discrete_flags)
         dataset = seq(datapoints)
-        return preprocessor.init(keys_with_flags, dataset)
+        return preprocessor\
+            .init(keys_with_flags, dataset)\
+            .cache()
 
     @staticmethod
     def encodedDatapoint(preprocessor_val: DataPreprocessor,
@@ -143,7 +149,9 @@ class DataPreprocessor:
 
     @staticmethod
     def ofJson(json_val: str) -> DataPreprocessor:
-        return preprocessor.of_json(json_val)
+        return preprocessor\
+            .of_json(json_val)\
+            .cache()
 
 
 class Statistics:
