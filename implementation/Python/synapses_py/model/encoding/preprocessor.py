@@ -27,15 +27,15 @@ def updated(datapoint: Dict[str, str],
 
 def init_f(key: str,
            is_discrete: bool,
-           dataset: Sequence
+           dataset_head: Sequence
            ) -> Attribute:
     if is_discrete:
         return DiscreteAttribute(
             key,
-            dataset.take(1).map(lambda x: x[key])
+            seq([dataset_head[key]])
         )
     else:
-        v = continuous_attribute.parse(dataset.head()[key])
+        v = continuous_attribute.parse(dataset_head[key])
         return ContinuousAttribute(
             key,
             v,
@@ -46,9 +46,11 @@ def init_f(key: str,
 def init(keys_with_flags: Sequence,
          dataset: Sequence
          ) -> Preprocessor:
+    dataset_head = dataset.head()
+    dataset_tail = dataset.tail()
     init_preprocessor = keys_with_flags \
-        .map(lambda x: init_f(x[0], x[1], dataset))
-    return dataset \
+        .map(lambda x: init_f(x[0], x[1], dataset_head))
+    return dataset_tail \
         .fold_left(init_preprocessor,
                    lambda acc, x: updated(x, acc))
 
