@@ -2,137 +2,61 @@
 
 A **cross-platform** library for **Neural Networks**.
 
-## Documentation
+## [Documentation](https://mrdimosthenis.github.io/Synapses)
 
-**https://mrdimosthenis.github.io/Synapses**
+### Why Sypapses?
 
-The interface of the library is common across programming languages.
+#### It's easy
 
-### Create a Neural Network
+1. Add **one dependency** to your project
+2. Write a **single import statement**
+3. Use **a few pure functions**
 
-`NeuralNetwork.init` | param1: `layers` | _returns_
----                  | ---              | ---
-JavaScript           | `number[]`       | `NeuralNetwork`
-Python               | `List[int]`      | `NeuralNetwork`
-Java                 | `int[]`          | `NeuralNetwork`
-C#                   | `int[]`          | `NeuralNetwork`
-Scala                | `List[Int]`      | `NeuralNetwork`
-F#                   | `List<int>`      | `NeuralNetwork`
+You are all set!
 
-`NeuralNetwork.customizedInit` | param1: `layers` | param2: `activationF`                 | param3: `weightInitF`    | _returns_
----                            | ---              | ---                                   | ---                      | ---
-JavaScript                     | `number[]`       | `(number) => ActivationFunction`      | `(number) => number`     | `NeuralNetwork`
-Python                         | `List[int]`      | `Callable[[int], ActivationFunction]` | `Callable[[int], float]` | `NeuralNetwork`
-Java                           | `int[]`          | `IntFunction<ActivationFunction>`     | `IntFunction<Double>`    | `NeuralNetwork`
-C#                             | `int[]`          | `Func<int, ActivationFunction>`       | `Func<int, Double>`      | `NeuralNetwork`
-Scala                          | `List[Int]`      | `Int => ActivationFunction`           | `Int => Double`          | `NeuralNetwork`
-F#                             | `List<int>`      | `int -> ActivationFunction`           | `int -> float`           | `NeuralNetwork`
+#### It runs anywhere <sup>[1](#myfootnote1)</sup>
 
-### Use a Neural Network
+Supported languages:
 
-`NeuralNetwork.fit` | param1: `neuralNetwork` | param2: `learningRate` | param3: `inputValues` | param4: `expectedOutput` | _returns_
----                 | ---                     | ---                    | ---                   | ---                      | ---
-JavaScript          | `NeuralNetwork`         | `number`               | `number[]`            | `number[]`               | `NeuralNetwork`
-Python              | `NeuralNetwork`         | `float`                | `List[float]`         | `List[float]`            | `NeuralNetwork`
-Java                | `NeuralNetwork`         | `double`               | `double[]`            | `double[]`               | `NeuralNetwork`
-C#                  | `NeuralNetwork`         | `double`               | `double[]`            | `double[]`               | `NeuralNetwork`
-Scala               | `NeuralNetwork`         | `Double`               | `List[Double]`        | `List[Double]`           | `NeuralNetwork`
-F#                  | `NeuralNetwork`         | `float`                | `List<float>`         | `List<float>`            | `NeuralNetwork`
+* [JavaScript](https://mrdimosthenis.github.io/Synapses/?javascript)
+* [Python](https://mrdimosthenis.github.io/Synapses/?python)
+* [Java](https://mrdimosthenis.github.io/Synapses/?java)
+* [C#](https://mrdimosthenis.github.io/Synapses/?csharp)
+* [Scala](https://mrdimosthenis.github.io/Synapses/?scala)
+* [F#](https://mrdimosthenis.github.io/Synapses/?fscarp)
 
-`NeuralNetwork.prediction` | param1: `neuralNetwork` | param2: `inputValues` | _returns_
----                        | ---                     | ---                   | ---
-JavaScript                 | `NeuralNetwork`         | `number[]`            | `number[]`
-Python                     | `NeuralNetwork`         | `List[float]`         | `List[float]`
-Java                       | `NeuralNetwork`         | `double[]`            | `double[]`
-C#                         | `NeuralNetwork`         | `double[]`            | `double[]`
-Scala                      | `NeuralNetwork`         | `List[Double]`        | `List[Double]`
-F#                         | `NeuralNetwork`         | `List<float>`         | `List<float>`
+#### It's compatible across languages
 
-### Convert a Neural Network
+1. The [interface](https://github.com/mrdimosthenis/Synapses/blob/master/interface.md) of the functions is **common** across languages.
+2. You can transfer a network from one platform to another via its **json instance**.
+Create a neural network in *Python*, train it in *Java* and get its predictions in *JavaScript*!
 
-`NeuralNetwork.toJson` | param1: `neuralNetwork` | _returns_
----                    | ---                     | ---
-JavaScript             | `NeuralNetwork`         | `string`
-Python                 | `NeuralNetwork`         | `str`
-Java                   | `NeuralNetwork`         | `String`
-C#                     | `NeuralNetwork`         | `string`
-Scala                  | `NeuralNetwork`         | `String`
-F#                     | `NeuralNetwork`         | `string`
+#### It's customizable
 
-`NeuralNetwork.ofJson` | param1: `json` | _returns_
----                    | ---            | ---
-JavaScript             | `string`       | `NeuralNetwork`
-Python                 | `str`          | `NeuralNetwork`
-Java                   | `String`       | `NeuralNetwork`
-C#                     | `string`       | `NeuralNetwork`
-Scala                  | `String`       | `NeuralNetwork`
-F#                     | `string`       | `NeuralNetwork`
+You can specify the **activation function** and the **weight distribution** for the neurons of each layer.
+If this is not enough, edit the [json instance](https://raw.githubusercontent.com/mrdimosthenis/Synapses/master/network.json) of a network to be exactly what you have in mind.
 
-### Create a Data Preprocessor
+#### It's efficient
 
-`DataPreprocessor.init` | param1: `keysWithDiscreteFlags` | param2: `datapoints`                      | _returns_
----                     | ---                             | ---                                       | ---
-JavaScript              | `any[][]`                       | `iterable`                                | `DataPreprocessor`
-Python                  | `List[Tuple[str, bool]]`        | `Iterable[Dict[str, str]]`                | `DataPreprocessor`
-Java                    | `Object[][]`                    | `Stream<Map<String,String>>`              | `DataPreprocessor`
-C#                      | `(string, bool)[]`              | `IEnumerable<Dictionary<string, string>>` | `DataPreprocessor`
-Scala                   | `List[(String, Boolean)]`       | `LazyList[Map[String, String]]`           | `DataPreprocessor`
-F#                      | `List<string * bool>`           | `seq<Map<string, string>>`                | `DataPreprocessor`
+The implementation is based on *lazy list*.
+The information flows smoothly.
+Everything is obtained at a single pass.
 
-### Use a Data Preprocessor
+#### Data preprocessing is simple
 
-`DataPreprocessor.encodedDatapoint` | param1: `dataPreprocessor` | param2: `datapoint`          | _returns_
----                                 | ---                        | ---                          | ---
-JavaScript                          | `DataPreprocessor`         | `object`                     | `number[]`
-Python                              | `DataPreprocessor`         | `Dict[str, str]`             | `List[float]`
-Java                                | `DataPreprocessor`         | `Map<String,String>`         | `double[]`
-C#                                  | `DataPreprocessor`         | `Dictionary<string, string>` | `double[]`
-Scala                               | `DataPreprocessor`         | `Map[String, String]`        | `List[Double]`
-F#                                  | `DataPreprocessor`         | `Map<string, string>`        | `List<float>`
+By annotating the *discrete* and *continuous attributes*,
+you can create a *preprocessor* that **encodes** and **decodes** the datapoints.
 
-`DataPreprocessor.decodedDatapoint` | param1: `dataPreprocessor` | param2: `encodedDatapoint` | _returns_
----                                 | ---                        | ---                        | ---
-JavaScript                          | `DataPreprocessor`         | `number[]`                 | `object`
-Python                              | `DataPreprocessor`         | `List[float]`              | `Dict[str, str]`
-Java                                | `DataPreprocessor`         | `double[]`                 | `Map<String,String>`
-C#                                  | `DataPreprocessor`         | `double[]`                 | `Dictionary<string, string>`
-Scala                               | `DataPreprocessor`         | `List[Double]`             | `Map[String, String]`
-F#                                  | `DataPreprocessor`         | `List<float>`              | `Map<string, string>`
+#### Works for huge datasets
 
-### Convert a Data Preprocessor
+The functions that process big volumes of data, have an *Iterable/Stream* as argument.
+Ram should not get full!
 
-`DataPreprocessor.toJson` | param1: `dataPreprocessor` | _returns_
----                       | ---                     | ---
-JavaScript                | `DataPreprocessor`         | `string`
-Python                    | `DataPreprocessor`         | `str`
-Java                      | `DataPreprocessor`         | `String`
-C#                        | `DataPreprocessor`         | `string`
-Scala                     | `DataPreprocessor`         | `String`
-F#                        | `DataPreprocessor`         | `string`
-
-`DataPreprocessor.ofJson` | param1: `json` | _returns_
----                       | ---            | ---
-JavaScript                | `string`       | `DataPreprocessor`
-Python                    | `str`          | `DataPreprocessor`
-Java                      | `String`       | `DataPreprocessor`
-C#                        | `string`       | `DataPreprocessor`
-Scala                     | `String`       | `DataPreprocessor`
-F#                        | `string`       | `DataPreprocessor`
-
-### Evaluate
-
-`Statistics.rootMeanSquareError` | param1: `expectedWithOutputValues`          | _returns_
----                              | ---                                         | ---
-JavaScript                       | `iterable`                                  | `number`
-Python                           | `Iterable[Tuple[List[float], List[float]]]` | `float`
-Java                             | `Stream<double[][]>`                        | `double`
-C#                               | `IEnumerable<(double[], double[])>`         | `double`
-Scala                            | `LazyList[(List[Double], List[Double])]`    | `Double`
-F#                               | `seq<List<float> * List<float>>`            | `float`
-
-## Dependencies
+### Dependencies
 
 * [circe](https://github.com/circe/circe)
 * [FSharpx.Collections](https://github.com/fsprojects/FSharpx.Collections)
 * [FSharp.SystemTextJson](https://github.com/Tarmil/FSharp.SystemTextJson)
 * [PyFunctional](https://github.com/EntilZha/PyFunctional)
+
+<a name="myfootnote1">1</a>: Your Honour should be aware that I mean *almost* anywhere.
