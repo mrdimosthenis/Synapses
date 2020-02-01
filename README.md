@@ -8,9 +8,9 @@ A **cross-platform** library for **Neural Networks**.
 
 #### It's easy
 
-1. Add **one dependency** to your project
-2. Write a **single import statement**
-3. Use **a few pure functions**
+1. Add **one dependency** to your project.
+2. Write a **single import statement**.
+3. Use **a few pure functions**.
 
 You are all set!
 
@@ -23,7 +23,7 @@ Supported languages:
 * [Java](https://mrdimosthenis.github.io/Synapses/?java)
 * [C#](https://mrdimosthenis.github.io/Synapses/?csharp)
 * [Scala](https://mrdimosthenis.github.io/Synapses/?scala)
-* [F#](https://mrdimosthenis.github.io/Synapses/?fscarp)
+* [F#](https://mrdimosthenis.github.io/Synapses/?fsharp)
 
 #### It's compatible across languages
 
