@@ -52,6 +52,18 @@ you can create a *preprocessor* that **encodes** and **decodes** the datapoints.
 The functions that process big volumes of data, have an *Iterable/Stream* as argument.
 Ram should not get full!
 
+#### It's well tested
+
+Every function is tested for every language.
+Please take a look at the test projects.
+
+* [JavaScript](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/JavaScriptTest/test)
+* [Python](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/PythonTest)
+* [Java](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/JavaTest/src/test/java)
+* [C#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/CSharpTest)
+* [Scala](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/ScalaTest/src/test/scala)
+* [F#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/FSharpTest)
+
 ### Dependencies
 
 * [circe](https://github.com/circe/circe)
