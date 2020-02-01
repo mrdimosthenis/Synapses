@@ -756,9 +756,9 @@ let encodedDatapoints =
 > `encodedDatapoints` equals to
 
 ```json
-[ [ 0.0     , 0.0     , 0.0     , 1.0     , 0.0; 0.0; 1.0 ],
-  [ 0.511111, 0.476190, 1.0     , 0.562500, 0.0; 1.0; 0.0 ],
-  [ 1.0     , 1.0     , 0.166667, 0.0     , 1.0; 0.0; 0.0 ] ]
+[ [ 0.0     , 0.0     , 0.0     , 1.0     , 0.0, 0.0, 1.0 ],
+  [ 0.511111, 0.476190, 1.0     , 0.562500, 0.0, 1.0, 0.0 ],
+  [ 1.0     , 1.0     , 0.166667, 0.0     , 1.0, 0.0, 0.0 ] ]
 ```
 
 Save and load the preprocessor by calling `DataPreprocessor.toJson` and `DataPreprocessor.ofJson`.
