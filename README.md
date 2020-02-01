@@ -50,7 +50,7 @@ you can create a *preprocessor* that **encodes** and **decodes** the datapoints.
 #### Works for huge datasets
 
 The functions that process big volumes of data, have an *Iterable/Stream* as argument.
-Ram should not get full!
+RAM should not get full!
 
 #### It's well tested
 
