@@ -4,13 +4,17 @@ import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser
 import io.circe.syntax._
-import synapses.model.Utilities
 import synapses.model.encoding.ContinuousAttribute
 import synapses.model.encoding.DiscreteAttribute
 import synapses.model.encoding.Serialization._
 
 
 object Preprocessor {
+
+  private def lazyRealization(preprocessor: Preprocessor): Preprocessor = {
+    Preprocessor.serialized(preprocessor)
+    preprocessor
+  }
 
   def updated(datapoint: Map[String, String])
              (preprocessor: Preprocessor)
@@ -41,7 +45,7 @@ object Preprocessor {
           ): Attribute
         }
     }
-    Utilities.lazyPreprocessorRealization(
+    lazyRealization(
       dataset
         .tail
         .foldLeft(initPreprocessor) { case (acc, x) =>
@@ -180,7 +184,7 @@ object Preprocessor {
 
   // public
   def ofJson(s: String): Preprocessor =
-    Utilities.lazyPreprocessorRealization(
+    lazyRealization(
       fromFSharp(s)
         .as[PreprocessorSerialized]
         .toOption

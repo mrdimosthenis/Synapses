@@ -1,6 +1,6 @@
 name := "synapses"
 
-version := "7.2.0.rc1"
+version := "7.2.0"
 
 scalaVersion := "2.13.1"
 

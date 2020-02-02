@@ -4,10 +4,14 @@ import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
-import synapses.model.Utilities
 import synapses.model.netElems.Layer.{Layer, LayerSerialized}
 
 object Network {
+
+  private def lazyRealization(network: Network): Network = {
+    Network.serialized(network)
+    network
+  }
 
   type Network = LazyList[Layer]
 
@@ -15,7 +19,7 @@ object Network {
   def init(layerSizes: LazyList[Int],
            activationF: Int => Activation)
           (weightInitF: Int => Double)
-  : Network = Utilities.lazyNetworkRealization(
+  : Network = lazyRealization(
     layerSizes
       .zip(layerSizes.tail)
       .zip(LazyList.from(0, 1))
@@ -127,7 +131,7 @@ object Network {
           input: LazyList[Double],
           expectedOutput: LazyList[Double])
          (network: Network)
-  : Network = Utilities.lazyNetworkRealization(
+  : Network = lazyRealization(
     errorsWithFitNet(
       learningRate,
       input,
@@ -156,7 +160,7 @@ object Network {
   def ofJson(s: String): Either[Error, Network] =
     decode[NetworkSerialized](s)
       .map(deserialized)
-      .map(Utilities.lazyNetworkRealization)
+      .map(lazyRealization)
 
 
 }
