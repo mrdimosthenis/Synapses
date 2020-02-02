@@ -1,7 +1,7 @@
 {
   "name": "synapses",
-  "version": "7.1.0",
-  "description": "A cross-platform library for Neural Networks",
+  "version": "7.2.0",
+  "description": "A lightweight library for neural networks that runs anywhere",
   "main": "synapses-opt.js",
   "scripts": {
     "test": "mocha"
@@ -13,7 +13,7 @@
   "keywords": [
     "machine-learning",
     "neural-network",
-    "functional-programming"
+    "cross-platform"
   ],
   "author": "Dimosthenis Michailidis",
   "license": "MIT",
