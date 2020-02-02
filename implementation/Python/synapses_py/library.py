@@ -3,7 +3,7 @@ from typing import List, Optional, Callable, Iterable, Dict, Tuple
 
 from functional import seq
 
-from synapses_py.model import mathematics, utilities
+from synapses_py.model import mathematics
 from synapses_py.model.encoding import preprocessor
 from synapses_py.model.encoding.serialization import Preprocessor
 from synapses_py.model.net_elems import activation, network
@@ -40,17 +40,13 @@ class NeuralNetwork:
 
     @staticmethod
     def init(layers: List[int]) -> NeuralNetwork:
-        return utilities.lazy_realization(
-            seed_init_network(None, layers)
-        )
+        return seed_init_network(None, layers)
 
     @staticmethod
     def initWithSeed(seed_val: int,
                      layers: List[int]
                      ) -> NeuralNetwork:
-        return utilities.lazy_realization(
-            seed_init_network(seed_val, layers)
-        )
+        return seed_init_network(seed_val, layers)
 
     @staticmethod
     def customizedInit(layers: List[int],
@@ -58,12 +54,10 @@ class NeuralNetwork:
                        weight_init_f: Callable[[int], float]
                        ) -> NeuralNetwork:
         layer_sizes = seq(layers)
-        return utilities.lazy_realization(
-            network.init(
-                layer_sizes,
-                activation_f,
-                weight_init_f
-            )
+        return network.init(
+            layer_sizes,
+            activation_f,
+            weight_init_f
         )
 
     @staticmethod
@@ -98,13 +92,11 @@ class NeuralNetwork:
             ) -> NeuralNetwork:
         input_val = seq(input_values)
         expected_val = seq(expected_output)
-        return utilities.lazy_realization(
-            network.fit(
-                learning_rate,
-                input_val,
-                expected_val,
-                network_val
-            )
+        return network.fit(
+            learning_rate,
+            input_val,
+            expected_val,
+            network_val
         )
 
     @staticmethod
@@ -113,9 +105,7 @@ class NeuralNetwork:
 
     @staticmethod
     def ofJson(json_val: str) -> NeuralNetwork:
-        return utilities.lazy_realization(
-            network.of_json(json_val)
-        )
+        return network.of_json(json_val)
 
 
 DataPreprocessor = Preprocessor
@@ -129,9 +119,8 @@ class DataPreprocessor:
              ) -> DataPreprocessor:
         keys_with_flags = seq(keys_with_discrete_flags)
         dataset = seq(datapoints)
-        return utilities.lazy_realization(
-            preprocessor.init(keys_with_flags, dataset)
-        )
+        return preprocessor \
+            .init(keys_with_flags, dataset)
 
     @staticmethod
     def encodedDatapoint(preprocessor_val: DataPreprocessor,
@@ -155,9 +144,7 @@ class DataPreprocessor:
 
     @staticmethod
     def ofJson(json_val: str) -> DataPreprocessor:
-        return utilities.lazy_realization(
-            preprocessor.of_json(json_val)
-        )
+        return preprocessor.of_json(json_val)
 
 
 class Statistics:
