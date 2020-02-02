@@ -1,16 +1,14 @@
 /.idea/
 
-implementation/FSharp/.idea/
-implementation/FSharp/bin/
-implementation/FSharp/obj/
-implementation/FSharp/nuget.config
-implementation/FSharp/README.md
+implementation/DotNet/.idea/
 
-implementation/CSharp/.idea/
-implementation/CSharp/bin/
-implementation/CSharp/obj/
-implementation/CSharp/nuget.config
-implementation/CSharp/README.md
+implementation/DotNet/Synapses/bin/
+implementation/DotNet/Synapses/obj/
+implementation/DotNet/Synapses/README.md
+
+implementation/DotNet/SynapsesCSharp/bin/
+implementation/DotNet/SynapsesCSharp/obj/
+implementation/DotNet/SynapsesCSharp/README.md
 
 implementation/Scala/.idea/
 implementation/Scala/node_modules/

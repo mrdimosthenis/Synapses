@@ -4,26 +4,31 @@ import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
+import synapses.model.Utilities
 import synapses.model.netElems.Layer.{Layer, LayerSerialized}
 
 object Network {
 
   type Network = LazyList[Layer]
 
+  // public
   def init(layerSizes: LazyList[Int],
            activationF: Int => Activation)
           (weightInitF: Int => Double)
-  : Network = layerSizes
-    .zip(layerSizes.tail)
-    .zip(LazyList.from(0, 1))
-    .map { case ((lrSz, nextLrSz), index) =>
-      Layer.init(
-        lrSz,
-        nextLrSz,
-        activationF(index)
-      )(weightInitF(index))
-    }
+  : Network = Utilities.lazyNetworkRealization(
+    layerSizes
+      .zip(layerSizes.tail)
+      .zip(LazyList.from(0, 1))
+      .map { case ((lrSz, nextLrSz), index) =>
+        Layer.init(
+          lrSz,
+          nextLrSz,
+          activationF(index)
+        )(weightInitF(index))
+      }
+  )
 
+  // public
   def output(input: LazyList[Double])
             (network: Network)
   : LazyList[Double] =
@@ -105,6 +110,7 @@ object Network {
       fedForward(input)(network)
     )
 
+  // public
   def errors(learningRate: Double,
              input: LazyList[Double],
              expectedOutput: LazyList[Double])
@@ -116,23 +122,27 @@ object Network {
       expectedOutput
     )(network)._1
 
+  // public
   def fit(learningRate: Double,
           input: LazyList[Double],
           expectedOutput: LazyList[Double])
          (network: Network)
-  : Network = errorsWithFitNet(
-    learningRate,
-    input,
-    expectedOutput
-  )(network)._2
+  : Network = Utilities.lazyNetworkRealization(
+    errorsWithFitNet(
+      learningRate,
+      input,
+      expectedOutput
+    )(network)._2
+  )
 
   type NetworkSerialized = List[LayerSerialized]
 
-  private def serialized(network: Network): NetworkSerialized =
+  def serialized(network: Network): NetworkSerialized =
     network
       .map(Layer.serialized)
       .toList
 
+  // public
   def toJson(network: Network): String = serialized(network)
     .asJson
     .noSpaces
@@ -142,7 +152,11 @@ object Network {
       .map(Layer.deserialized)
       .to(LazyList)
 
+  // public
   def ofJson(s: String): Either[Error, Network] =
-    decode[NetworkSerialized](s).map(deserialized)
+    decode[NetworkSerialized](s)
+      .map(deserialized)
+      .map(Utilities.lazyNetworkRealization)
+
 
 }

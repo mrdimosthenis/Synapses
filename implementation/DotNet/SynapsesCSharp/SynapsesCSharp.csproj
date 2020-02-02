@@ -5,7 +5,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>SynapsesCSharp</Title>
         <Authors>Dimosthenis Michailidis</Authors>
-        <Description>A cross-platform library for Neural Networks</Description>
+        <Description>A lightweight Neural Network library, for js, jvm and .net</Description>
         <RepositoryUrl>https://github.com/mrdimosthenis/Synapses</RepositoryUrl>
         <PackageTags>neural-network;machine-learning;functional-programming</PackageTags>
         <OutputType>Library</OutputType>
@@ -17,6 +17,10 @@
 
     <ItemGroup>
         <PackageReference Include="Synapses" Version="7.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Synapses\Synapses.fsproj" />
     </ItemGroup>
 
 </Project>

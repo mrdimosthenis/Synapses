@@ -4,6 +4,7 @@ import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser
 import io.circe.syntax._
+import synapses.model.Utilities
 import synapses.model.encoding.ContinuousAttribute
 import synapses.model.encoding.DiscreteAttribute
 import synapses.model.encoding.Serialization._
@@ -20,6 +21,7 @@ object Preprocessor {
       ContinuousAttribute.updated(datapoint)(attr)
   }
 
+  // public
   def init(keysWithFlags: LazyList[(String, Boolean)],
            dataset: LazyList[Map[String, String]])
   : Preprocessor = {
@@ -39,13 +41,16 @@ object Preprocessor {
           ): Attribute
         }
     }
-    dataset
-      .tail
-      .foldLeft(initPreprocessor) { case (acc, x) =>
-        updated(x)(acc)
-      }
+    Utilities.lazyPreprocessorRealization(
+      dataset
+        .tail
+        .foldLeft(initPreprocessor) { case (acc, x) =>
+          updated(x)(acc)
+        }
+    )
   }
 
+  // public
   def encode(datapoint: Map[String, String])
             (preprocessor: Preprocessor)
   : LazyList[Double] = preprocessor.flatMap {
@@ -77,6 +82,7 @@ object Preprocessor {
     (nextFloats, nextKsVs)
   }
 
+  // public
   def decode(encodedDatapoint: LazyList[Double])
             (preprocessor: Preprocessor)
   : Map[String, String] = preprocessor
@@ -84,7 +90,7 @@ object Preprocessor {
     ._2
     .toMap
 
-  private def serialized(preprocessor: Preprocessor)
+  def serialized(preprocessor: Preprocessor)
   : PreprocessorSerialized = preprocessor
     .map {
       case attr: DiscreteAttribute =>
@@ -156,6 +162,7 @@ object Preprocessor {
       }
   }
 
+  // public
   def toJson(preprocessor: Preprocessor): String = {
     val serializedJson = serialized(preprocessor).asJson
     toFSharp(serializedJson)
@@ -171,12 +178,14 @@ object Preprocessor {
         ContinuousAttribute.deserialized(attr)
     }
 
-  def ofJson(s: String): Preprocessor = {
-    fromFSharp(s)
-      .as[PreprocessorSerialized]
-      .toOption
-      .map(deserialized)
-      .get
-  }
+  // public
+  def ofJson(s: String): Preprocessor =
+    Utilities.lazyPreprocessorRealization(
+      fromFSharp(s)
+        .as[PreprocessorSerialized]
+        .toOption
+        .map(deserialized)
+        .get
+    )
 
 }
