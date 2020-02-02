@@ -27,7 +27,7 @@ Supported languages:
 
 #### It's compatible across languages
 
-1. The [interface](https://github.com/mrdimosthenis/Synapses/blob/master/interface.md) of the functions is **common** across languages.
+1. The [interface](https://github.com/mrdimosthenis/Synapses/blob/master/interface.md) is **common** across languages.
 2. You can transfer a network from one platform to another via its **json instance**.
 Create a neural network in *Python*, train it in *Java* and get its predictions in *JavaScript*!
 
