@@ -73,7 +73,7 @@ module NeuralNetwork =
                : List<float> =
                let input = LazyList.ofList inputValues
                let expOutput = LazyList.ofList expectedOutput
-               let (ers, _) = Network.errorsWithFitted
+               let ers = Network.errors
                                 learningRate
                                 input
                                 expOutput
