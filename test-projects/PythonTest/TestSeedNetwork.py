@@ -41,7 +41,7 @@ class TestSeedNetwork(unittest.TestCase):
     def test_neuralNetworkZeroErrors(self):
         self.assertEqual(
             [0.0, 0.0, 0.0, 0.0],
-            NeuralNetwork.errors(neuralNetwork, learningRate, inputValues, NeuralNetwork.prediction(neuralNetwork, inputValues))
+            NeuralNetwork.errors(neuralNetwork, learningRate, inputValues, prediction)
         )
 
     def test_fitNeuralNetworkPrediction(self):
