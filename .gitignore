@@ -59,6 +59,7 @@ implementation/Python/README.md
 /test-projects/JavaScriptTest/node_modules/
 
 /test-projects/PythonTest/.idea/
+/test-projects/PythonTest/dist/
 /test-projects/PythonTest/venv/
 
 *.gem
