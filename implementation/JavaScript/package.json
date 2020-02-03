@@ -1,6 +1,6 @@
 {
   "name": "synapses",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "description": "A lightweight library for neural networks that runs anywhere",
   "main": "synapses-opt.js",
   "scripts": {
