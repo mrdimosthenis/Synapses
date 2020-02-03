@@ -1,6 +1,6 @@
 name := "synapses"
 
-version := "7.1.1"
+version := "7.2.1"
 
 scalaVersion := "2.13.1"
 
@@ -20,7 +20,7 @@ developers := List(Developer(
   "mrdimosthenis",
   "Dimosthenis Michailidis",
   "mrdimosthenis@hotmail.com",
-  url("https://github.com/username")
+  url("https://github.com/mrdimosthenis")
 ))
 licenses += ("MIT", url("https://rem.mit-license.org/"))
 publishMavenStyle := true

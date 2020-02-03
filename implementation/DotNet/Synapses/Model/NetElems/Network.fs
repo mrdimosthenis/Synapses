@@ -12,25 +12,7 @@ type Network = LazyList<Layer.Layer>
 type SerializableNetwork =
         List<Layer.SerializableLayer>
 
-let init (layerSizes: LazyList<int>)
-         (activationF: int -> Activation.Function)
-         (weightInitF: int -> float)
-         : Network =
-    layerSizes
-    |> LazyList.tail
-    |> LazyList.zip layerSizes
-    |> Utilities.lazyZipWithIndex
-    |> LazyList.map
-        (fun ((lrSz, nextLrSz), index) ->
-            Layer.init
-                lrSz
-                nextLrSz
-                (activationF index)
-                (fun () () ->
-                    weightInitF index
-                )
-        )
-
+// public
 let output (input: LazyList<float>)
            (network: Network)
            : LazyList<float> =
@@ -117,18 +99,19 @@ let errorsWithFitted
     fedForward input network
     |> errorsWithBackPropagated learnRate expOutput
 
-let fitted (learnRate: float)
+// public
+let errors (learnRate: float)
            (input: LazyList<float>)
            (expOutput: LazyList<float>)
            (network: Network)
-           : Network =
-    let (_, fittedNet) =
+           : LazyList<float> =
+    let (ers, _) =
                 errorsWithFitted
                     learnRate
                     input
                     expOutput
                     network
-    fittedNet
+    ers
 
 let serialized
         (network: Network):
@@ -144,11 +127,56 @@ let deserialized
     |> List.map Layer.deserialized
     |> LazyList.ofList
 
+// public
 let toJson (network: Network): string =
     JsonSerializer.Serialize
         (serialized network, Utilities.jsonOptions)
 
+let lazyRealization
+        (network: Network)
+        : Network =
+    let _ = serialized(network)
+    network
+
+// public
+let init (layerSizes: LazyList<int>)
+         (activationF: int -> Activation.Function)
+         (weightInitF: int -> float)
+         : Network =
+    layerSizes
+    |> LazyList.tail
+    |> LazyList.zip layerSizes
+    |> Utilities.lazyZipWithIndex
+    |> LazyList.map
+        (fun ((lrSz, nextLrSz), index) ->
+            Layer.init
+                lrSz
+                nextLrSz
+                (activationF index)
+                (fun () () ->
+                    weightInitF index
+                )
+        )
+    |> lazyRealization
+
+// public
+let fitted (learnRate: float)
+           (input: LazyList<float>)
+           (expOutput: LazyList<float>)
+           (network: Network)
+           : Network =
+    let (_, fittedNet) =
+                errorsWithFitted
+                    learnRate
+                    input
+                    expOutput
+                    network
+    lazyRealization fittedNet
+
+// public
 let fromJson (json: string): Network =
     (json, Utilities.jsonOptions)
     |> JsonSerializer.Deserialize<SerializableNetwork>
     |> deserialized
+    |> lazyRealization
+

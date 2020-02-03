@@ -23,13 +23,13 @@ search: true
 
 ```javascript
 // run
-npm i synapses@7.1.0
+npm i synapses@7.2.1
 // in the directory of your node project
 ```
 
 ```python
 # run
-pip install synapses-py==7.1.2
+pip install synapses-py==7.2.1
 # in the directory of your project
 ```
 
@@ -38,27 +38,27 @@ pip install synapses-py==7.1.2
 <dependency>
     <groupId>com.github.mrdimosthenis</groupId>
     <artifactId>synapses_2.13</artifactId>
-    <version>7.1.0</version>
+    <version>7.2.1</version>
 </dependency>
 // to pom.xml
 ```
 
 ```csharp
 // run
-dotnet add package SynapsesCSharp --version 7.1.2
+dotnet add package SynapsesCSharp --version 7.2.1
 // in the directory of your project
 ```
 
 ```scala
 // add
 libraryDependencies +=
-  "com.github.mrdimosthenis" %% "synapses" % "7.1.1"
+  "com.github.mrdimosthenis" %% "synapses" % "7.2.1"
 // to build.sbt
 ```
 
 ```fsharp
 // run
-dotnet add package Synapses --version 7.1.1
+dotnet add package Synapses --version 7.2.1
 // in the directory of your project
 ```
 

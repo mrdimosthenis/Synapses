@@ -43,6 +43,7 @@ def init_f(key: str,
         )
 
 
+# public
 def init(keys_with_flags: Sequence,
          dataset: Sequence
          ) -> Preprocessor:
@@ -50,9 +51,11 @@ def init(keys_with_flags: Sequence,
     dataset_tail = dataset.tail()
     init_preprocessor = keys_with_flags \
         .map(lambda x: init_f(x[0], x[1], dataset_head))
-    return dataset_tail \
-        .fold_left(init_preprocessor,
-                   lambda acc, x: updated(x, acc))
+    return utilities.lazy_realization(
+        dataset_tail \
+            .fold_left(init_preprocessor,
+                       lambda acc, x: updated(x, acc))
+    )
 
 
 def encode_f(datapoint: Dict[str, str],
@@ -65,6 +68,7 @@ def encode_f(datapoint: Dict[str, str],
         raise Exception('Attribute is neither Discrete nor Continuous')
 
 
+# public
 def encode(datapoint: Dict[str, str],
            preprocessor: Preprocessor
            ) -> Sequence:
@@ -95,6 +99,7 @@ def decode_acc_f(acc: (Sequence, Sequence),
     return next_floats, next_ks_vs
 
 
+# public
 def decode(encoded_datapoint: Sequence,
            preprocessor: Preprocessor
            ) -> Dict[str, str]:
@@ -127,6 +132,7 @@ def f_sharp_serialized(preprocessor: Preprocessor
         .to_list()
 
 
+# public
 def to_json(preprocessor: Preprocessor) -> str:
     return json.dumps(
         f_sharp_serialized(preprocessor),
@@ -156,5 +162,8 @@ def f_sharp_deserialized(preprocessor_serialized: List[Dict]
         .map(lambda x: f_sharp_deserialized_f(x))
 
 
+# public
 def of_json(s: str) -> Preprocessor:
-    return f_sharp_deserialized(json.loads(s))
+    return utilities.lazy_realization(
+        f_sharp_deserialized(json.loads(s))
+    )

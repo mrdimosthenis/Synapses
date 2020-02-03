@@ -5,12 +5,12 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>Synapses</Title>
         <Authors>Dimosthenis Michailidis</Authors>
-        <Description>A cross-platform library for Neural Networks</Description>
+        <Description>A lightweight library for neural networks that runs anywhere</Description>
         <RepositoryUrl>https://github.com/mrdimosthenis/Synapses</RepositoryUrl>
-        <PackageTags>neural-network;machine-learning;functional-programming</PackageTags>
+        <PackageTags>neural-network;machine-learning;cross-platform</PackageTags>
         <OutputType>Library</OutputType>
         <license>MIT</license>
-        <PackageVersion>7.1.1</PackageVersion>
+        <PackageVersion>7.2.1</PackageVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageProjectUrl>https://mrdimosthenis.github.io/Synapses</PackageProjectUrl>
     </PropertyGroup>

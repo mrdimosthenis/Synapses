@@ -25,20 +25,27 @@ object CustomizedNetworkTest extends SimpleTestSuite {
   def weightInitF(_layerIndex: Int): Double =
     1.0 - 2.0 * rnd.nextDouble()
 
-  val neuralNetwork: NeuralNetwork =
+  val justCreatedNeuralNetwork: NeuralNetwork =
     NeuralNetwork.customizedInit(layers, activationF, weightInitF)
+
+  val justCreatedNeuralNetworkJson: String =
+    NeuralNetwork.toJson(justCreatedNeuralNetwork)
+
+
+  test("neural network of to json") {
+    val netJson = NeuralNetwork.ofJson(justCreatedNeuralNetworkJson)
+    assertEquals(
+      justCreatedNeuralNetworkJson,
+      NeuralNetwork.toJson(netJson)
+    )
+  }
 
   val jsonSource: Source = Source.fromFile("../resources/network.json")
 
   val neuralNetworkJson: String = jsonSource.getLines.mkString
 
-  test("neural network to json") {
-    assertEquals(NeuralNetwork.toJson(neuralNetwork), neuralNetworkJson)
-  }
-
-  test("neural network of json") {
-    assertEquals(NeuralNetwork.ofJson(neuralNetworkJson), neuralNetwork)
-  }
+  val neuralNetwork: NeuralNetwork =
+    NeuralNetwork.ofJson(neuralNetworkJson)
 
   val prediction: List[Double] =
     NeuralNetwork.prediction(neuralNetwork, inputValues)

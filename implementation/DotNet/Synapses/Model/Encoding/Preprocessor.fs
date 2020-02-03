@@ -39,35 +39,7 @@ let updated (preprocessor: Preprocessor)
         )
         preprocessor
 
-let init (keysWithFlags: LazyList<string * bool>)
-         (dataset: LazyList<Map<string, string>>)
-         : Preprocessor =
-    let (datasetHead, datasetTail) =
-            LazyList.uncons dataset
-    let initPreprocessor =
-            LazyList.map
-                (fun (key, isDiscrete) ->
-                    match isDiscrete with
-                    | true ->
-                        let att: Discrete.DiscreteAttribute =
-                            { key = key
-                              values = LazyList.ofList
-                                        [ datasetHead.[key] ] }
-                        Discrete att
-                    | false ->
-                        let v = Continuous.parse
-                                    datasetHead.[key]
-                        { key = key
-                          min = v
-                          max = v }
-                        |> Continuous
-                )
-                keysWithFlags
-    LazyList.fold
-        updated
-        initPreprocessor
-        datasetTail
-
+// public
 let encode (preprocessor: Preprocessor)
            (datapoint: Map<string, string>)
            : LazyList<float> =
@@ -121,6 +93,7 @@ let decodeAccF
                 processedKsVs
     (nextFloats, nextKsVs)
 
+// public
 let decode (preprocessor: Preprocessor)
            (encodedDatapoint: LazyList<float>)
            : Map<string, string> =
@@ -169,11 +142,51 @@ let deserialized
                 |> Continuous
         )
 
+// public
 let toJson (preprocessor: Preprocessor): string =
     JsonSerializer.Serialize
         (serialized preprocessor, Utilities.jsonOptions)
 
+let lazyRealization
+        (preprocessor: Preprocessor)
+        : Preprocessor =
+    let _ = serialized(preprocessor)
+    preprocessor
+
+// public
+let init (keysWithFlags: LazyList<string * bool>)
+         (dataset: LazyList<Map<string, string>>)
+         : Preprocessor =
+    let (datasetHead, datasetTail) =
+            LazyList.uncons dataset
+    let initPreprocessor =
+            LazyList.map
+                (fun (key, isDiscrete) ->
+                    match isDiscrete with
+                    | true ->
+                        let att: Discrete.DiscreteAttribute =
+                            { key = key
+                              values = LazyList.ofList
+                                        [ datasetHead.[key] ] }
+                        Discrete att
+                    | false ->
+                        let v = Continuous.parse
+                                    datasetHead.[key]
+                        { key = key
+                          min = v
+                          max = v }
+                        |> Continuous
+                )
+                keysWithFlags
+    LazyList.fold
+        updated
+        initPreprocessor
+        datasetTail
+    |> lazyRealization
+
+// public
 let fromJson (json: string): Preprocessor =
     (json, Utilities.jsonOptions)
     |> JsonSerializer.Deserialize<SerializablePreprocessor>
     |> deserialized
+    |> lazyRealization

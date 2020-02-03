@@ -12,21 +12,25 @@ from synapses_py.model.net_elems.layer import Layer, LayerSerialized
 Network = Sequence
 
 
+# public
 def init(layer_sizes: Sequence,
          activation_f: Callable[[int], Activation],
          weight_init_f: Callable[[int], float]
          ) -> Network:
-    return layer_sizes \
-        .zip(layer_sizes.tail()) \
-        .zip_with_index() \
-        .map(lambda t:
-             layer.init(
-                 t[0][0],
-                 t[0][1],
-                 activation_f(t[1]),
-                 lambda: lambda: weight_init_f(t[1])))
+    return utilities.lazy_realization(
+        layer_sizes \
+            .zip(layer_sizes.tail()) \
+            .zip_with_index() \
+            .map(lambda t:
+                 layer.init(
+                     t[0][0],
+                     t[0][1],
+                     activation_f(t[1]),
+                     lambda: lambda: weight_init_f(t[1])))
+    )
 
 
+# public
 def output(input_val: Sequence,
            network_val: Network
            ) -> Sequence:
@@ -110,6 +114,7 @@ def errors_with_fit_net(learning_rate: float,
     )
 
 
+# public
 def errors(learning_rate: float,
            input_val: Sequence,
            expected_output: Sequence,
@@ -123,17 +128,20 @@ def errors(learning_rate: float,
     )[0]
 
 
+# public
 def fit(learning_rate: float,
         input_val: Sequence,
         expected_output: Sequence,
         network: Network
         ) -> Sequence:
-    return errors_with_fit_net(
-        learning_rate,
-        input_val,
-        expected_output,
-        network
-    )[1]
+    return utilities.lazy_realization(
+        errors_with_fit_net(
+            learning_rate,
+            input_val,
+            expected_output,
+            network
+        )[1]
+    )
 
 
 NetworkSerialized = List[LayerSerialized]
@@ -145,6 +153,7 @@ def serialized(network_val: Network) -> NetworkSerialized:
         .to_list()
 
 
+# public
 def to_json(network: Network) -> str:
     return json.dumps(
         serialized(network),
@@ -157,5 +166,8 @@ def deserialized(network_serialized: NetworkSerialized) -> Network:
     return seq(network_serialized).map(lambda x: layer.deserialized(x))
 
 
+# public
 def of_json(s: str) -> Network:
-    return deserialized(json.loads(s))
+    return utilities.lazy_realization(
+        deserialized(json.loads(s))
+    )

@@ -1,24 +1,41 @@
 cd ../
+cd test-projects
 
-cd test-projects/FSharpTest
+cd FSharpTest
+rm -r bin
+rm -r obj
 dotnet restore
 dotnet test
-cd ../../
+cd ../
 
-cd test-projects/CSharpTest
+cd CSharpTest
+rm -r bin
+rm -r obj
 dotnet restore
 dotnet test
-cd ../../
+cd ../
 
-cd test-projects/ScalaTest
+cd ScalaTest
+rm -r project/target
+rm -r target
 sbt test
-cd ../../
+cd ../
 
-cd test-projects/JavaScriptTest
-npm update
+cd JavaTest
+rm -r target
+mvn clean install -U
+cd ../
+
+cd JavaScriptTest
+rm -r node_modules
+npm install
 npm test
-cd ../../
+cd ../
 
-cd test-projects/JavaTest
-mvn clean test
-cd ../../
+cd PythonTest
+rm -r dist
+poetry build
+source venv/bin/activate
+python3 -m unittest discover test
+deactivate
+cd ../

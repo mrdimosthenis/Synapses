@@ -1,3 +1,13 @@
+## [7.2.1]
+### Added
+- NeuralNetwork and DataPreprocessor instances are forced to be realized.
+
+### Changed
+- README is more readable.
+
+### Removed
+- _Nothing has been removed._
+
 ## [7.1.1]
 ### Added
 - Java interface, tests and slate docs.
