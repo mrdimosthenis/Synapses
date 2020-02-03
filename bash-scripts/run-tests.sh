@@ -23,7 +23,7 @@ cd ../
 
 cd JavaTest
 rm -r target
-mvn clean test
+mvn clean install -U
 cd ../
 
 cd JavaScriptTest
