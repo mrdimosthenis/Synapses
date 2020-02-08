@@ -1,5 +1,7 @@
 /.idea/
 
+# implementation
+
 implementation/DotNet/.idea/
 
 implementation/DotNet/Synapses/bin/
@@ -36,31 +38,35 @@ implementation/Python/dist
 implementation/Python/SynapsesPy.egg-info
 implementation/Python/README.md
 
-/test-projects/ScalaTest/.idea/
-/test-projects/ScalaTest/project/project/
-/test-projects/ScalaTest/project/target/
-/test-projects/ScalaTest/target/
+# tests
 
-/test-projects/JavaTest/.idea/
-/test-projects/JavaTest/project/project/
-/test-projects/JavaTest/project/target/
-/test-projects/JavaTest/target/
-/test-projects/JavaTest/JavaTest.iml
+/test-projects/remote-deps/ScalaTest/.idea/
+/test-projects/remote-deps/ScalaTest/project/project/
+/test-projects/remote-deps/ScalaTest/project/target/
+/test-projects/remote-deps/ScalaTest/target/
 
-/test-projects/FSharpTest/.idea/
-/test-projects/FSharpTest/bin/
-/test-projects/FSharpTest/obj/
+/test-projects/remote-deps/JavaTest/.idea/
+/test-projects/remote-deps/JavaTest/project/project/
+/test-projects/remote-deps/JavaTest/project/target/
+/test-projects/remote-deps/JavaTest/target/
+/test-projects/remote-deps/JavaTest/JavaTest.iml
 
-/test-projects/CSharpTest/.idea/
-/test-projects/CSharpTest/bin/
-/test-projects/CSharpTest/obj/
+/test-projects/remote-deps/FSharpTest/.idea/
+/test-projects/remote-deps/FSharpTest/bin/
+/test-projects/remote-deps/FSharpTest/obj/
 
-/test-projects/JavaScriptTest/.idea/
-/test-projects/JavaScriptTest/node_modules/
+/test-projects/remote-deps/CSharpTest/.idea/
+/test-projects/remote-deps/CSharpTest/bin/
+/test-projects/remote-deps/CSharpTest/obj/
 
-/test-projects/PythonTest/.idea/
-/test-projects/PythonTest/dist/
-/test-projects/PythonTest/venv/
+/test-projects/remote-deps/JavaScriptTest/.idea/
+/test-projects/remote-deps/JavaScriptTest/node_modules/
+
+/test-projects/remote-deps/PythonTest/.idea/
+/test-projects/remote-deps/PythonTest/dist/
+/test-projects/remote-deps/PythonTest/venv/
+
+# slate
 
 *.gem
 *.rbc

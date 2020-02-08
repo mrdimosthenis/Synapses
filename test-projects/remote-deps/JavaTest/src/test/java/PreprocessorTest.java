@@ -24,7 +24,7 @@ public class PreprocessorTest {
     public PreprocessorTest() throws IOException {
     }
 
-    Reader datapointsReader = new FileReader("../resources/mnist.csv");
+    Reader datapointsReader = new FileReader("../../resources/mnist.csv");
     Iterable<CSVRecord> datapointsRecords = CSVFormat
             .RFC4180
             .withFirstRecordAsHeader()
@@ -66,11 +66,11 @@ public class PreprocessorTest {
         );
     }
 
-    String preprocessorData = Files.readString(Paths.get("../resources/preprocessor.json"));
+    String preprocessorData = Files.readString(Paths.get("../../resources/preprocessor.json"));
 
     DataPreprocessor preprocessor = DataPreprocessor.ofJson(preprocessorData);
 
-    Reader newDatapointsReader = new FileReader("../resources/mnist.csv");
+    Reader newDatapointsReader = new FileReader("../../resources/mnist.csv");
     Iterable<CSVRecord> newDatapointsRecords = CSVFormat
             .RFC4180
             .withFirstRecordAsHeader()

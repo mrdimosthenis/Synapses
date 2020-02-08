@@ -40,7 +40,7 @@ object CustomizedNetworkTest extends SimpleTestSuite {
     )
   }
 
-  val jsonSource: Source = Source.fromFile("../resources/network.json")
+  val jsonSource: Source = Source.fromFile("../../resources/network.json")
 
   val neuralNetworkJson: String = jsonSource.getLines.mkString
 

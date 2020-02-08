@@ -4,7 +4,7 @@ import unittest
 from functional import seq
 from synapses_py import DataPreprocessor
 
-datapointsFile = open("../resources/mnist.csv", "r")
+datapointsFile = open("../../resources/mnist.csv", "r")
 datapointsIter = csv.DictReader(datapointsFile)
 datapointsIterable = map(lambda x: dict(x), datapointsIter)
 pixelKeysWithFlags = seq.range(784).map(lambda x: ("pixel" + str(x), False)).to_list()
@@ -12,10 +12,10 @@ keysWithDiscreteFlags = [("label", True)] + pixelKeysWithFlags
 justCreatedPreprocessor = DataPreprocessor.init(keysWithDiscreteFlags, datapointsIterable)
 justCreatedPreprocessorJson = DataPreprocessor.toJson(justCreatedPreprocessor)
 
-preprocessorDataFile = open("../resources/preprocessor.json", "r")
+preprocessorDataFile = open("../../resources/preprocessor.json", "r")
 preprocessorData = preprocessorDataFile.read()
 preprocessor = DataPreprocessor.ofJson(preprocessorData)
-newDatapointsFile = open("../resources/mnist.csv", "r")
+newDatapointsFile = open("../../resources/mnist.csv", "r")
 newDatapointsIter = csv.DictReader(newDatapointsFile)
 newDatapointsIterable = map(lambda x: dict(x), newDatapointsIter)
 firstDatapoint = newDatapointsIterable.__next__()

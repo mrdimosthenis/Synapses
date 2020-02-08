@@ -4,7 +4,7 @@ require('synapses');
 const csv = require('csv-parser');
 
 var datapointsArr = [];
-fs.createReadStream('../resources/mnist.csv')
+fs.createReadStream('../../resources/mnist.csv')
     .pipe(csv())
     .on('data', (row) => {
         datapointsArr.push(row);
@@ -41,7 +41,7 @@ fs.createReadStream('../resources/mnist.csv')
                 );
             });
 
-            let preprocessorData = fs.readFileSync('../resources/preprocessor.json');
+            let preprocessorData = fs.readFileSync('../../resources/preprocessor.json');
 
             let preprocessor = DataPreprocessor.ofJson(preprocessorData);
 

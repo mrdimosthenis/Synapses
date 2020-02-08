@@ -1,5 +1,5 @@
 cd ../
-cd test-projects
+cd test-projects/remote-deps
 
 cd FSharpTest
 rm -r bin
@@ -39,3 +39,5 @@ source venv/bin/activate
 python3 -m unittest discover test
 deactivate
 cd ../
+
+cd ../../

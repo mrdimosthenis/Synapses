@@ -33,7 +33,7 @@ type ``customized network tests``() =
         |> should equal justCreatedNeuralNetworkJson
 
     let neuralNetwork =
-        "../../../../resources/network.json"
+        "../../../../../resources/network.json"
         |> System.IO.File.ReadAllText
         |> NeuralNetwork.ofJson
 

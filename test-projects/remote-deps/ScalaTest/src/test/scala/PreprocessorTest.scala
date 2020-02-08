@@ -8,7 +8,7 @@ import scala.io.Source
 
 object PreprocessorTest extends SimpleTestSuite {
 
-  val csvReader: CSVReader = CSVReader.open(new File("../resources/mnist.csv"))
+  val csvReader: CSVReader = CSVReader.open(new File("../../resources/mnist.csv"))
 
   val csvLazyList: LazyList[List[String]] = csvReader
     .toStream
@@ -31,7 +31,7 @@ object PreprocessorTest extends SimpleTestSuite {
 
   val preprocessor: DataPreprocessor = DataPreprocessor.init(keysWithDiscreteFlags, datapoints)
 
-  val preprocessorJsonSource: Source = Source.fromFile("../resources/preprocessor.json")
+  val preprocessorJsonSource: Source = Source.fromFile("../../resources/preprocessor.json")
 
   val preprocessorJson: String = preprocessorJsonSource.getLines.mkString
 

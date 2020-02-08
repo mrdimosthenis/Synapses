@@ -10,7 +10,7 @@ namespace CSharpTest
     public class PreprocessorTest
     {
         static IEnumerable<string[]> dataset = File
-            .ReadAllLines("../../../../resources/mnist.csv")
+            .ReadAllLines("../../../../../resources/mnist.csv")
             .Select(s => s.Split(','));
 
         static string[] headers = dataset.First();
@@ -44,13 +44,13 @@ namespace CSharpTest
             );
         }
 
-        static string preprocessorData = File.ReadAllText("../../../../resources/preprocessor.json");
+        static string preprocessorData = File.ReadAllText("../../../../../resources/preprocessor.json");
 
         static DataPreprocessor preprocessor = DataPreprocessor.ofJson(preprocessorData);
 
 
         static IEnumerable<string[]> newDataset = File
-            .ReadAllLines("../../../../resources/mnist.csv")
+            .ReadAllLines("../../../../../resources/mnist.csv")
             .Select(s => s.Split(','));
 
         static string[] newHeaders = newDataset.First();

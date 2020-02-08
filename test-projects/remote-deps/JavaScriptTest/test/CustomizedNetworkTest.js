@@ -44,7 +44,7 @@ describe('customized network tests', function () {
         );
     });
 
-    let neuralNetworkData = fs.readFileSync('../resources/network.json');
+    let neuralNetworkData = fs.readFileSync('../../resources/network.json');
 
     let neuralNetwork = NeuralNetwork.ofJson(neuralNetworkData);
 

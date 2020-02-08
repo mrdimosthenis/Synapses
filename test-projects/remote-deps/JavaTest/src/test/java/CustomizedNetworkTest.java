@@ -53,7 +53,7 @@ public class CustomizedNetworkTest {
         );
     }
 
-    String neuralNetworkJson = Files.readString(Paths.get("../resources/network.json"));
+    String neuralNetworkJson = Files.readString(Paths.get("../../resources/network.json"));
 
     NeuralNetwork neuralNetwork = NeuralNetwork.ofJson(neuralNetworkJson);
 

@@ -9,7 +9,7 @@ type ``preprocessor tests``() =
 
     let csvSeq =
         CsvFile.Load(
-                        "../../../../resources/mnist.csv",
+                        "../../../../../resources/mnist.csv",
                         hasHeaders = true
                     )
     let datapoints = csvSeq.Rows
@@ -42,7 +42,7 @@ type ``preprocessor tests``() =
         |> should equal justCreatedPreprocessorJson
         
     let preprocessor =
-            "../../../../resources/preprocessor.json"
+            "../../../../../resources/preprocessor.json"
             |> System.IO.File.ReadAllText
             |> DataPreprocessor.ofJson
 

@@ -27,7 +27,7 @@ def weightInitF(_layerIndex: int) -> float:
 justCreatedNeuralNetwork = NeuralNetwork.customizedInit(layers, activationF, weightInitF)
 justCreatedNeuralNetworkJson = NeuralNetwork.toJson(justCreatedNeuralNetwork)
 
-neuralNetworkJsonFile = open("../resources/network.json", "r")
+neuralNetworkJsonFile = open("../../resources/network.json", "r")
 neuralNetworkJson = neuralNetworkJsonFile.read()
 neuralNetwork = NeuralNetwork.ofJson(neuralNetworkJson)
 inputValues = [1.0, 0.5625, 0.511111, 0.47619]

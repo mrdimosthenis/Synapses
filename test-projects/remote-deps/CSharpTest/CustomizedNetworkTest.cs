@@ -49,7 +49,7 @@ namespace CSharpTest
             );
         }
         
-        static string neuralNetworkJson = File.ReadAllText("../../../../resources/network.json");
+        static string neuralNetworkJson = File.ReadAllText("../../../../../resources/network.json");
 
         static NeuralNetwork neuralNetwork = NeuralNetwork.ofJson(neuralNetworkJson);
 
