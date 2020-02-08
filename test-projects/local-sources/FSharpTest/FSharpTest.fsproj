@@ -24,13 +24,20 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Synapses" Version="7.2.1" />
+        <PackageReference Include="FSharp.SystemTextJson" Version="0.6.2" />
+        <PackageReference Include="FSharpx.Collections" Version="2.1.1" />
         <PackageReference Include="FSharp.Data" Version="3.3.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
         <PackageReference Include="coverlet.collector" Version="1.1.0" />
         <PackageReference Include="FsUnit.xUnit" Version="3.8.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Synapses, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\..\implementation\DotNet\Synapses\bin\Release\netstandard2.0\Synapses.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Xunit;
 using SynapsesCSharp;
+using Xunit;
 
-namespace CSharpTest
+namespace CSharpTest.test
 {
     public class StatisticsTest
     {

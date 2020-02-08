@@ -1,7 +1,7 @@
-using Xunit;
 using SynapsesCSharp;
+using Xunit;
 
-namespace CSharpTest
+namespace CSharpTest.test
 {
     public class SeedNetworkTest
     {

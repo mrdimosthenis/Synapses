@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "synapses_py"
+name = "synapses-py"
 version = "7.2.1"
 description = "A cross-platform library for Neural Networks"
 

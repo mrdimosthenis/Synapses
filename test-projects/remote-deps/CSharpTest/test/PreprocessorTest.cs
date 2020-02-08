@@ -5,7 +5,7 @@ using System.Linq;
 using SynapsesCSharp;
 using Xunit;
 
-namespace CSharpTest
+namespace CSharpTest.test
 {
     public class PreprocessorTest
     {
