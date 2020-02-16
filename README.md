@@ -2,7 +2,7 @@
 
 A **lightweight** library for **neural networks** that **runs anywhere**.
 
-## [Documentation](https://mrdimosthenis.github.io/Synapses)
+## [Getting Started](https://mrdimosthenis.github.io/Synapses)
 
 ### Why Sypapses?
 
