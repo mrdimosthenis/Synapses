@@ -65,4 +65,8 @@ public class NeuralNetwork {
         return new NeuralNetwork(_contents);
     }
 
+    public static String toSvg(NeuralNetwork network){
+        return NeuralNetwork$.MODULE$.toSvg(network.contents);
+    }
+
 }

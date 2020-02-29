@@ -1,6 +1,6 @@
 package synapses
 
-import synapses.model.Mathematics
+import synapses.model.{Draw, Mathematics}
 import synapses.model.encoding.{Preprocessor, Serialization}
 import synapses.model.netElems.Network.Network
 import synapses.model.netElems._
@@ -89,6 +89,11 @@ object Library {
         .ofJson(json)
         .toOption
         .get
+
+    def toSvg(network: NeuralNetwork): String =
+      Draw
+        .networkSVG(network)
+        .toString()
 
   }
 

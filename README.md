@@ -31,6 +31,12 @@ Supported languages:
 2. You can transfer a network from one platform to another via its **json instance**.
 Create a neural network in *Python*, train it in *Java* and get its predictions in *JavaScript*!
 
+#### It offers visualizations
+
+Get an overview of a neural network by taking a brief look at its **svg drawing**.
+
+![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-drawing.png?raw=true)
+
 #### It's customizable
 
 You can specify the **activation function** and the **weight distribution** for the neurons of each layer.
