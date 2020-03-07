@@ -3,7 +3,7 @@ from typing import List, Optional, Callable, Iterable, Dict, Tuple
 
 from functional import seq
 
-from synapses_py.model import mathematics
+from synapses_py.model import mathematics, draw
 from synapses_py.model.encoding import preprocessor
 from synapses_py.model.encoding.serialization import Preprocessor
 from synapses_py.model.net_elems import activation, network
@@ -106,6 +106,12 @@ class NeuralNetwork:
     @staticmethod
     def ofJson(json_val: str) -> NeuralNetwork:
         return network.of_json(json_val)
+
+    @staticmethod
+    def toSvg(network_val: NeuralNetwork) -> str:
+        return draw \
+            .networkSVG(network_val) \
+            .asSvg()
 
 
 DataPreprocessor = Preprocessor
