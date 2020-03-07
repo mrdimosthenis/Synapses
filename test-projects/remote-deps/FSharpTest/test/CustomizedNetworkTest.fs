@@ -94,3 +94,10 @@ type ``customized network tests``() =
             [ -0.006109464554743645
               -0.1770428172237149
               0.6087944183600162 ]
+    
+    [<Fact>]
+    let ``neural network to svg``() =
+        NeuralNetwork.toSvg neuralNetwork
+        |> should equal
+            ""
+    
