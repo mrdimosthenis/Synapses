@@ -33,7 +33,6 @@
     <ItemGroup>
         <PackageReference Include="FSharp.SystemTextJson" Version="0.6.2" />
         <PackageReference Include="FSharpx.Collections" Version="2.1.1" />
-        <PackageReference Include="Svg" Version="3.0.102" />
     </ItemGroup>
 
 </Project>

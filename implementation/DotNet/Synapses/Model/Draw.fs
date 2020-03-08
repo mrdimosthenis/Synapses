@@ -1,7 +1,6 @@
 module Synapses.Model.Draw
 
 open FSharpx.Collections
-open Svg
 open Synapses.Model
 open Synapses.Model.Layer
 open Synapses.Model.Network
@@ -60,17 +59,11 @@ let circleCY (maxChainCircles: int) (numOfChainCircles: int) (circleOrder: int):
     |> (*) (float circleOrder + 1.0)
     |> (+) layerY
 
-let circleSVG (x: float) (y: float) (stroke_val: string): SvgCircle =
-    let c = SvgCircle()
-    let _ = (c.CenterX.Value = float32 x)
-    let _ = (c.CenterY.Value = float32 y)
-    let _ = (c.Radius.Value = float32 circleRadius)
-    let _ = (c.Stroke.Content = stroke_val)
-    let _ = (c.StrokeWidth.Value = float32 circleStrokeWidth)
-    let _ = (c.Fill.Content = circleFill)
-    c
+let circleSVG (x: float) (y: float) (stroke_val: string): string =
+    sprintf "<circle cx=\"%f\" cy=\"%f\" r=\"%f\" stroke=\"%s\" stroke-width=\"%f\" fill=\"%s\"></circle>"
+        x y circleRadius stroke_val circleStrokeWidth circleFill
 
-let inputCirclesSVGs (maxChainCircles: int) (inputCircles: int): LazyList<SvgCircle> =
+let inputCirclesSVGs (maxChainCircles: int) (inputCircles: int): LazyList<string> =
     Utilities.lazyRange()
     |> LazyList.take inputCircles
     |> LazyList.map (fun i ->
@@ -83,7 +76,7 @@ let inputCirclesSVGs (maxChainCircles: int) (inputCircles: int): LazyList<SvgCir
             | _ -> inputCircleStroke
         circleSVG x y stroke_val)
 
-let outputCirclesSVGs (maxChainCircles: int) (outputChainOrder: int) (outputActivations: LazyList<string>): LazyList<SvgCircle> =
+let outputCirclesSVGs (maxChainCircles: int) (outputChainOrder: int) (outputActivations: LazyList<string>): LazyList<string> =
     outputActivations
     |> Utilities.lazyZipWithIndex
     |> LazyList.map (fun (activ, i) ->
@@ -93,9 +86,10 @@ let outputCirclesSVGs (maxChainCircles: int) (outputChainOrder: int) (outputActi
         let stroke_val = activationNameToStroke activ
         circleSVG x y stroke_val)
 
-let hiddenCirclesSVGs (maxChainCircles: int) (hiddenChainOrder: int) (hiddenActivations: LazyList<string>): LazyList<SvgCircle> =
+let hiddenCirclesSVGs (maxChainCircles: int) (hiddenChainOrder: int) (hiddenActivations: LazyList<string>): LazyList<string> =
     hiddenActivations
     |> LazyList.map Some
+    |> LazyList.cons None
     |> Utilities.lazyZipWithIndex
     |> LazyList.map (fun (activ, i) ->
         let x = circleCX hiddenChainOrder
@@ -108,7 +102,7 @@ let hiddenCirclesSVGs (maxChainCircles: int) (hiddenChainOrder: int) (hiddenActi
             | Some act -> activationNameToStroke act
         circleSVG x y stroke_val)
 
-let layerCirclesSVGs (maxChainCircles: int) (layerOrder: int) (numOfLayers: int) (layer: Layer): LazyList<SvgCircle> =
+let layerCirclesSVGs (maxChainCircles: int) (layerOrder: int) (numOfLayers: int) (layer: Layer): LazyList<string> =
     let isLastLayer = (layerOrder = numOfLayers - 1)
     let activations = LazyList.map (fun (neuron: Neuron) -> neuron.activationF.name) layer
     let weightsLength = LazyList.length (LazyList.head layer).weights
@@ -133,7 +127,7 @@ let layerCirclesSVGs (maxChainCircles: int) (layerOrder: int) (numOfLayers: int)
     |> LazyList.concat
 
 let lineSVG (maxChainCircles: int) (baseChainOrder: int) (numOfCirclesInBaseChain: int) (numOfCirclesInTargetChain: int)
-    (baseCircleOrder: int) (targetCircleOrder: int) (weight: float) (maxAbsWeight: float): SvgLine =
+    (baseCircleOrder: int) (targetCircleOrder: int) (weight: float) (maxAbsWeight: float): string =
     let alpha = abs weight / maxAbsWeight
     let x1_val = circleCX baseChainOrder
     let y1_val = circleCY maxChainCircles numOfCirclesInBaseChain baseCircleOrder
@@ -144,19 +138,11 @@ let lineSVG (maxChainCircles: int) (baseChainOrder: int) (numOfCirclesInBaseChai
         match weight > 0.0 with
         | true -> positiveLineStroke
         | false -> negativeLineStroke
-
-    let ln = SvgLine()
-    let _ = (ln.Opacity = float32 alpha)
-    let _ = (ln.StartX.Value = float32 x1_val)
-    let _ = (ln.StartY.Value = float32 y1_val)
-    let _ = (ln.EndX.Value = float32 x2_val)
-    let _ = (ln.EndY.Value = float32 y2_val)
-    let _ = (ln.Stroke.Content = stroke_val)
-    let _ = (ln.StrokeWidth.Value = float32 lineStrokeWidth)
-    ln
+    sprintf "<line stroke-opacity=\"%f\" x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"%f\"></line>"
+        alpha x1_val y1_val x2_val y2_val stroke_val lineStrokeWidth
 
 let neuronLinesSVGs (maxChainCircles: int) (layerSize: int) (layerOrder: int) (numOfLayers: int)
-    (neuronOrderInLayer: int) (maxAbsWeight: float) (weights: LazyList<float>): LazyList<SvgLine> =
+    (neuronOrderInLayer: int) (maxAbsWeight: float) (weights: LazyList<float>): LazyList<string> =
     let isOutputLayer = (layerOrder = numOfLayers - 1)
     let numOfCirclesInBaseChain = LazyList.length weights
 
@@ -177,7 +163,7 @@ let neuronLinesSVGs (maxChainCircles: int) (layerSize: int) (layerOrder: int) (n
         lineSVG maxChainCircles layerOrder numOfCirclesInBaseChain numOfCirclesInTargetChain i targetCircleOrder w
             maxAbsWeight)
 
-let layerLinesSVGs (maxChainCircles: int) (layerOrder: int) (numOfLayers: int) (maxAbsWeight: float) (layer: Layer): LazyList<SvgLine> =
+let layerLinesSVGs (maxChainCircles: int) (layerOrder: int) (numOfLayers: int) (maxAbsWeight: float) (layer: Layer): LazyList<string> =
     layer
     |> Utilities.lazyZipWithIndex
     |> LazyList.map
@@ -186,7 +172,7 @@ let layerLinesSVGs (maxChainCircles: int) (layerOrder: int) (numOfLayers: int) (
             neuron.weights)
     |> LazyList.concat
 
-let networkSVG (network: Network): SvgGroup =
+let networkSVG (network: Network): string =
     let maxChainCircles =
         network
         |> Utilities.lazyZipWithIndex
@@ -223,12 +209,11 @@ let networkSVG (network: Network): SvgGroup =
         |> Utilities.lazyZipWithIndex
         |> LazyList.map (fun (layer, i) -> layerLinesSVGs maxChainCircles i numOfLayers maxAbsWeight layer)
         |> LazyList.concat
-
+    
     let w = circleCX (numOfLayers + 1)
     let h = circleCY maxChainCircles maxChainCircles maxChainCircles
-    let svg = SvgGroup()
-    let _ = (svg.Bounds.Width = float32 w)
-    let _ = (svg.Bounds.Height = float32 h)
-    LazyList.iter (fun line -> svg.Children.Add(line)) linesSVGs
-    LazyList.iter (fun circle -> svg.Children.Add(circle)) circlesSVGs
-    svg
+
+    let netSVGs = LazyList.append linesSVGs circlesSVGs
+    
+    sprintf "<svg width=\"%f\" height=\"%f\">%s</svg>"
+        w h (LazyList.fold (+) "" netSVGs)

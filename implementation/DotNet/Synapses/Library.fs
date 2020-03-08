@@ -96,7 +96,7 @@ module NeuralNetwork =
             Network.fromJson json
     
     let toSvg (network: NeuralNetwork): string =
-            (Draw.networkSVG network).Content
+            Draw.networkSVG network
 
 type DataPreprocessor = Preprocessor.Preprocessor
 
