@@ -92,3 +92,4 @@ documentation/.yardoc
 documentation/_yardoc
 documentation/doc/
 documentation/.idea/
+/documentation/vendor/
