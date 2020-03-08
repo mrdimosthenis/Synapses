@@ -1,9 +1,5 @@
 package synapses.model
 
-import scalatags.Text.all._
-import scalatags.Text.svgTags
-import scalatags.Text.svgTags._
-import scalatags.Text.svgAttrs._
 import synapses.model.netElems.Layer.Layer
 import synapses.model.netElems.Network.Network
 
@@ -64,19 +60,12 @@ object Draw {
   private def circleSVG(x: Double,
                         y: Double,
                         stroke_val: String)
-  : svgTags.ConcreteHtmlTag[String] =
-    circle(
-      cx := x,
-      cy := y,
-      r := circleRadius,
-      stroke := stroke_val,
-      strokeWidth := circleStrokeWidth,
-      fill := circleFill
-    )
+  : String =
+    f"""<circle cx="$x%f" cy="$y%f" r="$circleRadius%f" stroke="$stroke_val%s" stroke-width="$circleStrokeWidth%f" fill="$circleFill%s"></circle>"""
 
   private def inputCirclesSVGs(maxChainCircles: Int,
                                inputCircles: Int)
-  : LazyList[svgTags.ConcreteHtmlTag[String]] =
+  : LazyList[String] =
     LazyList
       .range(0, inputCircles)
       .map { i =>
@@ -91,7 +80,7 @@ object Draw {
   private def outputCirclesSVGs(maxChainCircles: Int,
                                 outputChainOrder: Int,
                                 outputActivations: LazyList[String])
-  : LazyList[svgTags.ConcreteHtmlTag[String]] =
+  : LazyList[String] =
     outputActivations
       .zipWithIndex
       .map { case (activ, i) =>
@@ -104,7 +93,7 @@ object Draw {
   private def hiddenCirclesSVGs(maxChainCircles: Int,
                                 hiddenChainOrder: Int,
                                 hiddenActivations: LazyList[String])
-  : LazyList[svgTags.ConcreteHtmlTag[String]] =
+  : LazyList[String] =
     hiddenActivations
       .map(Option(_))
       .prepended(None)
@@ -127,7 +116,7 @@ object Draw {
                                layerOrder: Int,
                                numOfLayers: Int,
                                layer: Layer)
-  : LazyList[svgTags.ConcreteHtmlTag[String]] = {
+  : LazyList[String] = {
     val isLastLayer = layerOrder == numOfLayers - 1
     val activations = layer.map(_.activationF.name)
     val inputCircles =
@@ -162,7 +151,7 @@ object Draw {
                       targetCircleOrder: Int,
                       weight: Double,
                       maxAbsWeight: Double)
-  : svgTags.ConcreteHtmlTag[String] = {
+  : String = {
     val alpha = Math.abs(weight) / maxAbsWeight
     val x1_val = circleCX(baseChainOrder)
     val y1_val = circleCY(
@@ -179,15 +168,7 @@ object Draw {
     val stroke_val =
       if (weight > 0) positiveLineStroke
       else negativeLineStroke
-    line(
-      strokeOpacity := alpha,
-      x1 := x1_val,
-      y1 := y1_val,
-      x2 := x2_val,
-      y2 := y2_val,
-      stroke := stroke_val,
-      strokeWidth := lineStrokeWidth
-    )
+    f"""<line stroke-opacity="$alpha%f" x1="$x1_val%f" y1="$y1_val%f" x2="$x2_val%f" y2="$y2_val%f" stroke="$stroke_val%s" stroke-width="$lineStrokeWidth%f"></line>"""
   }
 
   private def neuronLinesSVGs(maxChainCircles: Int,
@@ -197,7 +178,7 @@ object Draw {
                               neuronOrderInLayer: Int,
                               maxAbsWeight: Double,
                               weights: LazyList[Double])
-  : LazyList[svgTags.ConcreteHtmlTag[String]] = {
+  : LazyList[String] = {
     val isOutputLayer =
       layerOrder == numOfLayers - 1
     val numOfCirclesInBaseChain =
@@ -229,7 +210,7 @@ object Draw {
                              numOfLayers: Int,
                              maxAbsWeight: Double,
                              layer: Layer)
-  : LazyList[svgTags.ConcreteHtmlTag[String]] =
+  : LazyList[String] =
     layer
       .zipWithIndex
       .flatMap { case (neuron, neuronOrderInLayer) =>
@@ -245,7 +226,7 @@ object Draw {
       }
 
   def networkSVG(network: Network)
-  : svgTags.ConcreteHtmlTag[String] = {
+  : String = {
     val maxChainCircles =
       network
         .zipWithIndex
@@ -290,7 +271,7 @@ object Draw {
       maxChainCircles
     )
     val netSVGs = linesSVGs ++ circlesSVGs
-    svg(widthA := w, heightA := h)(netSVGs: _*)
+    f"""<svg width="$w%f" height="$h%f">${netSVGs.mkString("")}%s</svg>"""
   }
 
 }

@@ -109,9 +109,7 @@ object Library {
 
     @JSExport
     def toSvg(network: NeuralNetwork): String =
-      Draw
-        .networkSVG(network)
-        .toString()
+      Draw.networkSVG(network)
 
   }
 
