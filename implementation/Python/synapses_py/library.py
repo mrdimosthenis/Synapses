@@ -109,7 +109,7 @@ class NeuralNetwork:
 
     @staticmethod
     def toSvg(network_val: NeuralNetwork) -> str:
-        return draw.networkSVG(network_val)
+        return draw.network_svg(network_val)
 
 
 DataPreprocessor = Preprocessor
