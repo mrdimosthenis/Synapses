@@ -61,6 +61,7 @@ implementation/Python/README.md
 
 /test-projects/remote-deps/JavaScriptTest/.idea/
 /test-projects/remote-deps/JavaScriptTest/node_modules/
+/test-projects/remote-deps/JavaScriptTest/package-lock.json
 
 /test-projects/remote-deps/PythonTest/.idea/
 /test-projects/remote-deps/PythonTest/dist/
