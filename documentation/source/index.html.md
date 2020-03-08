@@ -10,9 +10,8 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - fsharp
 
 toc_footers:
-  - <a href='https://github.com/mrdimosthenis/Synapses'>GitHub Repository</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
   - <a href='https://pngimage.net/icono-cerebro-png-5'> Logo Attribution </a>
+  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 search: true
 ---
@@ -376,7 +375,7 @@ let customizedNetwork =
         )
 ```
 
-## Visualize a neural network
+## Visualization
 
 Call `NeuralNetwork.toSvg` to take a brief look at its _svg drawing_.
 
@@ -872,3 +871,7 @@ let rmse = Statistics.rootMeanSquareError(
                         expectedWithOutputValues
 )
 ```
+
+## GitHub repository
+
+[![mrdimosthenis/Synapses - GitHub](https://gh-card.dev/repos/mrdimosthenis/Synapses.svg)](https://github.com/mrdimosthenis/Synapses)
