@@ -376,6 +376,39 @@ let customizedNetwork =
         )
 ```
 
+## Visualize a neural network
+
+Call `NeuralNetwork.toSvg` to take a brief look at its _svg drawing_.
+
+![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-drawing.png?raw=true)
+
+The color of each neuron depends on its _activation function_
+while the transparency of the synapses depends on their _weight_.
+
+```javascript
+let svg = NeuralNetwork.toSvg(customizedNetwork);
+```
+
+```python
+svg = NeuralNetwork.toSvg(customizedNetwork)
+```
+
+```java
+String svg = NeuralNetwork.toSvg(customizedNetwork);
+```
+
+```csharp
+string svg = NeuralNetwork.toSvg(customizedNetwork);
+```
+
+```scala
+val svg = NeuralNetwork.toSvg(customizedNetwork)
+```
+
+```fsharp
+let svg = NeuralNetwork.toSvg(customizedNetwork)
+```
+
 ## Save and load a neural network
 
 JSON instances are **compatible** across platforms!
