@@ -23,13 +23,13 @@ search: true
 
 ```javascript
 // run
-npm i synapses@7.2.1
+npm i synapses@7.3.0
 // in the directory of your node project
 ```
 
 ```python
 # run
-pip install synapses-py==7.2.1
+pip install synapses-py==7.3.0
 # in the directory of your project
 ```
 
@@ -38,27 +38,27 @@ pip install synapses-py==7.2.1
 <dependency>
     <groupId>com.github.mrdimosthenis</groupId>
     <artifactId>synapses_2.13</artifactId>
-    <version>7.2.1</version>
+    <version>7.3.0</version>
 </dependency>
 // to pom.xml
 ```
 
 ```csharp
 // run
-dotnet add package SynapsesCSharp --version 7.2.1
+dotnet add package SynapsesCSharp --version 7.3.0
 // in the directory of your project
 ```
 
 ```scala
 // add
 libraryDependencies +=
-  "com.github.mrdimosthenis" %% "synapses" % "7.2.1"
+  "com.github.mrdimosthenis" %% "synapses" % "7.3.0"
 // to build.sbt
 ```
 
 ```fsharp
 // run
-dotnet add package Synapses --version 7.2.1
+dotnet add package Synapses --version 7.3.0
 // in the directory of your project
 ```
 
@@ -374,6 +374,39 @@ let customizedNetwork =
             activationF,
             weightInitF
         )
+```
+
+## Visualize a neural network
+
+Call `NeuralNetwork.toSvg` to take a brief look at its _svg drawing_.
+
+![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-drawing.png?raw=true)
+
+The color of each neuron depends on its _activation function_
+while the transparency of the synapses depends on their _weight_.
+
+```javascript
+let svg = NeuralNetwork.toSvg(customizedNetwork);
+```
+
+```python
+svg = NeuralNetwork.toSvg(customizedNetwork)
+```
+
+```java
+String svg = NeuralNetwork.toSvg(customizedNetwork);
+```
+
+```csharp
+string svg = NeuralNetwork.toSvg(customizedNetwork);
+```
+
+```scala
+val svg = NeuralNetwork.toSvg(customizedNetwork)
+```
+
+```fsharp
+let svg = NeuralNetwork.toSvg(customizedNetwork)
 ```
 
 ## Save and load a neural network

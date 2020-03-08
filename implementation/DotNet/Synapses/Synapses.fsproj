@@ -7,10 +7,10 @@
         <Authors>Dimosthenis Michailidis</Authors>
         <Description>A lightweight library for neural networks that runs anywhere</Description>
         <RepositoryUrl>https://github.com/mrdimosthenis/Synapses</RepositoryUrl>
-        <PackageTags>neural-network;machine-learning;cross-platform</PackageTags>
+        <PackageTags>neural-network;machine-learning;deep-learning;cross-platform</PackageTags>
         <OutputType>Library</OutputType>
         <license>MIT</license>
-        <PackageVersion>7.2.1</PackageVersion>
+        <PackageVersion>7.3.0</PackageVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageProjectUrl>https://mrdimosthenis.github.io/Synapses</PackageProjectUrl>
     </PropertyGroup>
@@ -25,6 +25,7 @@
         <Compile Include="Model\Encoding\Discrete.fs" />
         <Compile Include="Model\Encoding\Continuous.fs" />
         <Compile Include="Model\Encoding\Preprocessor.fs" />
+        <Compile Include="Model\Draw.fs" />
         <Compile Include="Library.fs" />
         <Content Include="LICENSE" />
     </ItemGroup>

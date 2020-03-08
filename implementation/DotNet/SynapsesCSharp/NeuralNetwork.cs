@@ -89,5 +89,9 @@ namespace SynapsesCSharp
             return new NeuralNetwork(_contents);
         }
         
+        public static string toSvg(NeuralNetwork network){
+            return NeuralNetworkModule.toSvg(network.contents);
+        }
+        
     }
 }

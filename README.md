@@ -31,6 +31,12 @@ Supported languages:
 2. You can transfer a network from one platform to another via its **json instance**.
 Create a neural network in *Python*, train it in *Java* and get its predictions in *JavaScript*!
 
+#### It offers visualizations
+
+Get an overview of a neural network by taking a brief look at its **svg drawing**.
+
+![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-drawing.png?raw=true)
+
 #### It's customizable
 
 You can specify the **activation function** and the **weight distribution** for the neurons of each layer.
@@ -57,12 +63,12 @@ RAM should not get full!
 Every function is tested for every language.
 Please take a look at the test projects.
 
-* [JavaScript](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/JavaScriptTest/test)
-* [Python](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/PythonTest/test)
-* [Java](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/JavaTest/src/test/java)
-* [C#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/CSharpTest)
-* [Scala](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/ScalaTest/src/test/scala)
-* [F#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/FSharpTest)
+* [JavaScript](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/JavaScriptTest/test)
+* [Python](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/PythonTest/test)
+* [Java](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/JavaTest/src/test/java)
+* [C#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/CSharpTest)
+* [Scala](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/ScalaTest/src/test/scala)
+* [F#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/FSharpTest)
 
 ### Dependencies
 

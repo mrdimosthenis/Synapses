@@ -1,3 +1,13 @@
+## [7.3.0]
+### Added
+- NeuralNetwork can be visualized with svg drawing.
+
+### Changed
+- _Nothing has been changed._
+
+### Removed
+- _Nothing has been removed._
+
 ## [7.2.1]
 ### Added
 - NeuralNetwork and DataPreprocessor instances are forced to be realized.

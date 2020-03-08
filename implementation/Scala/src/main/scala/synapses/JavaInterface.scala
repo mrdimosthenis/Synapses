@@ -77,6 +77,11 @@ object JavaInterface {
         .NeuralNetwork
         .ofJson(json)
 
+    def toSvg(network: Library.NeuralNetwork): String =
+      Library
+        .NeuralNetwork
+        .toSvg(network)
+
   }
 
   object DataPreprocessor {

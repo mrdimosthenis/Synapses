@@ -60,6 +60,15 @@ C#                     | `string`       | `NeuralNetwork`
 Scala                  | `String`       | `NeuralNetwork`
 F#                     | `string`       | `NeuralNetwork`
 
+`NeuralNetwork.toSvg`  | param1: `neuralNetwork` | _returns_
+---                    | ---                     | ---
+JavaScript             | `NeuralNetwork`         | `string`
+Python                 | `NeuralNetwork`         | `str`
+Java                   | `NeuralNetwork`         | `String`
+C#                     | `NeuralNetwork`         | `string`
+Scala                  | `NeuralNetwork`         | `String`
+F#                     | `NeuralNetwork`         | `string`
+
 ### Create a Data Preprocessor
 
 `DataPreprocessor.init` | param1: `keysWithDiscreteFlags` | param2: `datapoints`                      | _returns_
