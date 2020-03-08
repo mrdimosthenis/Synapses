@@ -20,4 +20,3 @@ keywords = ['neural-network', 'machine-learning', 'functional-programming']
 python = "~3.6"
 PyFunctional = { version = "^1.3.0" }
 dataclasses = { version = "^0.7" }
-drawSvg = { version = "^1.5.0" }

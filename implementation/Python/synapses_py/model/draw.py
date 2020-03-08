@@ -1,4 +1,3 @@
-from drawSvg import Circle, Line, Drawing
 from functional import seq
 from functional.pipeline import Sequence
 
@@ -61,15 +60,9 @@ def circleCY(maxChainCircles: int,
 
 def circleSVG(x: float,
               y: float,
-              stroke_val: str) -> Circle:
-    return Circle(
-        cx=x,
-        cy=y,
-        r=circleRadius,
-        stroke=stroke_val,
-        stroke_width=circleStrokeWidth,
-        fill=circleFill
-    )
+              stroke_val: str) -> str:
+    return '<circle cx="%f" cy="%f" r="%f" stroke="%s" stroke-width="%f" fill="%s"></circle>' \
+           % (x, y, circleRadius, stroke_val, circleStrokeWidth, circleFill)
 
 
 def inputCirclesSVGs(maxChainCircles: int,
@@ -152,7 +145,7 @@ def lineSVG(maxChainCircles: int,
             baseCircleOrder: int,
             targetCircleOrder: int,
             weight: float,
-            maxAbsWeight: float) -> Line:
+            maxAbsWeight: float) -> str:
     alpha = abs(weight) / maxAbsWeight
     x1_val = circleCX(baseChainOrder)
     y1_val = circleCY(
@@ -167,15 +160,8 @@ def lineSVG(maxChainCircles: int,
         targetCircleOrder
     )
     stroke_val = positiveLineStroke if weight > 0 else negativeLineStroke
-    return Line(
-        stroke_opacity=alpha,
-        sx=x1_val,
-        sy=y1_val,
-        ex=x2_val,
-        ey=y2_val,
-        stroke=stroke_val,
-        stroke_width=lineStrokeWidth
-    )
+    return '<line stroke-opacity="%f" x1="%f" y1="%f" x2="%f" y2="%f" stroke="%s" stroke-width="%f"></line>' \
+           % (alpha, x1_val, y1_val, x2_val, y2_val, stroke_val, lineStrokeWidth)
 
 
 def neuronLinesSVGs(maxChainCircles: int,
@@ -228,7 +214,7 @@ def layerLinesSVGs(maxChainCircles: int,
                       t[0].weights))
 
 
-def networkSVG(network_val: Network) -> Drawing:
+def networkSVG(network_val: Network) -> str:
     maxChainCircles = \
         network_val \
             .zip_with_index() \
@@ -272,7 +258,5 @@ def networkSVG(network_val: Network) -> Drawing:
         maxChainCircles
     )
     netSVGs = linesSVGs + circlesSVGs
-    drawing = Drawing(w, h)
-    for shape in netSVGs:
-        drawing.append(shape)
-    return drawing
+    return '<svg width="%f" height="%f">%s</svg>' \
+           % (w, h, netSVGs.fold_left('', lambda acc, x: acc + x))
