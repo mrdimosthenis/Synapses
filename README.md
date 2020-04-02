@@ -2,7 +2,7 @@
 
 A **lightweight** library for **neural networks** that **runs anywhere**!
 
-![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-video.gif?raw=true)
+![Network Video](https://github.com/mrdimosthenis/Synapses/blob/master/network-video.gif?raw=true)
 
 ## [Getting Started](https://mrdimosthenis.github.io/Synapses)
 
