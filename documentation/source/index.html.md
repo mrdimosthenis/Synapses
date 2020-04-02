@@ -20,7 +20,7 @@ search: true
 
 **Synapses** is a **lightweight** library for **neural networks** that **runs anywhere**!
 
-![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-drawing.png?raw=true)
+![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-video.gif?raw=true)
 
 ```javascript
 // run
