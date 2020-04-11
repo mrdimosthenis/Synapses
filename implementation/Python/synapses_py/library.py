@@ -36,6 +36,32 @@ def seed_init_network(maybe_seed: Optional[int],
     )
 
 
+def throw_if_input_not_match(network_val: NeuralNetwork,
+                             input_values: List[float]) -> None:
+    num_of_input_vals = len(input_values)
+    input_layer_size = network_val.head().head().weights.size() - 1
+    error_msg = 'the number of input values (' + \
+                str(num_of_input_vals) + \
+                ') does not match the size of the input layer (' + \
+                str(input_layer_size) + \
+                ')'
+    if num_of_input_vals != input_layer_size:
+        raise Exception(error_msg)
+
+
+def throw_if_expected_not_match(network_val: NeuralNetwork,
+                                expected_output: List[float]) -> None:
+    num_of_expected_vals = len(expected_output)
+    output_layer_size = network_val.last().size()
+    error_msg = 'the number of expected values (' + \
+                str(num_of_expected_vals) + \
+                ') does not match the size of the output layer (' + \
+                str(output_layer_size) + \
+                ')'
+    if num_of_expected_vals != output_layer_size:
+        raise Exception(error_msg)
+
+
 class NeuralNetwork:
 
     @staticmethod
@@ -64,6 +90,7 @@ class NeuralNetwork:
     def prediction(network_val: NeuralNetwork,
                    input_values: List[float]
                    ) -> List[float]:
+        throw_if_input_not_match(network_val, input_values)
         input_val = seq(input_values)
         return network \
             .output(input_val, network_val) \
@@ -75,6 +102,8 @@ class NeuralNetwork:
                input_values: List[float],
                expected_output: List[float]
                ) -> List[float]:
+        throw_if_input_not_match(network_val, input_values)
+        throw_if_expected_not_match(network_val, expected_output)
         input_val = seq(input_values)
         expected_val = seq(expected_output)
         return network \
@@ -90,6 +119,8 @@ class NeuralNetwork:
             input_values: List[float],
             expected_output: List[float]
             ) -> NeuralNetwork:
+        throw_if_input_not_match(network_val, input_values)
+        throw_if_expected_not_match(network_val, expected_output)
         input_val = seq(input_values)
         expected_val = seq(expected_output)
         return network.fit(
