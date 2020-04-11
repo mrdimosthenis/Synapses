@@ -1,7 +1,7 @@
 ## [7.3.1]
 ### Added
 - JetBrains reference in README.
-- Throw exceptions when num of i/o/ex values not equals to the num of nodes.
+- Throw exception when the number of input/expected values does not match the size of input/output layer.
 - Bound i/o/ex values to prevent number overflows.
 
 ### Changed
