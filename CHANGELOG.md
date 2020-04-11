@@ -1,7 +1,6 @@
 ## [7.3.1]
 ### Added
 - JetBrains reference in README.
-- Python v3.8 support.
 - Throw exceptions when num of i/o/ex values not equals to the num of nodes.
 - Bound i/o/ex values to prevent number overflows.
 

@@ -35,7 +35,8 @@ implementation/Python/.idea
 implementation/Python/venv
 implementation/Python/build
 implementation/Python/dist
-implementation/Python/SynapsesPy.egg-info
+/implementation/Python/synapses_py.egg-info/
+/implementation/Python/poetry.lock
 implementation/Python/README.md
 
 # remote deps tests
