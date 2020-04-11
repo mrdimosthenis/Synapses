@@ -51,11 +51,11 @@ object Library {
     private def throwIfExpectedNotMatch(network: NeuralNetwork,
                                         expectedOutput: List[Double])
     : Unit = {
-      val numOfInputExpectedVals = expectedOutput.length
+      val numOfExpectedVals = expectedOutput.length
       val outputLayerSize = network.last.length
-      if (numOfInputExpectedVals != outputLayerSize)
+      if (numOfExpectedVals != outputLayerSize)
         throw new Exception(
-          s"the number of expected values ($numOfInputExpectedVals)" +
+          s"the number of expected values ($numOfExpectedVals)" +
             s" does not match the size of the output layer ($outputLayerSize)"
         )
     }
