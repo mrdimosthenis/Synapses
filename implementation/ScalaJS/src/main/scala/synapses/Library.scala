@@ -45,6 +45,30 @@ object Library {
       Network.init(layerSizes, activationF)(weightInitF)
     }
 
+    private def throwIfInputNotMatch(network: NeuralNetwork,
+                                     inputValues: js.Array[Double])
+    : Unit = {
+      val numOfInputVals = inputValues.length
+      val inputLayerSize = network.head.head.weights.length - 1
+      if (numOfInputVals != inputLayerSize)
+        throw new Exception(
+          s"the number of input values ($numOfInputVals) " +
+            s"does not match the size of the input layer ($inputLayerSize)"
+        )
+    }
+
+    private def throwIfExpectedNotMatch(network: NeuralNetwork,
+                                        expectedOutput: js.Array[Double])
+    : Unit = {
+      val numOfInputExpectedVals = expectedOutput.length
+      val outputLayerSize = network.last.length
+      if (numOfInputExpectedVals != outputLayerSize)
+        throw new Exception(
+          s"the number of expected values ($numOfInputExpectedVals)" +
+            s" does not match the size of the output layer ($outputLayerSize)"
+        )
+    }
+
     @JSExport
     def init(layers: js.Array[Int]): NeuralNetwork =
       seedInit(None, layers.toList)
@@ -66,6 +90,7 @@ object Library {
     def prediction(network: NeuralNetwork,
                    inputValues: js.Array[Double])
     : js.Array[Double] = {
+      throwIfInputNotMatch(network, inputValues)
       val input = inputValues.to(LazyList)
       Network
         .output(input)(network)
@@ -78,6 +103,8 @@ object Library {
                inputValues: js.Array[Double],
                expectedOutput: js.Array[Double])
     : js.Array[Double] = {
+      throwIfInputNotMatch(network, inputValues)
+      throwIfExpectedNotMatch(network, expectedOutput)
       val input = inputValues.to(LazyList)
       val expected = expectedOutput.to(LazyList)
       Network
@@ -91,6 +118,8 @@ object Library {
             inputValues: js.Array[Double],
             expectedOutput: js.Array[Double])
     : NeuralNetwork = {
+      throwIfInputNotMatch(network, inputValues)
+      throwIfExpectedNotMatch(network, expectedOutput)
       val input = inputValues.to(LazyList)
       val expected = expectedOutput.to(LazyList)
       Network.fit(learningRate, input, expected)(network)
