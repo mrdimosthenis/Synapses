@@ -2,7 +2,7 @@ enablePlugins(ScalaJSPlugin)
 
 name := "synapses"
 
-version := "7.3.0"
+version := "7.3.1"
 
 scalaVersion := "2.13.1"
 
