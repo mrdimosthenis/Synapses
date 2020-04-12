@@ -67,6 +67,8 @@ implementation/Python/README.md
 /test-projects/remote-deps/PythonTest/.idea/
 /test-projects/remote-deps/PythonTest/dist/
 /test-projects/remote-deps/PythonTest/venv/
+/test-projects/remote-deps/PythonTest/python_test.egg-info/
+/test-projects/remote-deps/PythonTest/poetry.lock
 
 # slate
 
