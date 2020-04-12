@@ -29,7 +29,11 @@ def output(input_val: Sequence, neuron: Neuron) -> float:
         utilities.lazy_cons(1.0, input_val),
         neuron.weights
     )
-    return neuron.activation_f.f(activation_input)
+    restricted_input = activation.restricted_input(
+        neuron.activation_f,
+        activation_input
+    )
+    return neuron.activation_f.f(restricted_input)
 
 
 def back_propagated(learning_rate: float,
