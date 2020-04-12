@@ -105,11 +105,21 @@ let errors (learnRate: float)
            (expOutput: LazyList<float>)
            (network: Network)
            : LazyList<float> =
+    let restrictedOutput = network
+                           |> LazyList.rev
+                           |> LazyList.head
+                           |> LazyList.map2
+                                (fun y neuron ->
+                                    Activation.restrictedOutput
+                                        neuron.activationF
+                                        y
+                                )
+                                expOutput
     let (ers, _) =
                 errorsWithFitted
                     learnRate
                     input
-                    expOutput
+                    restrictedOutput
                     network
     ers
 
@@ -165,11 +175,21 @@ let fitted (learnRate: float)
            (expOutput: LazyList<float>)
            (network: Network)
            : Network =
+    let restrictedOutput = network
+                           |> LazyList.rev
+                           |> LazyList.head
+                           |> LazyList.map2
+                                (fun y neuron ->
+                                    Activation.restrictedOutput
+                                        neuron.activationF
+                                        y
+                                )
+                                expOutput
     let (_, fittedNet) =
                 errorsWithFitted
                     learnRate
                     input
-                    expOutput
+                    restrictedOutput
                     network
     lazyRealization fittedNet
 

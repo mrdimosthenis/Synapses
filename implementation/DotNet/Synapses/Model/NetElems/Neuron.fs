@@ -29,6 +29,7 @@ let output (input: LazyList<float>)
            : float =
     LazyList.cons 1.0 input
     |> Mathematics.dotProduct neuron.weights
+    |> Activation.restrictedInput neuron.activationF
     |> neuron.activationF.f
 
 let backPropagated
