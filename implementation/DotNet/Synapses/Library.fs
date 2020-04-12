@@ -7,6 +7,8 @@ open Synapses.Model.Encoding
 
 type ActivationFunction = Activation.Function
 
+exception SizeNotMatch of string
+
 module ActivationFunction =
 
     let sigmoid: ActivationFunction =
@@ -39,6 +41,42 @@ module NeuralNetwork =
                                   |> (*) -2.0
                                   |> (+) 1.0
                  Network.init layerSizes activationF weightInitF
+    
+    let throwIfInputNotMatch
+            (network: NeuralNetwork,
+             inputValues: List<float>)
+            : unit =
+            let numOfInputVals = List.length inputValues
+            let firstNeuron = network
+                              |> LazyList.head
+                              |> LazyList.head
+            let inputLayerSize = LazyList.length firstNeuron.weights - 1
+            let errorMsg =
+                    "the number of input values (" +
+                    sprintf "%i" numOfInputVals +
+                    ") does not match the size of the input layer (" +
+                    sprintf "%i" inputLayerSize +
+                    ")"
+            if numOfInputVals <> inputLayerSize
+            then raise (SizeNotMatch(errorMsg))
+    
+    let throwIfExpectedNotMatch
+            (network: NeuralNetwork,
+             expectedOutput: List<float>)
+            : unit =
+            let numOfExpectedVals = List.length expectedOutput
+            let outputLayerSize = network
+                                  |> LazyList.rev
+                                  |> LazyList.head
+                                  |> LazyList.length
+            let errorMsg =
+                    "the number of expected values (" +
+                    sprintf "%i" numOfExpectedVals +
+                    ") does not match the size of the output layer (" +
+                    sprintf "%i" outputLayerSize +
+                    ")"
+            if numOfExpectedVals <> outputLayerSize
+            then raise (SizeNotMatch(errorMsg))
 
     let init (layers: List<int>)
              : NeuralNetwork =
@@ -62,6 +100,7 @@ module NeuralNetwork =
             (network: NeuralNetwork,
              inputValues: List<float>)
             : List<float> =
+            throwIfInputNotMatch(network, inputValues)
             let input = LazyList.ofList inputValues
             Network.output input network
             |> LazyList.toList
@@ -71,6 +110,8 @@ module NeuralNetwork =
                 inputValues: List<float>,
                 expectedOutput: List<float>)
                : List<float> =
+               throwIfInputNotMatch(network, inputValues)
+               throwIfExpectedNotMatch(network, expectedOutput)
                let input = LazyList.ofList inputValues
                let expOutput = LazyList.ofList expectedOutput
                let ers = Network.errors
@@ -85,6 +126,8 @@ module NeuralNetwork =
              inputValues: List<float>,
              expectedOutput: List<float>)
             : NeuralNetwork =
+            throwIfInputNotMatch(network, inputValues)
+            throwIfExpectedNotMatch(network, expectedOutput)
             let input = LazyList.ofList inputValues
             let expOutput = LazyList.ofList expectedOutput
             Network.fitted learningRate input expOutput network

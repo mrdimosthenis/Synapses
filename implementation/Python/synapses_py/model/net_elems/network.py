@@ -5,7 +5,7 @@ from functional import seq
 from functional.pipeline import Sequence
 
 from synapses_py.model import utilities
-from synapses_py.model.net_elems import layer
+from synapses_py.model.net_elems import layer, activation
 from synapses_py.model.net_elems.activation import Activation
 from synapses_py.model.net_elems.layer import Layer, LayerSerialized
 
@@ -120,10 +120,14 @@ def errors(learning_rate: float,
            expected_output: Sequence,
            network: Network
            ) -> Sequence:
+    restricted_output = network \
+        .last() \
+        .zip(expected_output) \
+        .map(lambda t: activation.restricted_output(t[0].activation_f, t[1]))
     return errors_with_fit_net(
         learning_rate,
         input_val,
-        expected_output,
+        restricted_output,
         network
     )[0]
 
@@ -134,11 +138,15 @@ def fit(learning_rate: float,
         expected_output: Sequence,
         network: Network
         ) -> Sequence:
+    restricted_output = network \
+        .last() \
+        .zip(expected_output) \
+        .map(lambda t: activation.restricted_output(t[0].activation_f, t[1]))
     return utilities.lazy_realization(
         errors_with_fit_net(
             learning_rate,
             input_val,
-            expected_output,
+            restricted_output,
             network
         )[1]
     )

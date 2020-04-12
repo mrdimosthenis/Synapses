@@ -35,7 +35,8 @@ implementation/Python/.idea
 implementation/Python/venv
 implementation/Python/build
 implementation/Python/dist
-implementation/Python/SynapsesPy.egg-info
+/implementation/Python/synapses_py.egg-info/
+/implementation/Python/poetry.lock
 implementation/Python/README.md
 
 # remote deps tests
@@ -66,6 +67,8 @@ implementation/Python/README.md
 /test-projects/remote-deps/PythonTest/.idea/
 /test-projects/remote-deps/PythonTest/dist/
 /test-projects/remote-deps/PythonTest/venv/
+/test-projects/remote-deps/PythonTest/python_test.egg-info/
+/test-projects/remote-deps/PythonTest/poetry.lock
 
 # slate
 

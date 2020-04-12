@@ -1,5 +1,6 @@
 package synapses.model.netElems
 
+import scala.util.chaining._
 import synapses.model.Mathematics
 import synapses.model.netElems.Activation.ActivationSerialized
 
@@ -20,16 +21,13 @@ object Neuron {
 
   def output(input: LazyList[Double])
             (neuron: Neuron)
-  : Double = {
-    val activationInput = Mathematics
-      .dotProduct(
-        LazyList.cons(1.0, input),
-        neuron.weights
-      )
-    neuron
-      .activationF
-      .f(activationInput)
-  }
+  : Double = Mathematics
+    .dotProduct(
+      LazyList.cons(1.0, input),
+      neuron.weights
+    )
+    .pipe(Activation.restrictedInput(neuron.activationF, _))
+    .pipe(neuron.activationF.f)
 
   def backPropagated(learningRate: Double,
                      input: LazyList[Double],

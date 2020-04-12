@@ -1,3 +1,15 @@
+## [7.3.1]
+### Added
+- JetBrains reference in README.
+- Throw exception when the number of input/expected values does not match the size of input/output layer.
+- Restrict input and output/expected values to prevent number overflows.
+
+### Changed
+- _Nothing has been changed._
+
+### Removed
+- _Nothing has been removed._
+
 ## [7.3.0]
 ### Added
 - NeuralNetwork can be visualized with svg drawing.

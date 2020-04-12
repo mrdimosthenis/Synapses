@@ -79,4 +79,8 @@ Please take a look at the test projects.
 * [FSharp.SystemTextJson](https://github.com/Tarmil/FSharp.SystemTextJson)
 * [PyFunctional](https://github.com/EntilZha/PyFunctional)
 
-<a name="myfootnote1">1</a>: Your Honour should be aware that I mean *almost* anywhere.
+### Misc
+
+![JetBrains](https://github.com/mrdimosthenis/Synapses/blob/master/jetbrains.png?raw=true)
+
+[JetBrains tools have helped for this project!](https://www.jetbrains.com/?from=Synapses)
