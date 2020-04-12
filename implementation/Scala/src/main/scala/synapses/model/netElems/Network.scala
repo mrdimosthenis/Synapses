@@ -1,5 +1,6 @@
 package synapses.model.netElems
 
+import scala.util.chaining._
 import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._
@@ -119,25 +120,39 @@ object Network {
              input: LazyList[Double],
              expectedOutput: LazyList[Double])
             (network: Network)
-  : LazyList[Double] =
-    errorsWithFitNet(
-      learningRate,
-      input,
-      expectedOutput
-    )(network)._1
+  : LazyList[Double] = network
+    .last
+    .zip(expectedOutput)
+    .map { case (neuron, y) =>
+      Activation.restrictedOutput(neuron.activationF, y)
+    }
+    .pipe(
+      errorsWithFitNet(
+        learningRate,
+        input,
+        _
+      )(network)._1
+    )
 
   // public
   def fit(learningRate: Double,
           input: LazyList[Double],
           expectedOutput: LazyList[Double])
          (network: Network)
-  : Network = lazyRealization(
-    errorsWithFitNet(
-      learningRate,
-      input,
-      expectedOutput
-    )(network)._2
-  )
+  : Network = network
+    .last
+    .zip(expectedOutput)
+    .map { case (neuron, y) =>
+      Activation.restrictedOutput(neuron.activationF, y)
+    }
+    .pipe(
+      errorsWithFitNet(
+        learningRate,
+        input,
+        _
+      )(network)._2
+    )
+    .pipe(lazyRealization)
 
   type NetworkSerialized = List[LayerSerialized]
 

@@ -3,21 +3,40 @@ package synapses.model.netElems
 case class Activation(name: String,
                       f: Double => Double,
                       deriv: Double => Double,
-                      inverse: Double => Double)
+                      inverse: Double => Double,
+                      minMaxInVals: (Double, Double))
 
 object Activation {
 
-  private def safeSigmoid(x: Double): Double = {
-    val boundedPow = Math.min(-x, 500.0)
-    1.0 / (1.0 + Math.exp(boundedPow))
+  def restrictedInput(activation: Activation, x: Double): Double =
+    Math.max(
+      Math.min(
+        x,
+        activation.minMaxInVals._2
+      ),
+      activation.minMaxInVals._1
+    )
+
+  def restrictedOutput(activation: Activation, y: Double): Double =
+    Math.max(
+      Math.min(
+        y,
+        activation.f(activation.minMaxInVals._2)
+      ),
+      activation.f(activation.minMaxInVals._1)
+    )
+
+  private def sigmoidF(x: Double): Double = {
+    1.0 / (1.0 + Math.exp(-x))
   }
 
   val sigmoid: Activation =
     Activation(
       "sigmoid",
-      safeSigmoid,
-      x => safeSigmoid(x) * (1.0 - safeSigmoid(x)),
-      x => Math.log(x / (1.0 - x))
+      sigmoidF,
+      d => sigmoidF(d) * (1.0 - sigmoidF(d)),
+      y => Math.log(y / (1.0 - y)),
+      (-700.0, 30.0)
     )
 
   val identity: Activation =
@@ -25,15 +44,17 @@ object Activation {
       "identity",
       x => x,
       _ => 1.0,
-      x => x
+      y => y,
+      (-1.7976931348623157E308, 1.7976931348623157E308)
     )
 
   val tanh: Activation =
     Activation(
       "tanh",
       Math.tanh,
-      x => 1.0 - Math.tanh(x) * Math.tanh(x),
-      x => 0.5 * Math.log((1.0 + x) / (1.0 - x))
+      d => 1.0 - Math.tanh(d) * Math.tanh(d),
+      y => 0.5 * Math.log((1.0 + y) / (1.0 - y)),
+      (-10.0, 10.0)
     )
 
   val leakyReLU: Activation =
@@ -44,16 +65,17 @@ object Activation {
       } else {
         x
       },
-      x => if (x < 0.0) {
+      d => if (d < 0.0) {
         0.01
       } else {
         1.0
       },
-      x => if (x < 0.0) {
-        x / 0.01
+      y => if (y < 0.0) {
+        y / 0.01
       } else {
-        x
-      }
+        y
+      },
+      (-1.7976931348623157E308, 1.7976931348623157E308)
     )
 
   type ActivationSerialized = String
