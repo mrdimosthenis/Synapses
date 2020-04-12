@@ -41,7 +41,7 @@ sigmoid: Activation = Activation(
     sigmoid_f,
     lambda d: sigmoid_f(d) * (1.0 - sigmoid_f(d)),
     lambda y: math.log(y / (1.0 - y)),
-    (-700.0, 30.0)
+    (-700.0, 20.0)
 )
 
 identity: Activation = Activation(

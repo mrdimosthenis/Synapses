@@ -36,7 +36,7 @@ object Activation {
       sigmoidF,
       d => sigmoidF(d) * (1.0 - sigmoidF(d)),
       y => Math.log(y / (1.0 - y)),
-      (-700.0, 30.0)
+      (-700.0, 20.0)
     )
 
   val identity: Activation =
