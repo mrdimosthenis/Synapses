@@ -2,7 +2,7 @@
 ### Added
 - JetBrains reference in README.
 - Throw exception when the number of input/expected values does not match the size of input/output layer.
-- Bound i/o/ex values to prevent number overflows.
+- Restrict input and output/expected values to prevent number overflows.
 
 ### Changed
 - _Nothing has been changed._
