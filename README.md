@@ -16,7 +16,7 @@ A **lightweight** library for **neural networks** that **runs anywhere**!
 
 You are all set!
 
-#### It runs anywhere <sup>[1](#myfootnote1)</sup>
+#### It runs anywhere
 
 Supported languages:
 
