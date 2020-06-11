@@ -17,6 +17,5 @@ homepage = "https://mrdimosthenis.github.io/Synapses"
 keywords = ['neural-network', 'machine-learning', 'deep-learning', 'functional-programming']
 
 [tool.poetry.dependencies]
-python = "~3.6"
+python = "~3.8"
 PyFunctional = { version = "^1.3.0" }
-dataclasses = { version = "^0.7" }
