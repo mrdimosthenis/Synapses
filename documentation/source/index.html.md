@@ -118,7 +118,7 @@ let prediction =
 
 ```python
 inputValues = [1.0, 0.5625, 0.511111, 0.47619]
-let prediction = \
+prediction = \
         NeuralNetwork.prediction(neuralNetwork, inputValues)
 ```
 
