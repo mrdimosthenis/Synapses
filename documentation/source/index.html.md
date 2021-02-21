@@ -46,7 +46,7 @@ pip install synapses-py==7.3.1
 
 ```csharp
 // run
-dotnet add package SynapsesCSharp --version 7.3.1
+dotnet add package SynapsesCSharp --version 7.4.1
 // in the directory of your project
 ```
 
@@ -59,7 +59,7 @@ libraryDependencies +=
 
 ```fsharp
 // run
-dotnet add package Synapses --version 7.3.1
+dotnet add package Synapses --version 7.4.1
 // in the directory of your project
 ```
 
