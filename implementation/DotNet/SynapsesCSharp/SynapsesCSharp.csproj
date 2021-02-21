@@ -9,7 +9,7 @@
         <RepositoryUrl>https://github.com/mrdimosthenis/Synapses</RepositoryUrl>
         <PackageTags>neural-network;machine-learning;deep-learning;cross-platform</PackageTags>
         <OutputType>Library</OutputType>
-        <license>MIT</license>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageVersion>7.3.1</PackageVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageProjectUrl>https://mrdimosthenis.github.io/Synapses</PackageProjectUrl>
