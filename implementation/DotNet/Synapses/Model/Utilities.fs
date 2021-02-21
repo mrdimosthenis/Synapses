@@ -4,23 +4,6 @@ open FSharpx.Collections
 open System.Text.Json
 open System.Text.Json.Serialization
 
-let lazyRange (): LazyList<int> =
-    LazyList.unfold
-        (fun x ->
-            Some(x, x + 1)
-        )
-        0
-
-let lazyZipWithIndex
-        (ls: LazyList<'a>)
-        : LazyList<'a * int> =
-    LazyList.map2
-        (fun x i ->
-            (x, i)
-        )
-        ls
-        (lazyRange ())
-
 let lazyUnzip (ls: LazyList<'a * 'b>)
               : LazyList<'a> * LazyList<'b> =
     let (reversedXs, reversedYs) =

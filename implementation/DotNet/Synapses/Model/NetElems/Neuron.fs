@@ -17,7 +17,9 @@ let init (inputSize: int)
          (activationF: Activation.Function)
          (weightInitF: unit -> float)
          : Neuron =
-    let weights = Utilities.lazyRange ()
+    let weights = id
+                  |> Seq.initInfinite
+                  |> LazyList.ofSeq
                   |> LazyList.take (1 + inputSize)
                   |> LazyList.map
                         (fun _ -> weightInitF())

@@ -16,7 +16,9 @@ let init (inputSize: int)
          (activationF: Activation.Function)
          (weightInitF: unit -> unit -> float)
          : Layer =
-    Utilities.lazyRange ()
+    id
+    |> Seq.initInfinite
+    |> LazyList.ofSeq
     |> LazyList.take outputSize
     |> LazyList.map
         (fun _ ->

@@ -156,9 +156,10 @@ let init (layerSizes: LazyList<int>)
     layerSizes
     |> LazyList.tail
     |> LazyList.zip layerSizes
-    |> Utilities.lazyZipWithIndex
+    |> Seq.indexed
+    |> LazyList.ofSeq
     |> LazyList.map
-        (fun ((lrSz, nextLrSz), index) ->
+        (fun (index, (lrSz, nextLrSz)) ->
             Layer.init
                 lrSz
                 nextLrSz
