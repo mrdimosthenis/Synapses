@@ -94,9 +94,7 @@ type ``customized network tests``() =
     let ``fit neural network prediction``() =
         NeuralNetwork.prediction(fitNeuralNetwork, inputValues)
         |> should equal
-            [ -0.006109464554743645
-              -0.1770428172237149
-              0.6087944183600162 ]
+            [ -0.0061094645547436445; -0.1770428172237149; 0.6087944183600162 ]
     
     [<Fact>]
     let ``neural network to svg``() =
