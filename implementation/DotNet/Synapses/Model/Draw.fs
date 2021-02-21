@@ -1,7 +1,6 @@
 module Synapses.Model.Draw
 
 open FSharpx.Collections
-open Synapses.Model
 open Synapses.Model.Layer
 open Synapses.Model.Network
 open Synapses.Model.Neuron
@@ -64,7 +63,9 @@ let circleSVG (x: float) (y: float) (stroke_val: string): string =
         x y circleRadius stroke_val circleStrokeWidth circleFill
 
 let inputCirclesSVGs (maxChainCircles: int) (inputCircles: int): LazyList<string> =
-    Utilities.lazyRange()
+    id
+    |> Seq.initInfinite
+    |> LazyList.ofSeq
     |> LazyList.take inputCircles
     |> LazyList.map (fun i ->
         let x = circleCX 0
@@ -78,8 +79,9 @@ let inputCirclesSVGs (maxChainCircles: int) (inputCircles: int): LazyList<string
 
 let outputCirclesSVGs (maxChainCircles: int) (outputChainOrder: int) (outputActivations: LazyList<string>): LazyList<string> =
     outputActivations
-    |> Utilities.lazyZipWithIndex
-    |> LazyList.map (fun (activ, i) ->
+    |> Seq.indexed
+    |> LazyList.ofSeq
+    |> LazyList.map (fun (i, activ) ->
         let x = circleCX (outputChainOrder)
         let outputActivationsLength = LazyList.length outputActivations
         let y = circleCY maxChainCircles outputActivationsLength i
@@ -90,8 +92,9 @@ let hiddenCirclesSVGs (maxChainCircles: int) (hiddenChainOrder: int) (hiddenActi
     hiddenActivations
     |> LazyList.map Some
     |> LazyList.cons None
-    |> Utilities.lazyZipWithIndex
-    |> LazyList.map (fun (activ, i) ->
+    |> Seq.indexed
+    |> LazyList.ofSeq
+    |> LazyList.map (fun (i, activ) ->
         let x = circleCX hiddenChainOrder
         let hiddenActivationsLength = LazyList.length hiddenActivations
         let y = circleCY maxChainCircles (hiddenActivationsLength + 1) i
@@ -157,17 +160,19 @@ let neuronLinesSVGs (maxChainCircles: int) (layerSize: int) (layerOrder: int) (n
         | false -> neuronOrderInLayer + 1
 
     weights
-    |> Utilities.lazyZipWithIndex
+    |> Seq.indexed
+    |> LazyList.ofSeq
     |> LazyList.map
-        (fun (w, i) ->
+        (fun (i, w) ->
         lineSVG maxChainCircles layerOrder numOfCirclesInBaseChain numOfCirclesInTargetChain i targetCircleOrder w
             maxAbsWeight)
 
 let layerLinesSVGs (maxChainCircles: int) (layerOrder: int) (numOfLayers: int) (maxAbsWeight: float) (layer: Layer): LazyList<string> =
     layer
-    |> Utilities.lazyZipWithIndex
+    |> Seq.indexed
+    |> LazyList.ofSeq
     |> LazyList.map
-        (fun (neuron, neuronOrderInLayer) ->
+        (fun (neuronOrderInLayer, neuron) ->
         neuronLinesSVGs maxChainCircles (LazyList.length layer) layerOrder numOfLayers neuronOrderInLayer maxAbsWeight
             neuron.weights)
     |> LazyList.concat
@@ -175,8 +180,9 @@ let layerLinesSVGs (maxChainCircles: int) (layerOrder: int) (numOfLayers: int) (
 let networkSVG (network: Network): string =
     let maxChainCircles =
         network
-        |> Utilities.lazyZipWithIndex
-        |> LazyList.map (fun (layer, i) ->
+        |> Seq.indexed
+        |> LazyList.ofSeq
+        |> LazyList.map (fun (i, layer) ->
             match i = LazyList.length network - 1 with
             | true -> LazyList.length layer + 1
             | false -> LazyList.length layer)
@@ -200,14 +206,16 @@ let networkSVG (network: Network): string =
             | false -> acc) 0.0
     let circlesSVGs =
         network
-        |> Utilities.lazyZipWithIndex
-        |> LazyList.map (fun (layer, i) -> layerCirclesSVGs maxChainCircles i numOfLayers layer)
+        |> Seq.indexed
+        |> LazyList.ofSeq
+        |> LazyList.map (fun (i, layer) -> layerCirclesSVGs maxChainCircles i numOfLayers layer)
         |> LazyList.concat
 
     let linesSVGs =
         network
-        |> Utilities.lazyZipWithIndex
-        |> LazyList.map (fun (layer, i) -> layerLinesSVGs maxChainCircles i numOfLayers maxAbsWeight layer)
+        |> Seq.indexed
+        |> LazyList.ofSeq
+        |> LazyList.map (fun (i, layer) -> layerLinesSVGs maxChainCircles i numOfLayers maxAbsWeight layer)
         |> LazyList.concat
     
     let w = circleCX (numOfLayers + 1)

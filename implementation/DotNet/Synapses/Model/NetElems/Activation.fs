@@ -1,7 +1,6 @@
 module Synapses.Model.NetElems.Activation
 
 open System
-open System.Text.Json.Serialization
 
 type Function = { name: string
                   f: float -> float
@@ -9,7 +8,6 @@ type Function = { name: string
                   inverse: float -> float
                   minMaxInVals: float * float }
 
-[<JsonFSharpConverter>]
 type SerializableFunction = string
 
 exception UnknownActivationF of string

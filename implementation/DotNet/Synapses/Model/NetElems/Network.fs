@@ -3,12 +3,9 @@ module Synapses.Model.Network
 open FSharpx.Collections
 open Synapses.Model
 open Synapses.Model.NetElems
-open System.Text.Json
-open System.Text.Json.Serialization
 
 type Network = LazyList<Layer.Layer>
 
-[<JsonFSharpConverter>]
 type SerializableNetwork =
         List<Layer.SerializableLayer>
 
@@ -139,8 +136,9 @@ let deserialized
 
 // public
 let toJson (network: Network): string =
-    JsonSerializer.Serialize
-        (serialized network, Utilities.jsonOptions)
+    network
+    |> serialized
+    |> Newtonsoft.Json.JsonConvert.SerializeObject
 
 let lazyRealization
         (network: Network)
@@ -156,9 +154,10 @@ let init (layerSizes: LazyList<int>)
     layerSizes
     |> LazyList.tail
     |> LazyList.zip layerSizes
-    |> Utilities.lazyZipWithIndex
+    |> Seq.indexed
+    |> LazyList.ofSeq
     |> LazyList.map
-        (fun ((lrSz, nextLrSz), index) ->
+        (fun (index, (lrSz, nextLrSz)) ->
             Layer.init
                 lrSz
                 nextLrSz
@@ -195,8 +194,7 @@ let fitted (learnRate: float)
 
 // public
 let fromJson (json: string): Network =
-    (json, Utilities.jsonOptions)
-    |> JsonSerializer.Deserialize<SerializableNetwork>
+    json
+    |> Newtonsoft.Json.JsonConvert.DeserializeObject<SerializableNetwork>
     |> deserialized
     |> lazyRealization
-

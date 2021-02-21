@@ -1,13 +1,11 @@
 module Synapses.Model.Encoding.Discrete
 
 open FSharpx.Collections
-open System.Text.Json.Serialization
 
 type DiscreteAttribute =
         { key: string
           values: LazyList<string> }
 
-[<JsonFSharpConverter>]
 type SerializableDiscreteAttribute =
         { key: string
           values: List<string> }

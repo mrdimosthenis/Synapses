@@ -69,7 +69,7 @@ type ``preprocessor tests``() =
                       Map.ofList [ ("a", "a1"); ("b", "b4"); ("c", "-8.000000"); ("d", "5.000000") ]
                       Map.ofList [ ("a", "a1"); ("b", "b5"); ("c", "-8.000000"); ("d", "4.000000") ] ]
 
-    let json = """[{"Case":"SerializableDiscrete","Fields":[{"key":"a","values":["a1"]}]},{"Case":"SerializableDiscrete","Fields":[{"key":"b","values":["b5","b4","b3","b2","b1"]}]},{"Case":"SerializableContinuous","Fields":[{"key":"c","min":-8,"max":-8}]},{"Case":"SerializableContinuous","Fields":[{"key":"d","min":3,"max":5}]}]"""
+    let json = """[{"Case":"SerializableDiscrete","Fields":[{"key":"a","values":["a1"]}]},{"Case":"SerializableDiscrete","Fields":[{"key":"b","values":["b5","b4","b3","b2","b1"]}]},{"Case":"SerializableContinuous","Fields":[{"key":"c","min":-8.0,"max":-8.0}]},{"Case":"SerializableContinuous","Fields":[{"key":"d","min":3.0,"max":5.0}]}]"""
 
     [<Fact>]
     let ``get json of preprocessor``() =

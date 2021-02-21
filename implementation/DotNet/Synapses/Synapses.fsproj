@@ -9,8 +9,8 @@
         <RepositoryUrl>https://github.com/mrdimosthenis/Synapses</RepositoryUrl>
         <PackageTags>neural-network;machine-learning;deep-learning;cross-platform</PackageTags>
         <OutputType>Library</OutputType>
-        <license>MIT</license>
-        <PackageVersion>7.3.1</PackageVersion>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageVersion>7.4.1</PackageVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageProjectUrl>https://mrdimosthenis.github.io/Synapses</PackageProjectUrl>
     </PropertyGroup>
@@ -27,12 +27,11 @@
         <Compile Include="Model\Encoding\Preprocessor.fs" />
         <Compile Include="Model\Draw.fs" />
         <Compile Include="Library.fs" />
-        <Content Include="LICENSE" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FSharp.SystemTextJson" Version="0.6.2" />
-        <PackageReference Include="FSharpx.Collections" Version="2.1.1" />
+        <PackageReference Include="FSharpx.Collections" Version="2.1.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 
 </Project>

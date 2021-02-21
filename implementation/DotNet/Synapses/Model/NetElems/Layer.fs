@@ -3,11 +3,9 @@ module Synapses.Model.Layer
 open FSharpx.Collections
 open Synapses.Model
 open Synapses.Model.NetElems
-open System.Text.Json.Serialization
 
 type Layer = LazyList<Neuron.Neuron>
 
-[<JsonFSharpConverter>]
 type SerializableLayer =
         List<Neuron.SerializableNeuron>
 
@@ -16,7 +14,9 @@ let init (inputSize: int)
          (activationF: Activation.Function)
          (weightInitF: unit -> unit -> float)
          : Layer =
-    Utilities.lazyRange ()
+    id
+    |> Seq.initInfinite
+    |> LazyList.ofSeq
     |> LazyList.take outputSize
     |> LazyList.map
         (fun _ ->

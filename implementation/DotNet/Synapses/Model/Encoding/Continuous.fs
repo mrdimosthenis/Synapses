@@ -1,14 +1,12 @@
 module Synapses.Model.Encoding.Continuous
 
 open FSharpx.Collections
-open System.Text.Json.Serialization
 
 type ContinuousAttribute =
         { key: string
           min: float
           max: float }
 
-[<JsonFSharpConverter>]
 type SerializableContinuousAttribute =
         ContinuousAttribute
 

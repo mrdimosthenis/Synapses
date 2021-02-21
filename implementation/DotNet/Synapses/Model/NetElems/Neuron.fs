@@ -3,12 +3,10 @@ module Synapses.Model.Neuron
 open FSharpx.Collections
 open Synapses.Model
 open Synapses.Model.NetElems
-open System.Text.Json.Serialization
 
 type Neuron = { activationF: Activation.Function
                 weights: LazyList<float> }
 
-[<JsonFSharpConverter>]
 type SerializableNeuron =
     { activationF: Activation.SerializableFunction
       weights: List<float> }
@@ -17,7 +15,9 @@ let init (inputSize: int)
          (activationF: Activation.Function)
          (weightInitF: unit -> float)
          : Neuron =
-    let weights = Utilities.lazyRange ()
+    let weights = id
+                  |> Seq.initInfinite
+                  |> LazyList.ofSeq
                   |> LazyList.take (1 + inputSize)
                   |> LazyList.map
                         (fun _ -> weightInitF())
