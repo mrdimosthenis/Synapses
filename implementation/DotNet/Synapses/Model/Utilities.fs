@@ -1,8 +1,6 @@
 module Synapses.Model.Utilities
 
 open FSharpx.Collections
-open System.Text.Json
-open System.Text.Json.Serialization
 
 let lazyUnzip (ls: LazyList<'a * 'b>)
               : LazyList<'a> * LazyList<'b> =
@@ -36,6 +34,3 @@ let lazySplitAt
                go (i - 1) (LazyList.cons yHd x, yTl)
     let (x, y) = go n (LazyList.empty, ls)
     (LazyList.rev x, y)
-
-let jsonOptions = JsonSerializerOptions()
-jsonOptions.Converters.Add(JsonFSharpConverter())

@@ -3,12 +3,10 @@ module Synapses.Model.Neuron
 open FSharpx.Collections
 open Synapses.Model
 open Synapses.Model.NetElems
-open System.Text.Json.Serialization
 
 type Neuron = { activationF: Activation.Function
                 weights: LazyList<float> }
 
-[<JsonFSharpConverter>]
 type SerializableNeuron =
     { activationF: Activation.SerializableFunction
       weights: List<float> }

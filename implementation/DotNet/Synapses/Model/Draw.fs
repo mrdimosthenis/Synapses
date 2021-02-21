@@ -1,7 +1,6 @@
 module Synapses.Model.Draw
 
 open FSharpx.Collections
-open Synapses.Model
 open Synapses.Model.Layer
 open Synapses.Model.Network
 open Synapses.Model.Neuron

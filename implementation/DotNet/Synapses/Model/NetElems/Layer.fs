@@ -3,11 +3,9 @@ module Synapses.Model.Layer
 open FSharpx.Collections
 open Synapses.Model
 open Synapses.Model.NetElems
-open System.Text.Json.Serialization
 
 type Layer = LazyList<Neuron.Neuron>
 
-[<JsonFSharpConverter>]
 type SerializableLayer =
         List<Neuron.SerializableNeuron>
 

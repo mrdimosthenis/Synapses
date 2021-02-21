@@ -5,14 +5,11 @@ open Synapses.Model
 open Synapses.Model.Encoding
 open Synapses.Model.Encoding.Discrete
 open Synapses.Model.Encoding.Continuous
-open System.Text.Json
-open System.Text.Json.Serialization
 
 type Attribute =
         | Discrete of Discrete.DiscreteAttribute
         | Continuous of Continuous.ContinuousAttribute
 
-[<JsonFSharpConverter>]
 type SerializableAttribute =
         | SerializableDiscrete
             of Discrete.SerializableDiscreteAttribute
@@ -21,7 +18,6 @@ type SerializableAttribute =
 
 type Preprocessor = LazyList<Attribute>
 
-[<JsonFSharpConverter>]
 type SerializablePreprocessor = List<SerializableAttribute>
 
 let updated (preprocessor: Preprocessor)
@@ -144,8 +140,9 @@ let deserialized
 
 // public
 let toJson (preprocessor: Preprocessor): string =
-    JsonSerializer.Serialize
-        (serialized preprocessor, Utilities.jsonOptions)
+    preprocessor
+    |> serialized
+    |> Newtonsoft.Json.JsonConvert.SerializeObject
 
 let lazyRealization
         (preprocessor: Preprocessor)
@@ -186,7 +183,7 @@ let init (keysWithFlags: LazyList<string * bool>)
 
 // public
 let fromJson (json: string): Preprocessor =
-    (json, Utilities.jsonOptions)
-    |> JsonSerializer.Deserialize<SerializablePreprocessor>
+    json
+    |> Newtonsoft.Json.JsonConvert.DeserializeObject<SerializablePreprocessor>
     |> deserialized
     |> lazyRealization
