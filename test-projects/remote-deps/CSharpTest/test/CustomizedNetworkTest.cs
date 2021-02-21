@@ -100,7 +100,7 @@ namespace CSharpTest.test
         [Fact]
         public void fitNeuralNetworkPrediction()
         {
-            double[] expected = {-0.006109464554743645, -0.1770428172237149, 0.6087944183600162};
+            double[] expected = {-0.0061094645547436445, -0.1770428172237149, 0.6087944183600162};
             Assert.Equal(
                 expected, 
                 NeuralNetwork.prediction(fitNeuralNetwork, inputValues)
