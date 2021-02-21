@@ -76,7 +76,7 @@ Please take a look at the test projects.
 
 * [circe](https://github.com/circe/circe)
 * [FSharpx.Collections](https://github.com/fsprojects/FSharpx.Collections)
-* [FSharp.SystemTextJson](https://github.com/Tarmil/FSharp.SystemTextJson)
+* [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 * [PyFunctional](https://github.com/EntilZha/PyFunctional)
 
 ### Misc
