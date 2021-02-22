@@ -1,3 +1,14 @@
+## [7.4.1]
+### Added
+- Newtonsoft.Json dependency for DotNet.
+- Support for Python versions 3.7, 3.8, 3.9.
+
+### Changed
+- _Nothing has been changed._
+
+### Removed
+- System.Text.Json dependency for DotNet.
+
 ## [7.3.1]
 ### Added
 - JetBrains reference in README.
