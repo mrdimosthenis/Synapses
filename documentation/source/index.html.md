@@ -30,7 +30,7 @@ npm i synapses@7.3.1
 
 ```python
 # run
-pip install synapses-py==7.3.1
+pip install synapses-py==7.4.1
 # in the directory of your project
 ```
 
@@ -76,7 +76,7 @@ let neuralNetwork = NeuralNetwork.init(layers);
 ```
 
 ```python
-from synapses_py import *
+from synapses_py import NeuralNetwork, ActivationFunction, DataPreprocessor, Statistics
 layers = [4, 6, 5, 3]
 neuralNetwork = NeuralNetwork.init(layers)
 ```

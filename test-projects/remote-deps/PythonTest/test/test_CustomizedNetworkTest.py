@@ -70,7 +70,7 @@ class TestCustomizedNetworkTest(unittest.TestCase):
 
     def test_fitNeuralNetworkPrediction(self):
         self.assertEqual(
-            [-0.006109464554743645, -0.1770428172237149, 0.6087944183600162],
+            [-0.0061094645547436445, -0.1770428172237149, 0.6087944183600162],
             NeuralNetwork.prediction(fitNeuralNetwork, inputValues)
         )
 
