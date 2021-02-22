@@ -52,9 +52,7 @@ def init(keys_with_flags: Sequence,
     init_preprocessor = keys_with_flags \
         .map(lambda x: init_f(x[0], x[1], dataset_head))
     return utilities.lazy_realization(
-        dataset_tail \
-            .fold_left(init_preprocessor,
-                       lambda acc, x: updated(x, acc))
+        dataset_tail.fold_left(init_preprocessor, lambda acc, x: updated(x, acc))
     )
 
 

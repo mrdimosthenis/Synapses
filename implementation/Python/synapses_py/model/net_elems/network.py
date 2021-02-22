@@ -18,15 +18,14 @@ def init(layer_sizes: Sequence,
          weight_init_f: Callable[[int], float]
          ) -> Network:
     return utilities.lazy_realization(
-        layer_sizes \
-            .zip(layer_sizes.tail()) \
-            .zip_with_index() \
-            .map(lambda t:
-                 layer.init(
-                     t[0][0],
-                     t[0][1],
-                     activation_f(t[1]),
-                     lambda: lambda: weight_init_f(t[1])))
+        layer_sizes.zip(layer_sizes.tail())
+                   .zip_with_index()
+                   .map(lambda t:
+                        layer.init(
+                            t[0][0],
+                            t[0][1],
+                            activation_f(t[1]),
+                            lambda: lambda: weight_init_f(t[1])))
     )
 
 
