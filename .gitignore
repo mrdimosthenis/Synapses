@@ -39,6 +39,10 @@ implementation/Python/dist
 /implementation/Python/poetry.lock
 implementation/Python/README.md
 
+/implementation/BEAM/synapses/.vscode/
+/implementation/BEAM/synapses/_build/
+/implementation/BEAM/synapses/gen/
+
 # remote deps tests
 
 /test-projects/remote-deps/ScalaTest/.idea/
