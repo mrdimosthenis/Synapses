@@ -42,6 +42,7 @@ implementation/Python/README.md
 /implementation/BEAM/synapses/.vscode/
 /implementation/BEAM/synapses/_build/
 /implementation/BEAM/synapses/gen/
+/implementation/BEAM/synapses/rebar.lock
 
 # remote deps tests
 

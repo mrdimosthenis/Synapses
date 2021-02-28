@@ -30,7 +30,7 @@ pub fn restricted_output(activation: Activation, y: Float) -> Float {
 }
 
 fn min_abs_float(is_positive: Bool) -> Float {
-  let x = 1.7976931348623157 /. float.power(10.0, 308.0)
+  let x = 1.7976931348623157 *. float.power(10.0, 308.0)
   case is_positive {
     True -> x
     False -> 0.0 -. x
