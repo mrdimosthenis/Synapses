@@ -1,6 +1,8 @@
+import gleam/pair
 import gleam_zlists.{ZList} as zlist
 import model/utilities as ut
 import model/net_elems/activation.{Activation}
+import model/net_elems/neuron.{Neuron}
 import model/net_elems/layer.{Layer, LayerSerialized}
 
 pub type Network =
@@ -106,6 +108,64 @@ fn back_propagated(
     init_acc,
     fn(x, acc) { back_propagated_acc_f(learning_rate, acc, x) },
   )
+}
+
+fn errors_with_fit_net(
+  network: Network,
+  learning_rate: Float,
+  input_val: ZList(Float),
+  expected_output: ZList(Float),
+) -> tuple(ZList(Float), Network) {
+  back_propagated(
+    learning_rate,
+    expected_output,
+    fed_forward(network, input_val),
+  )
+}
+
+// public
+pub fn errors(
+  network: Network,
+  learning_rate: Float,
+  input_val: ZList(Float),
+  expected_output: ZList(Float),
+) -> ZList(Float) {
+  let Ok(last_layer) =
+    network
+    |> zlist.reverse
+    |> zlist.head
+  let restricted_output =
+    zlist.zip(last_layer, expected_output)
+    |> zlist.map(fn(t: tuple(Neuron, Float)) {
+      let tuple(a, b) = t
+      activation.restricted_output(a.activation_f, b)
+    })
+  network
+  |> errors_with_fit_net(learning_rate, input_val, restricted_output)
+  |> pair.first
+}
+
+// public
+pub fn fit(
+  network: Network,
+  learning_rate: Float,
+  input_val: ZList(Float),
+  expected_output: ZList(Float),
+) -> Network {
+  let Ok(last_layer) =
+    network
+    |> zlist.reverse
+    |> zlist.head
+  let restricted_output =
+    zlist.zip(last_layer, expected_output)
+    |> zlist.map(fn(t: tuple(Neuron, Float)) {
+      let tuple(a, b) = t
+      activation.restricted_output(a.activation_f, b)
+    })
+  network
+  |> errors_with_fit_net(learning_rate, input_val, restricted_output)
+  |> pair.second
+  |> lazy_realization
 }
 
 pub type NetworkSerialized =
