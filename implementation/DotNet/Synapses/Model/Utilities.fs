@@ -4,6 +4,7 @@ open FSharpx.Collections
 
 let lazyUnzip (ls: LazyList<'a * 'b>)
               : LazyList<'a> * LazyList<'b> =
+    // TODO: reverse the `ls` and then split
     let (reversedXs, reversedYs) =
             LazyList.fold
                 (fun (accXs, accYs) (x, y) ->
