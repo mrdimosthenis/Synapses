@@ -58,7 +58,7 @@ def fed_forward(input_val: Sequence,
 
 
 def back_propagated_acc_f(learning_rate: float,
-                          errors_with_already_propagated: Sequence,
+                          errors_with_already_propagated: Sequence, # TODO: this is a tuple
                           input_with_layer: (Sequence, Layer)
                           ) -> (Sequence, Sequence):
     (errors_val, already_propagated) = errors_with_already_propagated
