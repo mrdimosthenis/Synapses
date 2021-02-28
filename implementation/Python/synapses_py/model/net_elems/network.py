@@ -130,6 +130,8 @@ def errors(learning_rate: float,
         network
     )[0]
 
+# TODO: fit returns Network
+# TODO: refactor common code between the above and below function in all languages
 
 # public
 def fit(learning_rate: float,
