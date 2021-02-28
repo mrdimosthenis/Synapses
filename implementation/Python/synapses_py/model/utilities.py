@@ -11,7 +11,7 @@ T = TypeVar('T')
 def lazy_cons(x: T, xs: Sequence) -> Sequence:
     return seq([x]) + xs
 
-
+# TODO: use reverse and then fold
 def lazy_unzip(ls: Sequence) -> Tuple[Sequence, Sequence]:
     (reversed_xs, reversed_ys) = ls \
         .fold_left(
