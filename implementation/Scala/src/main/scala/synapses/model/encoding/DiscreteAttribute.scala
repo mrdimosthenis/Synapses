@@ -13,7 +13,7 @@ object DiscreteAttribute {
     val updatedValues =
       if (exists) discreteAttribute.values
       else LazyList.cons(
-        datapoint(discreteAttribute.key),
+        datapoint(discreteAttribute.key), // TODO: fetch `datapoint(discreteAttribute.key)` only once
         discreteAttribute.values
       )
     discreteAttribute.copy(values = updatedValues)
