@@ -1,4 +1,5 @@
 import gleam/float
+import decode.{Decoder}
 
 pub external fn math_exp(x: Float) -> Float =
   "math" "exp"
@@ -113,4 +114,8 @@ pub fn deserialized(s: ActivationSerialized) -> Activation {
     "tanh" -> tanh()
     "leakyReLU" -> leaky_re_lu()
   }
+}
+
+pub fn decoder() -> Decoder(ActivationSerialized) {
+  decode.string()
 }

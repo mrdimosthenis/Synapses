@@ -5,7 +5,10 @@
   {applications,
    [kernel,
     stdlib,
-    gleam_stdlib
+    gleam_stdlib,
+    gleam_zlists,
+    gleam_decode,
+    gleam_jsone
    ]},
   {env,[]},
   {modules, []},

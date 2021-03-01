@@ -1,4 +1,6 @@
 import gleam/pair
+import decode.{Decoder}
+import gleam/jsone
 import gleam_zlists.{ZList} as zlist
 import model/utilities as ut
 import model/net_elems/activation.{Activation}
@@ -181,4 +183,14 @@ pub fn deserialized(network_serialized: NetworkSerialized) -> Network {
   network_serialized
   |> zlist.of_list
   |> zlist.map(layer.deserialized)
+}
+
+pub fn decoder() -> Decoder(NetworkSerialized) {
+  decode.list(layer.decoder())
+}
+
+pub fn of_json(s: String) -> Network {
+  let Ok(dyn) = jsone.decode(s)
+  let Ok(res) = decode.decode_dynamic(dyn, decoder())
+  deserialized(res)
 }

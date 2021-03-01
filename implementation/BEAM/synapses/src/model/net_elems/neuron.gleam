@@ -1,3 +1,4 @@
+import decode.{Decoder}
 import gleam_zlists.{ZList} as zlist
 import model/mathematics as maths
 import model/net_elems/activation.{Activation, ActivationSerialized}
@@ -66,5 +67,13 @@ pub fn deserialized(neuron_serialized: NeuronSerialized) -> Neuron {
   Neuron(
     activation.deserialized(neuron_serialized.activation_f),
     zlist.of_list(neuron_serialized.weights),
+  )
+}
+
+pub fn decoder() -> Decoder(NeuronSerialized) {
+  decode.map2(
+    NeuronSerialized,
+    decode.field("activationF", activation.decoder()),
+    decode.field("weights", decode.list(decode.float())),
   )
 }

@@ -1,3 +1,4 @@
+import decode.{Decoder}
 import gleam_zlists.{ZList} as zlist
 import model/utilities as ut
 import model/net_elems/activation.{Activation}
@@ -63,4 +64,8 @@ pub fn deserialized(layer_serialized: LayerSerialized) -> Layer {
   layer_serialized
   |> zlist.of_list
   |> zlist.map(neuron.deserialized)
+}
+
+pub fn decoder() -> Decoder(LayerSerialized) {
+  decode.list(neuron.decoder())
 }
