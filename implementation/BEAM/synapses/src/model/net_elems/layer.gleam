@@ -1,4 +1,5 @@
 import decode.{Decoder}
+import gleam/jsone.{JsonValue}
 import gleam_zlists.{ZList} as zlist
 import model/utilities as ut
 import model/net_elems/activation.{Activation}
@@ -64,6 +65,10 @@ pub fn deserialized(layer_serialized: LayerSerialized) -> Layer {
   layer_serialized
   |> zlist.of_list
   |> zlist.map(neuron.deserialized)
+}
+
+pub fn encoder(layer_serialized: LayerSerialized) -> JsonValue {
+  jsone.array(layer_serialized, neuron.encoder)
 }
 
 pub fn decoder() -> Decoder(LayerSerialized) {

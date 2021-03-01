@@ -1,4 +1,5 @@
 import decode.{Decoder}
+import gleam/jsone.{JsonValue}
 import gleam_zlists.{ZList} as zlist
 import model/mathematics as maths
 import model/net_elems/activation.{Activation, ActivationSerialized}
@@ -68,6 +69,13 @@ pub fn deserialized(neuron_serialized: NeuronSerialized) -> Neuron {
     activation.deserialized(neuron_serialized.activation_f),
     zlist.of_list(neuron_serialized.weights),
   )
+}
+
+pub fn encoder(neuron_serialized: NeuronSerialized) -> JsonValue {
+  jsone.object([
+    tuple("activationF", activation.encoder(neuron_serialized.activation_f)),
+    tuple("weights", jsone.array(neuron_serialized.weights, jsone.float)),
+  ])
 }
 
 pub fn decoder() -> Decoder(NeuronSerialized) {

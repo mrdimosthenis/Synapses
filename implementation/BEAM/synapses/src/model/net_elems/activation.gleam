@@ -1,5 +1,6 @@
 import gleam/float
 import decode.{Decoder}
+import gleam/jsone.{JsonValue}
 
 pub external fn math_exp(x: Float) -> Float =
   "math" "exp"
@@ -103,17 +104,21 @@ pub fn leaky_re_lu() -> Activation {
 pub type ActivationSerialized =
   String
 
-pub fn serialized(activ_f: Activation) -> ActivationSerialized {
-  activ_f.name
+pub fn serialized(activation: Activation) -> ActivationSerialized {
+  activation.name
 }
 
-pub fn deserialized(s: ActivationSerialized) -> Activation {
-  case s {
+pub fn deserialized(activation_serialised: ActivationSerialized) -> Activation {
+  case activation_serialised {
     "sigmoid" -> sigmoid()
     "identity" -> identity()
     "tanh" -> tanh()
     "leakyReLU" -> leaky_re_lu()
   }
+}
+
+pub fn encoder(activation_serialised: ActivationSerialized) -> JsonValue {
+  jsone.string(activation_serialised)
 }
 
 pub fn decoder() -> Decoder(ActivationSerialized) {
