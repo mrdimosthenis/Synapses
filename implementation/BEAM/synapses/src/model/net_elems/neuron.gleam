@@ -71,17 +71,20 @@ pub fn deserialized(neuron_serialized: NeuronSerialized) -> Neuron {
   )
 }
 
-pub fn encoder(neuron_serialized: NeuronSerialized) -> JsonValue {
+pub fn json_encoded(neuron_serialized: NeuronSerialized) -> JsonValue {
   jsone.object([
-    tuple("activationF", activation.encoder(neuron_serialized.activation_f)),
+    tuple(
+      "activationF",
+      activation.json_encoded(neuron_serialized.activation_f),
+    ),
     tuple("weights", jsone.array(neuron_serialized.weights, jsone.float)),
   ])
 }
 
-pub fn decoder() -> Decoder(NeuronSerialized) {
+pub fn json_decoder() -> Decoder(NeuronSerialized) {
   decode.map2(
     NeuronSerialized,
-    decode.field("activationF", activation.decoder()),
+    decode.field("activationF", activation.json_decoder()),
     decode.field("weights", decode.list(decode.float())),
   )
 }

@@ -67,10 +67,10 @@ pub fn deserialized(layer_serialized: LayerSerialized) -> Layer {
   |> zlist.map(neuron.deserialized)
 }
 
-pub fn encoder(layer_serialized: LayerSerialized) -> JsonValue {
-  jsone.array(layer_serialized, neuron.encoder)
+pub fn json_encoded(layer_serialized: LayerSerialized) -> JsonValue {
+  jsone.array(layer_serialized, neuron.json_encoded)
 }
 
-pub fn decoder() -> Decoder(LayerSerialized) {
-  decode.list(neuron.decoder())
+pub fn json_decoder() -> Decoder(LayerSerialized) {
+  decode.list(neuron.json_decoder())
 }

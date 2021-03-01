@@ -185,12 +185,12 @@ pub fn deserialized(network_serialized: NetworkSerialized) -> Network {
   |> zlist.map(layer.deserialized)
 }
 
-pub fn encoder(network_serialized: NetworkSerialized) -> JsonValue {
-  jsone.array(network_serialized, layer.encoder)
+pub fn json_encoded(network_serialized: NetworkSerialized) -> JsonValue {
+  jsone.array(network_serialized, layer.json_encoded)
 }
 
-pub fn decoder() -> Decoder(NetworkSerialized) {
-  decode.list(layer.decoder())
+pub fn json_decoder() -> Decoder(NetworkSerialized) {
+  decode.list(layer.json_decoder())
 }
 
 // public
@@ -198,7 +198,7 @@ pub fn to_json(network: Network) -> String {
   let Ok(dyn) =
     network
     |> serialized
-    |> encoder
+    |> json_encoded
     |> jsone.encode
   let Ok(res) = decode.decode_dynamic(dyn, decode.string())
   res
@@ -207,7 +207,7 @@ pub fn to_json(network: Network) -> String {
 // public
 pub fn from_json(s: String) -> Network {
   let Ok(dyn) = jsone.decode(s)
-  let Ok(res) = decode.decode_dynamic(dyn, decoder())
+  let Ok(res) = decode.decode_dynamic(dyn, json_decoder())
   res
   |> deserialized
   |> lazy_realization

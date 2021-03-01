@@ -117,10 +117,10 @@ pub fn deserialized(activation_serialised: ActivationSerialized) -> Activation {
   }
 }
 
-pub fn encoder(activation_serialised: ActivationSerialized) -> JsonValue {
+pub fn json_encoded(activation_serialised: ActivationSerialized) -> JsonValue {
   jsone.string(activation_serialised)
 }
 
-pub fn decoder() -> Decoder(ActivationSerialized) {
+pub fn json_decoder() -> Decoder(ActivationSerialized) {
   decode.string()
 }
