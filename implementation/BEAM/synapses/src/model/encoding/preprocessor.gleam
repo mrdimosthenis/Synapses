@@ -1,12 +1,16 @@
 import gleam/map.{Map}
 import gleam/pair
+import gleam/list
 import gleam_zlists.{ZList} as zlist
+import decode.{Decoder}
+import gleam/jsone.{JsonValue}
 import model/encoding/discrete_attribute
 import model/encoding/continuous_attribute
 import model/encoding/serialization.{
   Attribute, AttributeSerialized, ContinAttr, ContinAttrSerialized, ContinuousAttribute,
   ContinuousAttributeSerialized, DiscrAttr, DiscrAttrSerialized, DiscreteAttribute,
-  DiscreteAttributeSerialized, Preprocessor, PreprocessorSerialized,
+  DiscreteAttributeSerialized, FSharpAttributeSerialized, FSharpPreprocessorSerialized,
+  Preprocessor, PreprocessorSerialized,
 }
 
 fn lazy_realization(preprocessor: Preprocessor) -> Preprocessor {
@@ -165,4 +169,38 @@ fn deserialized(preprocessor_serialized: PreprocessorSerialized) -> Preprocessor
         |> ContinAttr
     }
   })
+}
+
+fn f_sharp_deserialized(
+  f_sharp_serialized: FSharpPreprocessorSerialized,
+) -> PreprocessorSerialized {
+  list.map(
+    f_sharp_serialized,
+    fn(x) {
+      let FSharpAttributeSerialized(case_, fields) = x
+      let Ok(field) = list.head(fields)
+      field
+    },
+  )
+}
+
+fn f_sharp_attr_json_decoder() -> Decoder(FSharpAttributeSerialized) {
+  decode.one_of([
+    discrete_attribute.f_sharp_attr_json_decoder(),
+    continuous_attribute.f_sharp_attr_json_decoder(),
+  ])
+}
+
+fn f_sharp_preprocessor_json_decoder() -> Decoder(FSharpPreprocessorSerialized) {
+  decode.list(f_sharp_attr_json_decoder())
+}
+
+// public
+pub fn from_json(s: String) -> Preprocessor {
+  let Ok(dyn) = jsone.decode(s)
+  let Ok(res) = decode.decode_dynamic(dyn, f_sharp_preprocessor_json_decoder())
+  res
+  |> f_sharp_deserialized
+  |> deserialized
+  |> lazy_realization
 }

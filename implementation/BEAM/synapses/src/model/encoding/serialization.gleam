@@ -31,3 +31,10 @@ pub type AttributeSerialized {
 
 pub type PreprocessorSerialized =
   List(AttributeSerialized)
+
+pub type FSharpAttributeSerialized {
+  FSharpAttributeSerialized(case_: String, fields: List(AttributeSerialized))
+}
+
+pub type FSharpPreprocessorSerialized =
+  List(FSharpAttributeSerialized)

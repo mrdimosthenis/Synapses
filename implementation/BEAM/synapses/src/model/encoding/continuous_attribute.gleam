@@ -3,8 +3,10 @@ import gleam/float
 import gleam/map.{Map}
 import gleam/result
 import gleam_zlists.{ZList} as zlist
+import decode.{Decoder}
 import model/encoding/serialization.{
-  ContinuousAttribute, ContinuousAttributeSerialized,
+  AttributeSerialized, ContinAttrSerialized, ContinuousAttribute, ContinuousAttributeSerialized,
+  FSharpAttributeSerialized,
 }
 
 pub fn parse(s: String) -> Float {
@@ -73,4 +75,25 @@ pub fn deserialized(
   let ContinuousAttributeSerialized(key, min, max) =
     continuous_attribute_serialized
   ContinuousAttribute(key, min, max)
+}
+
+pub fn contin_json_decoder() -> Decoder(ContinuousAttributeSerialized) {
+  decode.map3(
+    ContinuousAttributeSerialized,
+    decode.field("key", decode.string()),
+    decode.field("min", decode.float()),
+    decode.field("max", decode.float()),
+  )
+}
+
+pub fn attr_json_decoder() -> Decoder(AttributeSerialized) {
+  decode.element(0, decode.map(ContinAttrSerialized, contin_json_decoder()))
+}
+
+pub fn f_sharp_attr_json_decoder() -> Decoder(FSharpAttributeSerialized) {
+  decode.map2(
+    FSharpAttributeSerialized,
+    decode.field("Case", decode.string()),
+    decode.field("Fields", decode.list(attr_json_decoder())),
+  )
 }
