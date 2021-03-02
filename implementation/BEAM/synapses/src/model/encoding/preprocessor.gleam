@@ -123,7 +123,14 @@ pub fn decode(
   preprocessor: Preprocessor,
   encoded_datapoint: ZList(Float),
 ) -> Map(String, String) {
-  todo
+  preprocessor
+  |> zlist.reduce(
+    tuple(encoded_datapoint, zlist.new()),
+    fn(x, acc) { decode_acc_f(x, acc) },
+  )
+  |> pair.second
+  |> zlist.to_list
+  |> map.from_list
 }
 
 fn serialized(preprocessor: Preprocessor) -> PreprocessorSerialized {
