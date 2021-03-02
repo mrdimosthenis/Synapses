@@ -8,7 +8,7 @@ pub type ContinuousAttribute {
   ContinuousAttribute(key: String, min: Float, max: Float)
 }
 
-type Attribute {
+pub type Attribute {
   DiscrAttr(DiscreteAttribute)
   ContinAttr(ContinuousAttribute)
 }
@@ -24,7 +24,7 @@ pub type ContinuousAttributeSerialized {
   ContinuousAttributeSerialized(key: String, min: Float, max: Float)
 }
 
-type AttributeSerialized {
+pub type AttributeSerialized {
   DiscrAttrSerialized(DiscreteAttributeSerialized)
   ContinAttrSerialized(ContinuousAttributeSerialized)
 }

@@ -7,7 +7,7 @@ import model/encoding/serialization.{
   ContinuousAttribute, ContinuousAttributeSerialized,
 }
 
-fn parse(s: String) -> Float {
+pub fn parse(s: String) -> Float {
   let Ok(res) =
     s
     |> string.trim

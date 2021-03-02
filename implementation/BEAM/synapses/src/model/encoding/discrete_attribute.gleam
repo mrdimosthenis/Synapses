@@ -1,6 +1,5 @@
 import gleam/map.{Map}
 import gleam/pair
-import gleam/result
 import gleam_zlists.{ZList} as zlist
 import model/encoding/serialization.{
   DiscreteAttribute, DiscreteAttributeSerialized,
