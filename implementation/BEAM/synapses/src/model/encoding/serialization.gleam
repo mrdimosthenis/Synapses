@@ -1,40 +1,24 @@
 import gleam_zlists.{ZList}
 
-pub type DiscreteAttribute {
+pub type Attribute {
   DiscreteAttribute(key: String, values: ZList(String))
-}
-
-pub type ContinuousAttribute {
   ContinuousAttribute(key: String, min: Float, max: Float)
 }
 
-pub type Attribute {
-  DiscrAttr(DiscreteAttribute)
-  ContinAttr(ContinuousAttribute)
+pub type AttributeSerialized {
+  DiscreteAttributeSerialized(key: String, values: List(String))
+  ContinuousAttributeSerialized(key: String, min: Float, max: Float)
+}
+
+pub type FSharpAttributeSerialized {
+  FSharpAttributeSerialized(case_: String, fields: List(AttributeSerialized))
 }
 
 pub type Preprocessor =
   ZList(Attribute)
 
-pub type DiscreteAttributeSerialized {
-  DiscreteAttributeSerialized(key: String, values: List(String))
-}
-
-pub type ContinuousAttributeSerialized {
-  ContinuousAttributeSerialized(key: String, min: Float, max: Float)
-}
-
-pub type AttributeSerialized {
-  DiscrAttrSerialized(DiscreteAttributeSerialized)
-  ContinAttrSerialized(ContinuousAttributeSerialized)
-}
-
 pub type PreprocessorSerialized =
   List(AttributeSerialized)
-
-pub type FSharpAttributeSerialized {
-  FSharpAttributeSerialized(case_: String, fields: List(AttributeSerialized))
-}
 
 pub type FSharpPreprocessorSerialized =
   List(FSharpAttributeSerialized)
