@@ -86,7 +86,7 @@ def output_circles_svgs(max_chain_circles: int,
                  circle_cy(max_chain_circles, output_activations.size(), t[1]),
                  activation_name_to_stroke(t[0])))
 
-
+# TODO: output_activations.size(), output_activations.size()... should calculated only once
 def hidden_circles_svgs(max_chain_circles: int,
                         hidden_chain_order: int,
                         hidden_activations: Sequence) -> Sequence:
