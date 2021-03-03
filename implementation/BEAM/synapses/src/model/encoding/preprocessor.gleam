@@ -1,5 +1,3 @@
-//// public
-
 import gleam/map.{Map}
 import gleam/pair
 import gleam/list
@@ -10,14 +8,15 @@ import model/encoding/discrete_attribute
 import model/encoding/continuous_attribute
 import model/encoding/serialization.{
   Attribute, AttributeSerialized, ContinuousAttribute, ContinuousAttributeSerialized,
-  DiscreteAttribute, DiscreteAttributeSerialized, FSharpAttributeSerialized, FSharpPreprocessorSerialized,
-  Preprocessor, PreprocessorSerialized,
+  DiscreteAttribute, DiscreteAttributeSerialized, FSharpAttributeSerialized, Preprocessor,
+  PreprocessorSerialized,
 }
 
-//fn lazy_realization(preprocessor: Preprocessor) -> Preprocessor {
-//  serialized(preprocessor)
-//  preprocessor
-//}
+fn lazy_realization(preprocessor: Preprocessor) -> Preprocessor {
+  serialized(preprocessor)
+  preprocessor
+}
+
 fn updated_f(attr: Attribute, datapoint: Map(String, String)) -> Attribute {
   case attr {
     DiscreteAttribute(_, _) -> discrete_attribute.updated(attr, datapoint)
@@ -64,7 +63,7 @@ pub fn init(
     )
   dataset_tail
   |> zlist.reduce(init_preprocessor, fn(x, acc) { updated(acc, x) })
-  //|> lazy_realization
+  |> lazy_realization
 }
 
 // public
@@ -125,76 +124,60 @@ pub fn decode(
   |> zlist.to_list
   |> map.from_list
 }
-//fn serialized(preprocessor: Preprocessor) -> PreprocessorSerialized {
-//  preprocessor
-//  |> zlist.map(fn(x) {
-//    case x {
-//      DiscrAttr(discr_attr) ->
-//        discr_attr
-//        |> discrete_attribute.serialized
-//        |> DiscrAttrSerialized
-//      ContinAttr(contin_attr) ->
-//        contin_attr
-//        |> continuous_attribute.serialized
-//        |> ContinAttrSerialized
-//    }
-//  })
-//  |> zlist.to_list
-//}
-//
-//fn deserialized(preprocessor_serialized: PreprocessorSerialized) -> Preprocessor {
-//  preprocessor_serialized
-//  |> zlist.of_list
-//  |> zlist.map(fn(x) {
-//    case x {
-//      DiscrAttrSerialized(discr_attr_serialized) ->
-//        discr_attr_serialized
-//        |> discrete_attribute.deserialized
-//        |> DiscrAttr
-//      ContinAttrSerialized(contin_attr_serialized) ->
-//        contin_attr_serialized
-//        |> continuous_attribute.deserialized
-//        |> ContinAttr
-//    }
-//  })
-//}
-//
-//fn f_sharp_deserialized(
-//  f_sharp_serialized: FSharpPreprocessorSerialized,
-//) -> PreprocessorSerialized {
-//  list.map(
-//    f_sharp_serialized,
-//    fn(x) {
-//      let FSharpAttributeSerialized(case_, fields) = x
-//      let Ok(field) = list.head(fields)
-//      field
-//    },
-//  )
-//}
-//
-//fn f_sharp_attr_json_decoder() -> Decoder(FSharpAttributeSerialized) {
-//  let discror_contin_json_decoder =
-//    decode.one_of([
-//      discrete_attribute.discr_json_decoder(),
-//      continuous_attribute.contin_json_decoder(),
-//    ])
-//
-//  decode.map2(
-//    FSharpAttributeSerialized,
-//    decode.field("Case", decode.string()),
-//    decode.field("Fileds", decode.list(discror_contin_json_decoder)),
-//  )
-//}
-//
-//fn f_sharp_preprocessor_json_decoder() -> Decoder(FSharpPreprocessorSerialized) {
-//  decode.list(f_sharp_attr_json_decoder())
-//}
-//
-//pub fn from_json(s: String) -> Preprocessor {
-//  let Ok(dyn) = jsone.decode(s)
-//  let Ok(res) = decode.decode_dynamic(dyn, f_sharp_preprocessor_json_decoder())
-//  res
-//  |> f_sharp_deserialized
-//  |> deserialized
-//  |> lazy_realization
-//}
+
+fn serialized(preprocessor: Preprocessor) -> PreprocessorSerialized {
+  preprocessor
+  |> zlist.map(fn(attr) {
+    case attr {
+      DiscreteAttribute(_, _) ->
+        FSharpAttributeSerialized(
+          "SerializableDiscrete",
+          [discrete_attribute.serialized(attr)],
+        )
+      ContinuousAttribute(_, _, _) ->
+        FSharpAttributeSerialized(
+          "SerializableContinuous",
+          [continuous_attribute.serialized(attr)],
+        )
+    }
+  })
+  |> zlist.to_list
+}
+
+fn deserialized(preprocessor_serialized: PreprocessorSerialized) -> Preprocessor {
+  preprocessor_serialized
+  |> zlist.of_list
+  |> zlist.map(fn(x) {
+    let FSharpAttributeSerialized(case_, fields) = x
+    let Ok(serialized_attr) = list.head(fields)
+    case case_ {
+      "SerializableDiscrete" -> discrete_attribute.deserialized(serialized_attr)
+      "SerializableContinuous" ->
+        continuous_attribute.deserialized(serialized_attr)
+    }
+  })
+}
+
+fn json_decoder() -> Decoder(PreprocessorSerialized) {
+  let discr_or_contin_json_decoder =
+    decode.one_of([
+      discrete_attribute.json_decoder(),
+      continuous_attribute.json_decoder(),
+    ])
+  let attr_json_decoder =
+    decode.map2(
+      FSharpAttributeSerialized,
+      decode.field("Case", decode.string()),
+      decode.field("Fields", decode.list(discr_or_contin_json_decoder)),
+    )
+  decode.list(attr_json_decoder)
+}
+
+// public
+pub fn from_json(s: String) -> Preprocessor {
+  let Ok(dyn) = jsone.decode(s)
+  let Ok(res) = decode.decode_dynamic(dyn, json_decoder())
+  res
+  |> deserialized
+  |> lazy_realization
+}

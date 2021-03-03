@@ -58,11 +58,13 @@ pub fn network_from_to_json_test() {
     -0.013959435951885419, -0.16770539176070562, 0.6127887629040737,
   ])
 }
-//pub fn preprocessor_from_json_test() {
-//  let my_preprocessor =
-//    preprocessor_json()
-//    |> preprocessor.from_json
-//  let Ok(first_attr) = zlist.head(my_preprocessor)
-//  first_attr
-//  |> should.equal(DiscrAttr(DiscreteAttribute("", zlist.new())))
-//}
+
+pub fn preprocessor_from_json_test() {
+  let my_preprocessor =
+    preprocessor_json()
+    |> preprocessor.from_json
+  let Ok(DiscreteAttribute(_, values_zls)) = zlist.head(my_preprocessor)
+  values_zls
+  |> zlist.to_list
+  |> should.equal(["6", "2", "9", "8", "5", "3", "7", "4", "0", "1"])
+}

@@ -18,7 +18,4 @@ pub type Preprocessor =
   ZList(Attribute)
 
 pub type PreprocessorSerialized =
-  List(AttributeSerialized)
-
-pub type FSharpPreprocessorSerialized =
   List(FSharpAttributeSerialized)
