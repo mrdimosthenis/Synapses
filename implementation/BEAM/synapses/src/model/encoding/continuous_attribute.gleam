@@ -4,9 +4,9 @@ import gleam/map.{Map}
 import gleam/result
 import gleam_zlists.{ZList} as zlist
 import decode.{Decoder}
+import gleam/jsone.{JsonValue}
 import model/encoding/serialization.{
   Attribute, AttributeSerialized, ContinuousAttribute, ContinuousAttributeSerialized,
-  FSharpAttributeSerialized,
 }
 
 pub fn parse(s: String) -> Float {
@@ -69,6 +69,18 @@ pub fn deserialized(
   let ContinuousAttributeSerialized(key, min, max) =
     continuous_attribute_serialized
   ContinuousAttribute(key, min, max)
+}
+
+pub fn json_encoded(
+  continuous_attribute_serialized: AttributeSerialized,
+) -> JsonValue {
+  let ContinuousAttributeSerialized(key, min, max) =
+    continuous_attribute_serialized
+  jsone.object([
+    tuple("key", jsone.string(key)),
+    tuple("min", jsone.float(min)),
+    tuple("max", jsone.float(max)),
+  ])
 }
 
 pub fn json_decoder() -> Decoder(AttributeSerialized) {

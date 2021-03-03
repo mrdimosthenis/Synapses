@@ -7,8 +7,7 @@ import gleam/jsone.{JsonValue}
 import model/encoding/discrete_attribute
 import model/encoding/continuous_attribute
 import model/encoding/serialization.{
-  Attribute, AttributeSerialized, ContinuousAttribute, ContinuousAttributeSerialized,
-  DiscreteAttribute, DiscreteAttributeSerialized, FSharpAttributeSerialized, Preprocessor,
+  Attribute, ContinuousAttribute, DiscreteAttribute, FSharpAttributeSerialized, Preprocessor,
   PreprocessorSerialized,
 }
 
@@ -158,6 +157,29 @@ fn deserialized(preprocessor_serialized: PreprocessorSerialized) -> Preprocessor
   })
 }
 
+fn json_encoded(preprocessor_serialized: PreprocessorSerialized) -> JsonValue {
+  let discr_or_contin_json_encoded = fn(
+    fsharp_serialized_attr: FSharpAttributeSerialized,
+  ) -> JsonValue {
+    let FSharpAttributeSerialized(case_, fields) = fsharp_serialized_attr
+    let Ok(serialized_attr) = list.head(fields)
+    let serialized_attr_json_encoded = case case_ {
+      "SerializableDiscrete" -> discrete_attribute.json_encoded(serialized_attr)
+      "SerializableContinuous" ->
+        continuous_attribute.json_encoded(serialized_attr)
+    }
+    jsone.object([
+      tuple("Case", jsone.string(case_)),
+      tuple(
+        "Fields",
+        jsone.array(fields, fn(_) { serialized_attr_json_encoded }),
+      ),
+    ])
+  }
+
+  jsone.array(preprocessor_serialized, discr_or_contin_json_encoded)
+}
+
 fn json_decoder() -> Decoder(PreprocessorSerialized) {
   let discr_or_contin_json_decoder =
     decode.one_of([
@@ -171,6 +193,17 @@ fn json_decoder() -> Decoder(PreprocessorSerialized) {
       decode.field("Fields", decode.list(discr_or_contin_json_decoder)),
     )
   decode.list(attr_json_decoder)
+}
+
+// public
+pub fn to_json(preprocessor: Preprocessor) -> String {
+  let Ok(dyn) =
+    preprocessor
+    |> serialized
+    |> json_encoded
+    |> jsone.encode
+  let Ok(res) = decode.decode_dynamic(dyn, decode.string())
+  res
 }
 
 // public

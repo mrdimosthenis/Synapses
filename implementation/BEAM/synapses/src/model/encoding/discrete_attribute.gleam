@@ -2,9 +2,9 @@ import gleam/map.{Map}
 import gleam/pair
 import gleam_zlists.{ZList} as zlist
 import decode.{Decoder}
+import gleam/jsone.{JsonValue}
 import model/encoding/serialization.{
   Attribute, AttributeSerialized, DiscreteAttribute, DiscreteAttributeSerialized,
-  FSharpAttributeSerialized,
 }
 
 pub fn updated(
@@ -65,6 +65,16 @@ pub fn deserialized(
 ) -> Attribute {
   let DiscreteAttributeSerialized(key, values) = discrete_attribute_serialized
   DiscreteAttribute(key, zlist.of_list(values))
+}
+
+pub fn json_encoded(
+  discrete_attribute_serialized: AttributeSerialized,
+) -> JsonValue {
+  let DiscreteAttributeSerialized(key, values) = discrete_attribute_serialized
+  jsone.object([
+    tuple("key", jsone.string(key)),
+    tuple("values", jsone.array(values, jsone.string)),
+  ])
 }
 
 pub fn json_decoder() -> Decoder(AttributeSerialized) {

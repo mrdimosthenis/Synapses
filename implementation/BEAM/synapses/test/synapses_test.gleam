@@ -68,3 +68,14 @@ pub fn preprocessor_from_json_test() {
   |> zlist.to_list
   |> should.equal(["6", "2", "9", "8", "5", "3", "7", "4", "0", "1"])
 }
+// precision probleam in BEAM
+//pub fn preprocessor_from_to_json_test() {
+//  let just_created_preprocessor_json =
+//    preprocessor_json()
+//    |> preprocessor.from_json
+//    |> preprocessor.to_json
+//  just_created_preprocessor_json
+//  |> preprocessor.from_json
+//  |> preprocessor.to_json
+//  |> should.equal(just_created_preprocessor_json)
+//}
