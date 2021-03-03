@@ -57,26 +57,25 @@ pub fn decode(
   }
   |> float.to_string
 }
-//pub fn serialized(
-//  continuous_attribute: ContinuousAttribute,
-//) -> ContinuousAttributeSerialized {
-//  let ContinuousAttribute(key, min, max) = continuous_attribute
-//  ContinuousAttributeSerialized(key, min, max)
-//}
-//
-//pub fn deserialized(
-//  continuous_attribute_serialized: ContinuousAttributeSerialized,
-//) -> ContinuousAttribute {
-//  let ContinuousAttributeSerialized(key, min, max) =
-//    continuous_attribute_serialized
-//  ContinuousAttribute(key, min, max)
-//}
-//
-//pub fn contin_json_decoder() -> Decoder(ContinuousAttributeSerialized) {
-//  decode.map3(
-//    ContinuousAttributeSerialized,
-//    decode.field("key", decode.string()),
-//    decode.field("min", decode.float()),
-//    decode.field("max", decode.float()),
-//  )
-//}
+
+pub fn serialized(continuous_attribute: Attribute) -> AttributeSerialized {
+  let ContinuousAttribute(key, min, max) = continuous_attribute
+  ContinuousAttributeSerialized(key, min, max)
+}
+
+pub fn deserialized(
+  continuous_attribute_serialized: AttributeSerialized,
+) -> Attribute {
+  let ContinuousAttributeSerialized(key, min, max) =
+    continuous_attribute_serialized
+  ContinuousAttribute(key, min, max)
+}
+
+pub fn json_decoder() -> Decoder(AttributeSerialized) {
+  decode.map3(
+    ContinuousAttributeSerialized,
+    decode.field("key", decode.string()),
+    decode.field("min", decode.float()),
+    decode.field("max", decode.float()),
+  )
+}

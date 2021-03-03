@@ -54,24 +54,23 @@ pub fn decode(
   )
   |> pair.first
 }
-//pub fn serialized(
-//  discrete_attribute: DiscreteAttribute,
-//) -> DiscreteAttributeSerialized {
-//  let DiscreteAttribute(key, values) = discrete_attribute
-//  DiscreteAttributeSerialized(key, zlist.to_list(values))
-//}
-//
-//pub fn deserialized(
-//  discrete_attribute_serialized: DiscreteAttributeSerialized,
-//) -> DiscreteAttribute {
-//  let DiscreteAttributeSerialized(key, values) = discrete_attribute_serialized
-//  DiscreteAttribute(key, zlist.of_list(values))
-//}
-//
-//pub fn discr_json_decoder() -> Decoder(DiscreteAttributeSerialized) {
-//  decode.map2(
-//    DiscreteAttributeSerialized,
-//    decode.field("key", decode.string()),
-//    decode.field("values", decode.list(decode.string())),
-//  )
-//}
+
+pub fn serialized(discrete_attribute: Attribute) -> AttributeSerialized {
+  let DiscreteAttribute(key, values) = discrete_attribute
+  DiscreteAttributeSerialized(key, zlist.to_list(values))
+}
+
+pub fn deserialized(
+  discrete_attribute_serialized: AttributeSerialized,
+) -> Attribute {
+  let DiscreteAttributeSerialized(key, values) = discrete_attribute_serialized
+  DiscreteAttribute(key, zlist.of_list(values))
+}
+
+pub fn json_decoder() -> Decoder(AttributeSerialized) {
+  decode.map2(
+    DiscreteAttributeSerialized,
+    decode.field("key", decode.string()),
+    decode.field("values", decode.list(decode.string())),
+  )
+}
