@@ -212,6 +212,7 @@ def layer_lines_svgs(max_chain_circles: int,
                       max_abs_weight,
                       t[0].weights))
 
+# TODO do not count layers and neurons inside map and flatmap
 
 def network_svg(network_val: Network) -> str:
     max_chain_circles = \
