@@ -4,7 +4,6 @@ import gleam/string
 import gleam/option.{None, Some}
 import gleam/result
 import gleam_zlists.{ZList} as zlist
-import model/utilities as ut
 import model/net_elems/activation
 import model/net_elems/neuron.{Neuron}
 import model/net_elems/layer.{Layer}
@@ -310,7 +309,7 @@ fn layer_lines_svgs(
 
 pub fn network_svg(network_val: Network) -> String {
   let num_of_layers = zlist.count(network_val)
-  let max_chain_circles =
+  let Ok(max_chain_circles_float) =
     network_val
     |> zlist.with_index
     |> zlist.map(fn(t: tuple(Layer, Int)) {
@@ -320,8 +319,10 @@ pub fn network_svg(network_val: Network) -> String {
         False -> zlist.count(layer_val)
       }
     })
-    |> ut.lazy_max_int
-  let max_abs_weight =
+    |> zlist.map(int.to_float)
+    |> zlist.max
+  let max_chain_circles = float.round(max_chain_circles_float)
+  let Ok(max_abs_weight) =
     network_val
     |> zlist.flat_map(fn(layer_val) {
       zlist.flat_map(
@@ -331,7 +332,7 @@ pub fn network_svg(network_val: Network) -> String {
         },
       )
     })
-    |> ut.lazy_max_float
+    |> zlist.max
   let circles_svgs =
     network_val
     |> zlist.with_index

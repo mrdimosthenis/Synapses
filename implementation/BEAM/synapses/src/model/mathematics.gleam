@@ -9,7 +9,7 @@ pub fn dot_product(left: ZList(Float), right: ZList(Float)) -> Float {
     let tuple(a, b) = x
     a *. b
   })
-  |> zlist.reduce(0.0, fn(x, acc) { x +. acc })
+  |> zlist.sum
 }
 
 fn euclidean_distance(xs: ZList(Float), ys: ZList(Float)) -> Float {
@@ -21,7 +21,7 @@ fn euclidean_distance(xs: ZList(Float), ys: ZList(Float)) -> Float {
       let diff = x -. y
       diff *. diff
     })
-    |> zlist.reduce(0.0, fn(x, acc) { x +. acc })
+    |> zlist.sum
     |> float.square_root
   res
 }

@@ -1,7 +1,6 @@
 import decode.{Decoder}
 import gleam/jsone.{JsonValue}
 import gleam_zlists.{ZList} as zlist
-import model/utilities as ut
 import model/net_elems/activation.{Activation}
 import model/net_elems/neuron.{Neuron, NeuronSerialized}
 
@@ -35,7 +34,7 @@ pub fn back_propagated(
       let tuple(a, b) = t
       neuron.back_propagated(b, learning_rate, input_val, a)
     })
-    |> ut.lazy_unzip
+    |> zlist.unzip
   let errors =
     zlist.reduce(
       errors_multi,

@@ -2,7 +2,6 @@ import gleam/pair
 import decode.{Decoder}
 import gleam/jsone.{JsonValue}
 import gleam_zlists.{ZList} as zlist
-import model/utilities as ut
 import model/net_elems/activation.{Activation}
 import model/net_elems/neuron.{Neuron}
 import model/net_elems/layer.{Layer, LayerSerialized}
