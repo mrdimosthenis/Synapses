@@ -24,3 +24,4 @@ synapses-*.tar
 
 /.idea/
 /synapses.iml
+/mix.lock
