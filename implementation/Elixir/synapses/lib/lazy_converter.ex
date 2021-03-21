@@ -38,22 +38,4 @@ defmodule LazyConverter do
     :gleam@iterator.unfold(stream, yield)
   end
 
-  def iterator_to_stream(iterator) do
-    yield = fn it ->
-      case :gleam@iterator.step(it) do
-        :done ->
-          nil
-        {:next, hd, tl} ->
-          {hd, tl}
-      end
-    end
-
-    Stream.unfold(
-      yield.(iterator),
-      fn {x, acc} ->
-        {x, yield.(acc)}
-      end
-    )
-  end
-
 end

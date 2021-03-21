@@ -39,20 +39,4 @@ defmodule LazyConverterTest do
     assert c == 0
   end
 
-  test "iterator_to_stream" do
-    my_infinite_stream = infinite_stream() |> stream_to_iterator |> iterator_to_stream
-    my_singleton_stream = Stream.take(my_infinite_stream, 1)
-    my_empty_stream = Stream.take(my_infinite_stream, 0)
-
-    {:ok, {a, tl1}} = uncons(my_infinite_stream)
-    {:ok, {b, _}} = uncons(tl1)
-    {:ok, {c, tl2}} = uncons(my_singleton_stream)
-    {:error, nil} = uncons(my_empty_stream)
-
-    assert a == 0
-    assert b == 1
-    assert c == 0
-    assert Enum.empty?(tl2)
-  end
-
 end
