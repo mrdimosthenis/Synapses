@@ -1,5 +1,4 @@
 defmodule Synapses do
-  alias LazyConverter
   @moduledoc false
 
   defmodule ActivationFunction do
