@@ -25,8 +25,7 @@ defmodule Synapses.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:gleam_stdlib, "~> 0.14.0"},
       {:gleam_decode, "~> 1.7.0", override: true},
-      {:gleam_synapses, "~> 0.0.1"},
-      {:csv, "~> 2.4.1", only: [:test]}
+      {:gleam_synapses, "~> 0.0.1"}
     ]
   end
 end
