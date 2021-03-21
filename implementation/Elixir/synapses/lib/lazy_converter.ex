@@ -30,34 +30,25 @@ defmodule LazyConverter do
     :gleam@iterator.unfold(stream, yield)
   end
 
-  def recurrent(x0, s0, rec_fun) do
-    Stream.concat(
-      singleton(x0),
-      case rec_fun.(x0, s0) do
-        nil ->
-          empty_stream()
-        {x1, s1} ->
-          recurrent(x1, s1, rec_fun)
-      end
-    )
-  end
-
   def iterator_to_stream(iterator) do
-    rec_fun = fn (_, t1) ->
-      case :gleam@iterator.step(t1) do
-        {:next, e, es} ->
-          {e, es}
+    init =
+      case :gleam@iterator.step(iterator) do
         :done ->
           nil
+        {:next, hd, tl} ->
+          {hd, tl}
+      end
+
+    yield = fn {x, acc} ->
+      case :gleam@iterator.step(acc) do
+        :done ->
+          {x, nil}
+        {:next, hd, tl} ->
+          {x, {hd, tl}}
       end
     end
 
-    case :gleam@iterator.step(iterator) do
-      {:next, e, es} ->
-        recurrent(e, es, rec_fun)
-      :done ->
-        empty_stream()
-    end
+    Stream.unfold(init, yield)
   end
 
 end

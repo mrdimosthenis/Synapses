@@ -47,7 +47,7 @@ defmodule LazyConverterTest do
   end
 
   test "iterator_to_stream" do
-    infinite_stream = Stream.iterate(0, &(&1 + 1)) |> Stream.take(5) |> stream_to_iterator |> iterator_to_stream
+    infinite_stream = Stream.iterate(0, &(&1 + 1)) |> stream_to_iterator |> iterator_to_stream
 
     singleton_stream = infinite_stream |> Stream.take(1)
 
