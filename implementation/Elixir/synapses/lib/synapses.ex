@@ -2,10 +2,10 @@ defmodule Synapses do
   @moduledoc false
 
   defmodule ActivationFunction do
-    sigmoid = :gleam_synapses@activation_function.sigmoid()
-    identity = :gleam_synapses@activation_function.identity()
-    tanh = :gleam_synapses@activation_function.tanh()
-    leakyReLU = :gleam_synapses@activation_function.leaky_re_lu()
+    def sigmoid, do: :gleam_synapses@activation_function.sigmoid()
+    def identity, do: :gleam_synapses@activation_function.identity()
+    def tanh, do: :gleam_synapses@activation_function.tanh()
+    def leakyReLU, do: :gleam_synapses@activation_function.leaky_re_lu()
   end
 
   defmodule NeuralNetwork do

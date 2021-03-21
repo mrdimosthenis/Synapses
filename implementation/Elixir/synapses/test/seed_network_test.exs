@@ -1,6 +1,6 @@
 defmodule SeedNetworkTest do
   use ExUnit.Case
-  alias Synapses.{ActivationFunction, NeuralNetwork}
+  alias Synapses.{NeuralNetwork}
 
   def layers(), do: [4, 6, 5, 3]
 
