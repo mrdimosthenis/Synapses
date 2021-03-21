@@ -15,18 +15,23 @@ defmodule LazyConverter do
   end
 
   def uncons(stream) do
-    hd = Stream.take(stream, 1)
-         |> Enum.at(0)
-    tl = Stream.drop(stream, 1)
-    {hd, tl}
+    heads = Stream.take(stream, 1)
+    case Enum.empty?(heads) do
+      true ->
+        {:error, nil}
+      false ->
+        hd = Enum.at(heads, 0)
+        tl = Stream.drop(stream, 1)
+        {:ok, {hd, tl}}
+    end
   end
 
   def stream_to_iterator(stream) do
     yield = fn acc ->
       case uncons(acc) do
-        {nil, _} ->
+        {:error, nil} ->
           :done
-        {hd, tl} ->
+        {:ok, {hd, tl}} ->
           {:next, hd, tl}
       end
     end
