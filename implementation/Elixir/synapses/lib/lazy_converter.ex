@@ -1,8 +1,11 @@
 defmodule LazyConverter do
   @moduledoc false
 
-  def empty_stream(),
+  def infinite_stream(),
       do: Stream.iterate(0, &(&1 + 1))
+
+  def empty_stream(),
+      do: infinite_stream()
           |> Stream.take(0)
 
   def singleton(x) do

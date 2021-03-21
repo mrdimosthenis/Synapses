@@ -13,12 +13,9 @@ defmodule LazyConverterTest do
   end
 
   test "uncons" do
-    infinite_stream = Stream.iterate(0, &(&1 + 1))
-    singleton_stream = infinite_stream |> Stream.take(1)
-
-    {a, tl1} = uncons(infinite_stream)
+    {a, tl1} = uncons(infinite_stream())
     {b, _} = uncons(tl1)
-    {c, tl2} = uncons(singleton_stream)
+    {c, tl2} = uncons(singleton(0))
     {d, tl3} = empty_stream() |> uncons
 
     assert a == 0
@@ -30,10 +27,8 @@ defmodule LazyConverterTest do
   end
 
   test "stream_to_iterator" do
-    infinite_stream = Stream.iterate(0, &(&1 + 1))
-
-    infinite_iterator = stream_to_iterator(infinite_stream)
-    singleton_iterator = infinite_stream |> Stream.take(1) |> stream_to_iterator
+    infinite_iterator = infinite_stream() |> stream_to_iterator()
+    singleton_iterator = infinite_stream() |> Stream.take(1) |> stream_to_iterator
     empty_iterator = empty_stream() |> stream_to_iterator
 
     {:next, a, tl1} = :gleam@iterator.step(infinite_iterator)
@@ -47,14 +42,14 @@ defmodule LazyConverterTest do
   end
 
   test "iterator_to_stream" do
-    infinite_stream = Stream.iterate(0, &(&1 + 1)) |> stream_to_iterator |> iterator_to_stream
+    my_infinite_stream = infinite_stream() |> stream_to_iterator |> iterator_to_stream
+    my_singleton_stream = Stream.take(my_infinite_stream, 1)
+    my_empty_stream = Stream.take(my_infinite_stream, 0)
 
-    singleton_stream = infinite_stream |> Stream.take(1)
-
-    {a, tl1} = uncons(infinite_stream)
+    {a, tl1} = uncons(my_infinite_stream)
     {b, _} = uncons(tl1)
-    {c, tl2} = uncons(singleton_stream)
-    {d, tl3} = empty_stream() |> uncons
+    {c, tl2} = uncons(my_singleton_stream)
+    {d, tl3} = uncons(my_empty_stream)
 
     assert a == 0
     assert b == 1
