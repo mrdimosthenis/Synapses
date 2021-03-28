@@ -2,23 +2,25 @@
 
 ### Create a Neural Network
 
-`NeuralNetwork.init` | param1: `layers` | _returns_
----                  | ---              | ---
-JavaScript           | `number[]`       | `NeuralNetwork`
-Python               | `List[int]`      | `NeuralNetwork`
-Java                 | `int[]`          | `NeuralNetwork`
-C#                   | `int[]`          | `NeuralNetwork`
-Scala                | `List[Int]`      | `NeuralNetwork`
-F#                   | `List<int>`      | `NeuralNetwork`
+`NeuralNetwork.init` | param1: `layers`  | _returns_
+---                  | ---               | ---
+JavaScript           | `number[]`        | `NeuralNetwork`
+Python               | `List[int]`       | `NeuralNetwork`
+Java                 | `int[]`           | `NeuralNetwork`
+C#                   | `int[]`           | `NeuralNetwork`
+Scala                | `List[Int]`       | `NeuralNetwork`
+Elixir               | `list(integer())` | `NeuralNetwork()`
+F#                   | `List<int>`       | `NeuralNetwork`
 
-`NeuralNetwork.customizedInit` | param1: `layers` | param2: `activationF`                 | param3: `weightInitF`    | _returns_
----                            | ---              | ---                                   | ---                      | ---
-JavaScript                     | `number[]`       | `(number) => ActivationFunction`      | `(number) => number`     | `NeuralNetwork`
-Python                         | `List[int]`      | `Callable[[int], ActivationFunction]` | `Callable[[int], float]` | `NeuralNetwork`
-Java                           | `int[]`          | `IntFunction<ActivationFunction>`     | `IntFunction<Double>`    | `NeuralNetwork`
-C#                             | `int[]`          | `Func<int, ActivationFunction>`       | `Func<int, Double>`      | `NeuralNetwork`
-Scala                          | `List[Int]`      | `Int => ActivationFunction`           | `Int => Double`          | `NeuralNetwork`
-F#                             | `List<int>`      | `int -> ActivationFunction`           | `int -> float`           | `NeuralNetwork`
+`NeuralNetwork.customizedInit` | param1: `layers`  | param2: `activationF`                 | param3: `weightInitF`    | _returns_
+---                            | ---               | ---                                   | ---                      | ---
+JavaScript                     | `number[]`        | `(number) => ActivationFunction`      | `(number) => number`     | `NeuralNetwork`
+Python                         | `List[int]`       | `Callable[[int], ActivationFunction]` | `Callable[[int], float]` | `NeuralNetwork`
+Java                           | `int[]`           | `IntFunction<ActivationFunction>`     | `IntFunction<Double>`    | `NeuralNetwork`
+C#                             | `int[]`           | `Func<int, ActivationFunction>`       | `Func<int, Double>`      | `NeuralNetwork`
+Scala                          | `List[Int]`       | `Int => ActivationFunction`           | `Int => Double`          | `NeuralNetwork`
+Elixir                         | `list(integer())` | `(integer() -> ActivationFunction())` | `(integer() -> float())` | `NeuralNetwork()`
+F#                             | `List<int>`       | `int -> ActivationFunction`           | `int -> float`           | `NeuralNetwork`
 
 ### Use a Neural Network
 
@@ -29,6 +31,7 @@ Python              | `NeuralNetwork`         | `float`                | `List[f
 Java                | `NeuralNetwork`         | `double`               | `double[]`            | `double[]`               | `NeuralNetwork`
 C#                  | `NeuralNetwork`         | `double`               | `double[]`            | `double[]`               | `NeuralNetwork`
 Scala               | `NeuralNetwork`         | `Double`               | `List[Double]`        | `List[Double]`           | `NeuralNetwork`
+Elixir              | `NeuralNetwork()`       | `float()`              | `list(float())`       | `list(float())`          | `NeuralNetwork()`
 F#                  | `NeuralNetwork`         | `float`                | `List<float>`         | `List<float>`            | `NeuralNetwork`
 
 `NeuralNetwork.prediction` | param1: `neuralNetwork` | param2: `inputValues` | _returns_
@@ -38,6 +41,7 @@ Python                     | `NeuralNetwork`         | `List[float]`         | `
 Java                       | `NeuralNetwork`         | `double[]`            | `double[]`
 C#                         | `NeuralNetwork`         | `double[]`            | `double[]`
 Scala                      | `NeuralNetwork`         | `List[Double]`        | `List[Double]`
+Elixir                     | `NeuralNetwork()`       | `list(float())`       | `list(float())`
 F#                         | `NeuralNetwork`         | `List<float>`         | `List<float>`
 
 ### Convert a Neural Network
@@ -49,6 +53,7 @@ Python                 | `NeuralNetwork`         | `str`
 Java                   | `NeuralNetwork`         | `String`
 C#                     | `NeuralNetwork`         | `string`
 Scala                  | `NeuralNetwork`         | `String`
+Elixir                 | `NeuralNetwork()`       | `charlist()`
 F#                     | `NeuralNetwork`         | `string`
 
 `NeuralNetwork.ofJson` | param1: `json` | _returns_
@@ -58,6 +63,7 @@ Python                 | `str`          | `NeuralNetwork`
 Java                   | `String`       | `NeuralNetwork`
 C#                     | `string`       | `NeuralNetwork`
 Scala                  | `String`       | `NeuralNetwork`
+Elixir                 | `charlist()`   | `NeuralNetwork()`
 F#                     | `string`       | `NeuralNetwork`
 
 `NeuralNetwork.toSvg`  | param1: `neuralNetwork` | _returns_
@@ -67,29 +73,32 @@ Python                 | `NeuralNetwork`         | `str`
 Java                   | `NeuralNetwork`         | `String`
 C#                     | `NeuralNetwork`         | `string`
 Scala                  | `NeuralNetwork`         | `String`
+Elixir                 | `NeuralNetwork()`       | `charlist()`
 F#                     | `NeuralNetwork`         | `string`
 
 ### Create a Data Preprocessor
 
-`DataPreprocessor.init` | param1: `keysWithDiscreteFlags` | param2: `datapoints`                      | _returns_
----                     | ---                             | ---                                       | ---
-JavaScript              | `any[][]`                       | `iterable`                                | `DataPreprocessor`
-Python                  | `List[Tuple[str, bool]]`        | `Iterable[Dict[str, str]]`                | `DataPreprocessor`
-Java                    | `Object[][]`                    | `Stream<Map<String,String>>`              | `DataPreprocessor`
-C#                      | `(string, bool)[]`              | `IEnumerable<Dictionary<string, string>>` | `DataPreprocessor`
-Scala                   | `List[(String, Boolean)]`       | `LazyList[Map[String, String]]`           | `DataPreprocessor`
-F#                      | `List<string * bool>`           | `seq<Map<string, string>>`                | `DataPreprocessor`
+`DataPreprocessor.init` | param1: `keysWithDiscreteFlags`      | param2: `datapoints`                        | _returns_
+---                     | ---                                  | ---                                         | ---
+JavaScript              | `any[][]`                            | `iterable`                                  | `DataPreprocessor`
+Python                  | `List[Tuple[str, bool]]`             | `Iterable[Dict[str, str]]`                  | `DataPreprocessor`
+Java                    | `Object[][]`                         | `Stream<Map<String,String>>`                | `DataPreprocessor`
+C#                      | `(string, bool)[]`                   | `IEnumerable<Dictionary<string, string>>`   | `DataPreprocessor`
+Scala                   | `List[(String, Boolean)]`            | `LazyList[Map[String, String]]`             | `DataPreprocessor`
+Elixir                  | `list(tuple(charlist(), boolean()))` | `Enumerable.t(map(charlist(), charlist()))` | `DataPreprocessor()`
+F#                      | `List<string * bool>`                | `seq<Map<string, string>>`                  | `DataPreprocessor`
 
 ### Use a Data Preprocessor
 
-`DataPreprocessor.encodedDatapoint` | param1: `dataPreprocessor` | param2: `datapoint`          | _returns_
----                                 | ---                        | ---                          | ---
-JavaScript                          | `DataPreprocessor`         | `object`                     | `number[]`
-Python                              | `DataPreprocessor`         | `Dict[str, str]`             | `List[float]`
-Java                                | `DataPreprocessor`         | `Map<String,String>`         | `double[]`
-C#                                  | `DataPreprocessor`         | `Dictionary<string, string>` | `double[]`
-Scala                               | `DataPreprocessor`         | `Map[String, String]`        | `List[Double]`
-F#                                  | `DataPreprocessor`         | `Map<string, string>`        | `List<float>`
+`DataPreprocessor.encodedDatapoint` | param1: `dataPreprocessor` | param2: `datapoint`           | _returns_
+---                                 | ---                        | ---                           | ---
+JavaScript                          | `DataPreprocessor`         | `object`                      | `number[]`
+Python                              | `DataPreprocessor`         | `Dict[str, str]`              | `List[float]`
+Java                                | `DataPreprocessor`         | `Map<String,String>`          | `double[]`
+C#                                  | `DataPreprocessor`         | `Dictionary<string, string>`  | `double[]`
+Scala                               | `DataPreprocessor`         | `Map[String, String]`         | `List[Double]`
+Elixir                              | `DataPreprocessor()`       | `map(charlist(), charlist())` | `list(float())`
+F#                                  | `DataPreprocessor`         | `Map<string, string>`         | `List<float>`
 
 `DataPreprocessor.decodedDatapoint` | param1: `dataPreprocessor` | param2: `encodedDatapoint` | _returns_
 ---                                 | ---                        | ---                        | ---
@@ -98,6 +107,7 @@ Python                              | `DataPreprocessor`         | `List[float]`
 Java                                | `DataPreprocessor`         | `double[]`                 | `Map<String,String>`
 C#                                  | `DataPreprocessor`         | `double[]`                 | `Dictionary<string, string>`
 Scala                               | `DataPreprocessor`         | `List[Double]`             | `Map[String, String]`
+Elixir                              | `DataPreprocessor()`       | `list(float())`            | `map(charlist(), charlist())`
 F#                                  | `DataPreprocessor`         | `List<float>`              | `Map<string, string>`
 
 ### Convert a Data Preprocessor
@@ -109,6 +119,7 @@ Python                    | `DataPreprocessor`         | `str`
 Java                      | `DataPreprocessor`         | `String`
 C#                        | `DataPreprocessor`         | `string`
 Scala                     | `DataPreprocessor`         | `String`
+Elixir                    | `DataPreprocessor()`       | `charlist()`
 F#                        | `DataPreprocessor`         | `string`
 
 `DataPreprocessor.ofJson` | param1: `json` | _returns_
@@ -118,15 +129,17 @@ Python                    | `str`          | `DataPreprocessor`
 Java                      | `String`       | `DataPreprocessor`
 C#                        | `string`       | `DataPreprocessor`
 Scala                     | `String`       | `DataPreprocessor`
+Elixir                    | `charlist()`   | `DataPreprocessor()`
 F#                        | `string`       | `DataPreprocessor`
 
 ### Evaluate
 
-`Statistics.rootMeanSquareError` | param1: `expectedWithOutputValues`          | _returns_
----                              | ---                                         | ---
-JavaScript                       | `iterable`                                  | `number`
-Python                           | `Iterable[Tuple[List[float], List[float]]]` | `float`
-Java                             | `Stream<double[][]>`                        | `double`
-C#                               | `IEnumerable<(double[], double[])>`         | `double`
-Scala                            | `LazyList[(List[Double], List[Double])]`    | `Double`
-F#                               | `seq<List<float> * List<float>>`            | `float`
+`Statistics.rootMeanSquareError` | param1: `expectedWithOutputValues`                  | _returns_
+---                              | ---                                                 | ---
+JavaScript                       | `iterable`                                          | `number`
+Python                           | `Iterable[Tuple[List[float], List[float]]]`         | `float`
+Java                             | `Stream<double[][]>`                                | `double`
+C#                               | `IEnumerable<(double[], double[])>`                 | `double`
+Scala                            | `LazyList[(List[Double], List[Double])]`            | `Double`
+Elixir                           | `Enumerable.t(tuple(list(float()), list(float())))` | `float()`
+F#                               | `seq<List<float> * List<float>>`                    | `float`
