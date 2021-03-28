@@ -4,7 +4,7 @@ defmodule Synapses.MixProject do
   def project do
     [
       app: :synapses,
-      version: "7.3.1",
+      version: "7.4.1",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -27,8 +27,7 @@ defmodule Synapses.MixProject do
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:gleam_stdlib, "~> 0.14.0"},
-      {:gleam_decode, "~> 1.7.0", override: true},
-      {:gleam_synapses, "~> 0.0.1"}
+      {:gleam_synapses, "~> 0.0.2"}
     ]
   end
 
