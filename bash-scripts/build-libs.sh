@@ -54,3 +54,11 @@ rm README.md
 cp ../../README.md README.md
 poetry build
 cd ../
+
+cd Elixir
+rm -r _build
+rm -r deps
+cp ../../README.md README.md
+mix deps.get
+mix compile
+cd ../

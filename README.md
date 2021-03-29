@@ -25,6 +25,7 @@ Supported languages:
 * [Java](https://mrdimosthenis.github.io/Synapses/?java)
 * [C#](https://mrdimosthenis.github.io/Synapses/?csharp)
 * [Scala](https://mrdimosthenis.github.io/Synapses/?scala)
+* [Elixir](https://mrdimosthenis.github.io/Synapses/?elixir)
 * [F#](https://mrdimosthenis.github.io/Synapses/?fsharp)
 
 #### It's compatible across languages
@@ -70,6 +71,7 @@ Please take a look at the test projects.
 * [Java](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/JavaTest/src/test/java)
 * [C#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/CSharpTest)
 * [Scala](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/ScalaTest/src/test/scala)
+* [Elixir](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/ElixirTest/test)
 * [F#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/FSharpTest)
 
 ### Dependencies
@@ -78,6 +80,7 @@ Please take a look at the test projects.
 * [FSharpx.Collections](https://github.com/fsprojects/FSharpx.Collections)
 * [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 * [PyFunctional](https://github.com/EntilZha/PyFunctional)
+* [gleam_synapses](https://github.com/mrdimosthenis/gleam_synapses)
 
 ### Misc
 

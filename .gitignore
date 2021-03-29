@@ -39,6 +39,18 @@ implementation/Python/dist
 /implementation/Python/poetry.lock
 implementation/Python/README.md
 
+implementation/Elixir/synapses/_build/
+implementation/Elixir/synapses/cover/
+implementation/Elixir/synapses/deps/
+implementation/Elixir/synapses/doc/
+implementation/Elixir/synapses/.fetch
+implementation/Elixir/synapses/erl_crash.dump
+*.ez
+synapses-*.tar
+implementation/Elixir/synapses/.idea/
+implementation/Elixir/synapses/synapses.iml
+implementation/Elixir/synapses/mix.lock
+
 # remote deps tests
 
 /test-projects/remote-deps/ScalaTest/.idea/
@@ -69,6 +81,18 @@ implementation/Python/README.md
 /test-projects/remote-deps/PythonTest/venv/
 /test-projects/remote-deps/PythonTest/python_test.egg-info/
 /test-projects/remote-deps/PythonTest/poetry.lock
+
+/test-projects/remote-deps/ElixirTest/.idea/
+/test-projects/remote-deps/ElixirTest/elixir_test.iml
+/test-projects/remote-deps/ElixirTest/_build/
+/test-projects/remote-deps/ElixirTest/cover/
+/test-projects/remote-deps/ElixirTest/deps/
+/test-projects/remote-deps/ElixirTest/doc/
+/test-projects/remote-deps/ElixirTest/.fetch
+/test-projects/remote-deps/ElixirTest/erl_crash.dump
+/test-projects/remote-deps/ElixirTest/mix.lock
+*.ez
+elixir_test-*.tar
 
 # slate
 

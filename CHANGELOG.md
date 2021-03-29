@@ -1,5 +1,6 @@
 ## [7.4.1]
 ### Added
+- Support for the Elixir language
 - Newtonsoft.Json dependency for DotNet.
 - Support for Python versions 3.7, 3.8, 3.9.
 
