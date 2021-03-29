@@ -7,6 +7,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - java
   - csharp
   - scala
+  - elixir
   - fsharp
 
 toc_footers:
@@ -57,6 +58,12 @@ libraryDependencies +=
 // to build.sbt
 ```
 
+```elixir
+# add
+{:synapses, "~> 7.4.1"}
+# to mix.exs
+```
+
 ```fsharp
 // run
 dotnet add package Synapses --version 7.4.1
@@ -99,6 +106,12 @@ val layers = List(4, 6, 5, 3)
 val neuralNetwork = NeuralNetwork.init(layers)
 ```
 
+```elixir
+alias Synapses.{ActivationFunction, NeuralNetwork, DataPreprocessor, Statistics}
+layers = [4, 6, 5, 3]
+neuralNetwork = NeuralNetwork.init(layers)
+```
+
 ```fsharp
 open Synapses
 let layers = [4; 6; 5; 3]
@@ -138,6 +151,12 @@ double[] prediction =
 val inputValues = List(1.0, 0.5625, 0.511111, 0.47619)
 val prediction =
         NeuralNetwork.prediction(neuralNetwork, inputValues)
+```
+
+```elixir
+inputValues = [1.0, 0.5625, 0.511111, 0.47619]
+prediction =
+  NeuralNetwork.prediction(neuralNetwork, inputValues)
 ```
 
 ```fsharp
@@ -212,6 +231,18 @@ val fitNetwork =
             inputValues,
             expectedOutput
         )
+```
+
+```elixir
+learningRate = 0.5
+expectedOutput = [0.0, 1.0, 0.0]
+fitNetwork =
+  NeuralNetwork.fit(
+    neuralNetwork,
+    learningRate,
+    inputValues,
+    expectedOutput
+  )
 ```
 
 ```fsharp
@@ -357,6 +388,28 @@ val customizedNetwork =
         )
 ```
 
+```elixir
+activationF = fn (layerIndex) ->
+  case layerIndex do
+    0 -> ActivationFunction.sigmoid
+    1 -> ActivationFunction.identity
+    2 -> ActivationFunction.leakyReLU
+    _ -> ActivationFunction.tanh
+  end
+end
+
+weightInitF = fn (_layerIndex) ->
+  1.0 - 2.0 * :rand.uniform()
+end
+
+customizedNetwork =
+  NeuralNetwork.customizedInit(
+    layers,
+    activationF,
+    weightInitF
+  )
+```
+
 ```fsharp
 let activationF (layerIndex: int)
         : ActivationFunction =
@@ -406,6 +459,10 @@ string svg = NeuralNetwork.toSvg(customizedNetwork);
 val svg = NeuralNetwork.toSvg(customizedNetwork)
 ```
 
+```elixir
+svg = NeuralNetwork.toSvg(customizedNetwork)
+```
+
 ```fsharp
 let svg = NeuralNetwork.toSvg(customizedNetwork)
 ```
@@ -441,6 +498,10 @@ string json = NeuralNetwork.toJson(customizedNetwork);
 val json = NeuralNetwork.toJson(customizedNetwork)
 ```
 
+```elixir
+json = NeuralNetwork.toJson(customizedNetwork)
+```
+
 ```fsharp
 let json = NeuralNetwork.toJson(customizedNetwork)
 ```
@@ -465,6 +526,10 @@ NeuralNetwork loadedNetwork = NeuralNetwork.ofJson(json);
 
 ```scala
 val loadedNetwork = NeuralNetwork.ofJson(json)
+```
+
+```elixir
+loadedNetwork = NeuralNetwork.ofJson(json)
 ```
 
 ```fsharp
@@ -740,6 +805,53 @@ val encodedDatapoints = dataset.map(x =>
 )
 ```
 
+```elixir
+setosaDatapoint = %{
+  "petal_length" => "1.5",
+  "petal_width" => "0.1",
+  "sepal_length" => "4.9",
+  "sepal_width" => "3.1",
+  "species" => "setosa"
+}
+
+versicolorDatapoint = %{
+  "petal_length" => "3.8",
+  "petal_width" => "1.1",
+  "sepal_length" => "5.5",
+  "sepal_width" => "2.4",
+  "species" => "versicolor"
+}
+
+virginicaDatapoint = %{
+  "petal_length" => "6.0",
+  "petal_width" => "2.2",
+  "sepal_length" => "5.0",
+  "sepal_width" => "1.5",
+  "species" => "virginica"
+}
+
+dataset = [setosaDatapoint, versicolorDatapoint, virginicaDatapoint]
+
+dataPreprocessor =
+  DataPreprocessor.init(
+    [
+      {"petal_length", false},
+      {"petal_width", false},
+      {"sepal_length", false},
+      {"sepal_width", false},
+      {"species", true}
+    ],
+    dataset
+  )
+  
+encodedDatapoints = Enum.map(
+  dataset,
+  fn x ->
+    DataPreprocessor.encodedDatapoint(dataPreprocessor, x)
+  end
+)
+```
+
 ```fsharp
 let setosaDatapoint =
         Map.ofList
@@ -817,7 +929,7 @@ let rmse = Statistics.rootMeanSquareError(
 ```python
 expectedWithOutputValuesList = \
         [ ( [ 0.0, 0.0, 1.0], [ 0.0, 0.0, 1.0] ),
-          ( [ 0.0, 0.0, 1.0], [ 0.0, 1.0, 1.0] ) ];
+          ( [ 0.0, 0.0, 1.0], [ 0.0, 1.0, 1.0] ) ]
 
 expectedWithOutputValuesIter = \
         iter(expectedWithOutputValuesList)
@@ -862,6 +974,16 @@ val expectedWithOutputValues =
 val rmse = Statistics.rootMeanSquareError(
                         expectedWithOutputValues
 )
+```
+
+```elixir
+expectedWithOutputValues =
+  [
+    {[0.0, 0.0, 1.0], [0.0, 0.0, 1.0]},
+    {[0.0, 0.0, 1.0], [0.0, 1.0, 1.0]}
+  ]
+  
+rmse = Statistics.rootMeanSquareError(expectedWithOutputValues)
 ```
 
 ```fsharp

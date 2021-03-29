@@ -82,6 +82,8 @@ implementation/Elixir/synapses/mix.lock
 /test-projects/remote-deps/PythonTest/python_test.egg-info/
 /test-projects/remote-deps/PythonTest/poetry.lock
 
+/test-projects/remote-deps/ElixirTest/.idea/
+/test-projects/remote-deps/ElixirTest/elixir_test.iml
 /test-projects/remote-deps/ElixirTest/_build/
 /test-projects/remote-deps/ElixirTest/cover/
 /test-projects/remote-deps/ElixirTest/deps/
