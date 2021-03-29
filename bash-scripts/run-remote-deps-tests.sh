@@ -40,4 +40,11 @@ python3 -m unittest discover test
 deactivate
 cd ../
 
+cd ElixirTest
+rm -r _build
+rm -r deps
+mix deps.get
+mix test --trace
+cd ../
+
 cd ../../
