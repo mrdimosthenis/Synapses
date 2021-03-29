@@ -90,6 +90,7 @@ implementation/Elixir/synapses/mix.lock
 /test-projects/remote-deps/ElixirTest/doc/
 /test-projects/remote-deps/ElixirTest/.fetch
 /test-projects/remote-deps/ElixirTest/erl_crash.dump
+/test-projects/remote-deps/ElixirTest/mix.lock
 *.ez
 elixir_test-*.tar
 
