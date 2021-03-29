@@ -80,11 +80,7 @@ Please take a look at the test projects.
 * [FSharpx.Collections](https://github.com/fsprojects/FSharpx.Collections)
 * [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 * [PyFunctional](https://github.com/EntilZha/PyFunctional)
-* [jsone](https://github.com/sile/jsone)
-* [gleam_decode](https://github.com/rjdellecese/gleam_decode)
-* [gleam_jsone](https://github.com/rjdellecese/gleam_jsone)
-* [gleam_zlists](https://github.com/mrdimosthenis/gleam_zlists)
-* [minigen](https://github.com/mrdimosthenis/minigen)
+* [gleam_synapses](https://github.com/mrdimosthenis/gleam_synapses)
 
 ### Misc
 
