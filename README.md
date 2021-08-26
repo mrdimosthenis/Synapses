@@ -1,89 +1,188 @@
 # Synapses
 
-A **lightweight** library for **neural networks** that **runs anywhere**!
+A **neural networks** library for **FSharp**!
 
-![Network Video](https://github.com/mrdimosthenis/Synapses/blob/master/network-video.gif?raw=true)
+```fsharp
+// run
+dotnet add package Synapses --version 7.4.1
+// in the directory of your project
+```
 
-## [Getting Started](https://mrdimosthenis.github.io/Synapses)
+## Neural Network
 
-### Why Sypapses?
+### Create a neural network
 
-#### It's easy
+Import `Synapses`, call `NeuralNetwork.init` and provide the size of each _layer_.
 
-1. Add **one dependency** to your project.
-2. Write a **single import statement**.
-3. Use **a few pure functions**.
+```fsharp
+open Synapses
+let layers = [4; 6; 5; 3]
+let neuralNetwork = NeuralNetwork.init(layers)
+```
 
-You are all set!
+`neuralNetwork` has 4 layers. The first layer has 4 input nodes and the last layer has 3 output nodes.
+There are 2 hidden layers with 6 and 5 neurons respectively.
 
-#### It runs anywhere
+### Get a prediction
 
-Supported languages:
+```fsharp
+let inputValues = [1.0; 0.5625; 0.511111; 0.47619]
+let prediction =
+        NeuralNetwork.prediction(neuralNetwork, inputValues)
+```
 
-* [JavaScript](https://mrdimosthenis.github.io/Synapses/?javascript)
-* [Python](https://mrdimosthenis.github.io/Synapses/?python)
-* [Java](https://mrdimosthenis.github.io/Synapses/?java)
-* [C#](https://mrdimosthenis.github.io/Synapses/?csharp)
-* [Scala](https://mrdimosthenis.github.io/Synapses/?scala)
-* [Elixir](https://mrdimosthenis.github.io/Synapses/?elixir)
-* [F#](https://mrdimosthenis.github.io/Synapses/?fsharp)
+`prediction` should be something like `[ 0.8296, 0.6996, 0.4541 ]`.
 
-#### It's compatible across languages
+Note that the lengths of inputValues and prediction equal to the sizes of input and output layers respectively.
 
-1. The [interface](https://github.com/mrdimosthenis/Synapses/blob/master/interface.md) is **common** across languages.
-2. You can transfer a network from one platform to another via its **json instance**.
-Create a neural network in *Python*, train it in *Java* and get its predictions in *JavaScript*!
+### Fit network
 
-#### It offers visualizations
+```fsharp
+let learningRate = 0.5
+let expectedOutput = [0.0; 1.0; 0.0]
+let fitNetwork =
+        NeuralNetwork.fit(
+            neuralNetwork,
+            learningRate,
+            inputValues,
+            expectedOutput
+        )
+```
 
-Get an overview of a neural network by taking a brief look at its **svg drawing**.
+`fitNetwork` is a new neural network trained with a single observation.
 
-![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-drawing.png?raw=true)
+> to train a neural network, you should fit with multiple datapoints
 
-#### It's customizable
+### Create a customized neural network
 
-You can specify the **activation function** and the **weight distribution** for the neurons of each layer.
-If this is not enough, edit the [json instance](https://raw.githubusercontent.com/mrdimosthenis/Synapses/master/network.json) of a network to be exactly what you have in mind.
+The _activation function_ of the neurons created with `NeuralNetwork.init`, is a sigmoid one.
+If you want to customize the _activation functions_ and the _weight distribution_, call `NeuralNetwork.customizedInit`.
 
-#### It's efficient
+```fsharp
+let activationF (layerIndex: int)
+        : ActivationFunction =
+        match layerIndex with
+        | 0 -> ActivationFunction.sigmoid
+        | 1 -> ActivationFunction.tanh
+        | 2 -> ActivationFunction.leakyReLU
+        | _ -> ActivationFunction.identity
 
-The implementation is based on *lazy list*.
-The information flows smoothly.
-Everything is obtained at a single pass.
+let weightInitF (_layerIndex: int): float =
+        1.0 - 2.0 * System.Random().NextDouble()
 
-#### Data preprocessing is simple
+let customizedNetwork =
+        NeuralNetwork.customizedInit(
+            layers,
+            activationF,
+            weightInitF
+        )
+```
 
-By annotating the *discrete* and *continuous attributes*,
-you can create a *preprocessor* that **encodes** and **decodes** the datapoints.
+## Visualization
 
-#### Works for huge datasets
+Call `NeuralNetwork.toSvg` to take a brief look at its _svg drawing_.
 
-The functions that process big volumes of data, have an *Iterable/Stream* as argument.
-RAM should not get full!
+![Network Drawing](https://github.com/mrdimosthenis/FSharp.Synapses/blob/master/network-drawing.png?raw=true)
 
-#### It's well tested
+The color of each neuron depends on its _activation function_
+while the transparency of the synapses depends on their _weight_.
 
-Every function is tested for every language.
-Please take a look at the test projects.
+```fsharp
+let svg = NeuralNetwork.toSvg(customizedNetwork)
+```
 
-* [JavaScript](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/JavaScriptTest/test)
-* [Python](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/PythonTest/test)
-* [Java](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/JavaTest/src/test/java)
-* [C#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/CSharpTest)
-* [Scala](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/ScalaTest/src/test/scala)
-* [Elixir](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/ElixirTest/test)
-* [F#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/FSharpTest)
+## Save and load a neural network
 
-### Dependencies
+JSON instances are **compatible** across platforms!
+We can generate, train and save a neural network in Python
+and then load and make predictions in Javascript!
 
-* [circe](https://github.com/circe/circe)
-* [FSharpx.Collections](https://github.com/fsprojects/FSharpx.Collections)
-* [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
-* [PyFunctional](https://github.com/EntilZha/PyFunctional)
-* [gleam_synapses](https://github.com/mrdimosthenis/gleam_synapses)
+### toJson
 
-### Misc
+Call `NeuralNetwork.toJson` on a neural network and get a string representation of it.
+Use it as you like. Save `json` in the file system or insert into a database table.
 
-![JetBrains](https://github.com/mrdimosthenis/Synapses/blob/master/jetbrains.png?raw=true)
+```fsharp
+let loadedNetwork = NeuralNetwork.ofJson(json)
+```
 
-[JetBrains tools have helped for this project!](https://www.jetbrains.com/?from=Synapses)
+As the name suggests, `NeuralNetwork.ofJson` turns a json string into a neural network.
+
+## Encoding and decoding
+
+_One hot encoding_ is a process that turns discrete attributes into a list of _0.0_ and _1.0_.
+_Minmax normalization_ scales continuous attributes into values between _0.0_ and _1.0_.
+You can use `DataPreprocessor` for datapoint encoding and decoding.
+
+The first parameter of `DataPreprocessor.init` is a list of tuples _(attributeName, discreteOrNot)_.
+
+```fsharp
+let setosaDatapoint =
+        Map.ofList
+            [ ("petal_length", "1.5")
+              ("petal_width", "0.1")
+              ("sepal_length", "4.9")
+              ("sepal_width", "3.1")
+              ("species", "setosa") ]
+
+let versicolorDatapoint =
+        Map.ofList
+            [ ("petal_length", "3.8")
+              ("petal_width", "1.1")
+              ("sepal_length", "5.5")
+              ("sepal_width", "2.4")
+              ("species", "versicolor") ]
+
+let virginicaDatapoint =
+        Map.ofList
+            [ ("petal_length", "6.0")
+              ("petal_width", "2.2")
+              ("sepal_length", "5.0")
+              ("sepal_width", "1.5")
+              ("species", "virginica") ]
+
+let dataset = Seq.ofList
+                [ setosaDatapoint
+                  versicolorDatapoint
+                  virginicaDatapoint ]
+                
+let dataPreprocessor =
+        DataPreprocessor.init(
+             [ ("petal_length", false)
+               ("petal_width", false)
+               ("sepal_length", false)
+               ("sepal_width", false)
+               ("species", true) ],
+             dataset
+        )
+
+let encodedDatapoints =
+        Seq.map (fun datapoint ->
+                    DataPreprocessor.encodedDatapoint(dataPreprocessor, datapoint)
+                )
+                dataset
+```
+
+> `encodedDatapoints` equals to
+
+```json
+[ [ 0.0     , 0.0     , 0.0     , 1.0     , 0.0, 0.0, 1.0 ],
+  [ 0.511111, 0.476190, 1.0     , 0.562500, 0.0, 1.0, 0.0 ],
+  [ 1.0     , 1.0     , 0.166667, 0.0     , 1.0, 0.0, 0.0 ] ]
+```
+
+Save and load the preprocessor by calling `DataPreprocessor.toJson` and `DataPreprocessor.ofJson`.
+
+## Evaluation
+
+To evaluate a neural network, you can call `Statistics.rootMeanSquareError` and provide the expected and predicted values.
+
+```fsharp
+let expectedWithOutputValues =
+        Seq.ofList [ ( [ 0.0; 0.0; 1.0], [ 0.0; 0.0; 1.0] )
+                     ( [ 0.0; 0.0; 1.0], [ 0.0; 1.0; 1.0] ) ]
+
+let rmse = Statistics.rootMeanSquareError(
+                        expectedWithOutputValues
+)
+```
