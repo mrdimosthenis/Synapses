@@ -1,89 +1,55 @@
 # Synapses
 
-A **lightweight** library for **neural networks** that **runs anywhere**!
+A group of **neural-network** libraries for functional and mainstream languages!
 
-![Network Video](https://github.com/mrdimosthenis/Synapses/blob/master/network-video.gif?raw=true)
+Choose a programming language:
 
-## [Getting Started](https://mrdimosthenis.github.io/Synapses)
+* [Clojure](https://github.com/mrdimosthenis/clj-synapses)
+* [C#](https://github.com/mrdimosthenis/SynapsesCSharp)
+* [Elixir](https://github.com/mrdimosthenis/elixir_synapses)
+* [F#](https://github.com/mrdimosthenis/FSharp.Synapses)
+* [Gleam](https://github.com/mrdimosthenis/gleam_synapses)
+* [Java](https://github.com/mrdimosthenis/synapses-java)
+* [JavaScript](https://github.com/mrdimosthenis/synapses.js)
+* [Python](https://github.com/mrdimosthenis/synapses-py)
+* [Scala](https://github.com/mrdimosthenis/scala-synapses)
 
-### Why Sypapses?
+# Why Sypapses?
 
-#### It's easy
-
-1. Add **one dependency** to your project.
-2. Write a **single import statement**.
-3. Use **a few pure functions**.
-
-You are all set!
-
-#### It runs anywhere
-
-Supported languages:
-
-* [JavaScript](https://mrdimosthenis.github.io/Synapses/?javascript)
-* [Python](https://mrdimosthenis.github.io/Synapses/?python)
-* [Java](https://mrdimosthenis.github.io/Synapses/?java)
-* [C#](https://mrdimosthenis.github.io/Synapses/?csharp)
-* [Scala](https://mrdimosthenis.github.io/Synapses/?scala)
-* [Elixir](https://mrdimosthenis.github.io/Synapses/?elixir)
-* [F#](https://mrdimosthenis.github.io/Synapses/?fsharp)
-
-#### It's compatible across languages
-
-1. The [interface](https://github.com/mrdimosthenis/Synapses/blob/master/interface.md) is **common** across languages.
-2. You can transfer a network from one platform to another via its **json instance**.
-Create a neural network in *Python*, train it in *Java* and get its predictions in *JavaScript*!
-
-#### It offers visualizations
-
-Get an overview of a neural network by taking a brief look at its **svg drawing**.
-
-![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-drawing.png?raw=true)
-
-#### It's customizable
-
-You can specify the **activation function** and the **weight distribution** for the neurons of each layer.
-If this is not enough, edit the [json instance](https://raw.githubusercontent.com/mrdimosthenis/Synapses/master/network.json) of a network to be exactly what you have in mind.
-
-#### It's efficient
+## It's efficient
 
 The implementation is based on *lazy list*.
 The information flows smoothly.
 Everything is obtained at a single pass.
 
-#### Data preprocessing is simple
+## It's customizable
+
+You can specify the **activation function** and the **weight distribution** for the neurons of each layer.
+If this is not enough, edit the json of a network to be exactly what you have in mind.
+
+## It offers visualizations
+
+Get an overview of a neural network by taking a brief look at its **svg drawing**.
+
+![Network Drawing](https://github.com/mrdimosthenis/Synapses/blob/master/network-drawing.png?raw=true)
+
+## Data preprocessing is simple
 
 By annotating the *discrete* and *continuous attributes*,
 you can create a *preprocessor* that **encodes** and **decodes** the datapoints.
 
-#### Works for huge datasets
+## Works for huge datasets
 
 The functions that process big volumes of data, have an *Iterable/Stream* as argument.
 RAM should not get full!
 
-#### It's well tested
+## It's well tested
 
 Every function is tested for every language.
-Please take a look at the test projects.
+Take a look at the test projects.
 
-* [JavaScript](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/JavaScriptTest/test)
-* [Python](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/PythonTest/test)
-* [Java](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/JavaTest/src/test/java)
-* [C#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/CSharpTest)
-* [Scala](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/ScalaTest/src/test/scala)
-* [Elixir](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/ElixirTest/test)
-* [F#](https://github.com/mrdimosthenis/Synapses/tree/master/test-projects/remote-deps/FSharpTest)
+## It's compatible across languages
 
-### Dependencies
-
-* [circe](https://github.com/circe/circe)
-* [FSharpx.Collections](https://github.com/fsprojects/FSharpx.Collections)
-* [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
-* [PyFunctional](https://github.com/EntilZha/PyFunctional)
-* [gleam_synapses](https://github.com/mrdimosthenis/gleam_synapses)
-
-### Misc
-
-![JetBrains](https://github.com/mrdimosthenis/Synapses/blob/master/jetbrains.png?raw=true)
-
-[JetBrains tools have helped for this project!](https://www.jetbrains.com/?from=Synapses)
+The interface is similar across languages.
+You can transfer a network from one platform to another via its **json instance**.
+Create a neural network in *Python*, train it in *Java* and get its predictions in *JavaScript*!
