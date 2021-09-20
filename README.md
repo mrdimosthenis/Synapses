@@ -14,7 +14,7 @@ Choose a programming language:
 * [Python](https://github.com/mrdimosthenis/synapses-py)
 * [Scala](https://github.com/mrdimosthenis/scala-synapses)
 
-# Why Sypapses?
+# Why Synapses?
 
 ## It's efficient
 
